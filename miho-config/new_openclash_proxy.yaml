@@ -1,0 +1,139 @@
+# 新版OpenClash 通用链式代理配置模板
+# 作者：Hans（模版化版本）
+# 场景：Trojan 机场节点 + 住宅 SOCKS5 链式代理，防止 DNS/WebRTC 泄漏
+# 提示：请务必替换【必改】部分为你自己的真实信息
+
+# ──────────────── 基础设置 ────────────────
+port: 7890                        # HTTP 代理端口，默认 7890
+socks-port: 7891                  # SOCKS5 代理端口，默认 7891
+allow-lan: true                   # 是否允许局域网设备连接
+mode: rule                        # 使用规则模式分流
+log-level: info                   # 日志级别
+external-controller: :9090        # 外部控制面板端口
+
+# ──────────────── DNS 设置（防 DNS 泄漏） ────────────────
+dns:
+  enable: true
+  ipv6: false
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+    - '*.lan'
+    - localhost.ptlogin2.qq.com
+    - '*.msftconnecttest.com'
+    - '*.msftncsi.com'
+    - 'stun.*.*'
+    - '*.stun.*'
+  default-nameserver:
+    - 119.29.29.29
+    - 223.5.5.5
+    - 114.114.114.114
+  nameserver:
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.google/dns-query
+  nameserver-policy:
+    "geosite:cn":
+      - 119.29.29.29
+      - 223.5.5.5
+      - 114.114.114.114
+  fallback:
+    - https://doh.dns.sb/dns-query
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.google/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite: [gfw]
+    ipcidr: [240.0.0.0/4]
+    domain:
+      - "+.google.com"
+      - "+.facebook.com"
+      - "+.youtube.com"
+      - "+.x.com"
+      - "+.openai.com"
+      - "+.tiktok.com"
+      - "+.icloud.com"
+      - "+.apple.com"
+      - "+.cloudflare.com"
+      - "+.amazonaws.com"
+      - "+.doubleclick.net"
+      - "+.ghproxy.com"
+
+# ──────────────── 节点配置 ────────────────
+proxies:
+  # === 机场 Trojan 节点（【必改】替换为真实信息）===
+  - {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
+  - {name: bpb02, server: 2.3.4.5, port: 443, type: trojan, password: pass456, sni: example.org, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path2, headers: {Host: example.org}}}
+  # - {name: bpb03, server: , port: 443, type: trojan, password: , sni: , skip-cert-verify: false, network: ws, ws-opts: {path: , headers: {Host: }}}   # 【可选】更多节点
+
+  # === 美国住宅 SOCKS5 节点（链式出口，需配合 dialer-proxy）===
+  - name: 链式代理-住宅A
+    type: socks5
+    server: 5.6.7.8            # 【必改】住宅A 代理地址
+    port: 10000                # 【必改】端口号
+    username: user123          # 【必改】用户名
+    password: pass123          # 【必改】密码
+    udp: true
+    dialer-proxy: 住宅A-中继组   # 指定前置中继组（BPB）
+
+  # - name: 链式代理-住宅B   # 【默认禁用】启用请去掉#
+  #   type: socks5
+  #   server: 6.7.8.9          # 【必改】住宅B 地址
+  #   port: 11000              # 【必改】端口号
+  #   username: user456        # 【必改】用户名
+  #   password: pass456        # 【必改】密码
+  #   udp: true
+  #   dialer-proxy: 住宅B-中继组
+
+# ──────────────── 策略组 ────────────────
+proxy-groups:
+  # 中继组（Trojan 机场节点 → 住宅出口链式）
+  - name: 住宅A-中继组
+    type: select
+    proxies:
+      - bpb01
+      - bpb02
+
+  # - name: 住宅B-中继组
+  #   type: select
+  #   proxies:
+  #     - bpb01
+  #     - bpb02
+
+  # 总选择器（默认走住宅链式代理）
+  - name: 节点选择
+    type: select
+    proxies:
+      - 链式代理-住宅A
+      # - 链式代理-住宅B
+      - bpb01
+      - bpb02
+      - DIRECT
+
+# ──────────────── 分流规则 ────────────────
+rules:
+  # 1) 防 WebRTC 泄漏（拦截 STUN）
+  - DOMAIN-SUFFIX,stun.l.google.com,REJECT
+  - DOMAIN-KEYWORD,stun,REJECT
+  - DOMAIN-KEYWORD,turn,REJECT
+  - DOMAIN-KEYWORD,rtc,REJECT
+
+  # 2) 一机一住宅（配合 DHCP 静态分配固定IP 使用）
+  # - SRC-IP-CIDR,192.168.20.101/32,链式代理-住宅A
+  # - SRC-IP-CIDR,192.168.20.102/32,链式代理-住宅B
+
+  # 3) 常见跨境平台强制走代理
+  - DOMAIN-SUFFIX,google.com,节点选择
+  - DOMAIN-KEYWORD,facebook,节点选择
+  - DOMAIN-SUFFIX,youtube.com,节点选择
+  - DOMAIN-KEYWORD,tiktok,节点选择
+  - DOMAIN-KEYWORD,openai,节点选择
+  - DOMAIN-SUFFIX,icloud.com,节点选择
+  - DOMAIN-SUFFIX,apple.com,节点选择
+  - DOMAIN-KEYWORD,instagram,节点选择
+
+  # 4) 国内直连
+  - GEOIP,CN,DIRECT
+
+  # 5) 其他流量默认走代理
+  - MATCH,节点选择
