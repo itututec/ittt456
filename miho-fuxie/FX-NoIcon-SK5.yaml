@@ -1,0 +1,408 @@
+## 全局配置
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7894
+ipv6: false
+allow-lan: true
+unified-delay: true
+tcp-concurrent: true
+  
+geodata-mode: false
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 48
+geox-url:
+  geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+  asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+  
+## 控制面板
+external-controller: 0.0.0.0:9090
+secret: ""
+external-ui: ui
+external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+
+## 匹配进程 always/strict/off
+find-process-mode: strict
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 30
+
+## 策略组选择和fakeip缓存
+profile:
+  store-selected: true
+  store-fake-ip: true
+  
+## 流量嗅探
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - +.v2ex.com
+  skip-domain:
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
+    - "+.push.apple.com"
+    - "+.apple.com"
+    - "+.baidu.com"
+    
+## 代理模式
+tun:
+  enable: true
+  stack: mixed
+  mtu: 9000
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  
+## DNS 配置
+dns:
+  enable: true
+
+# 开启 DNS 服务器监听
+  listen: 0.0.0.0:1053
+
+  ipv6: false
+
+# 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
+# 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
+# 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
+# 仅当proxy-server-nameserver非空时可以开启此选项, 强烈不建议和prefer-h3一起使用
+# 此外，这三者配置中的dns服务器如果出现域名会采用default-nameserver配置项解析，也请确保正确配置default-nameserver
+  respect-rules: true
+  
+# 模式切换 redir-host / fake-ip
+  enhanced-mode: fake-ip
+#fake-ip 池设置
+  fake-ip-range: 198.18.0.1/16
+  
+# 配置fake-ip-filter的匹配模式，默认为blacklist，即如果匹配成功不返回fake-ip
+# 可设置为whitelist，即只有匹配成功才返回fake-ip
+  fake-ip-filter-mode: blacklist
+  
+ # 配置不使用 fake-ip 的域名
+  fake-ip-filter:
+    - "+.lan"
+    - "+.local"
+    - "rule-set:private_domain,cn_domain"
+    - "+.services.googleapis.cn"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "time.*.com"
+    - "+.pool.ntp.org"
+    - "+.ntp.tencent.com"
+    - "+.ntp1.aliyun.com"
+    - "+.ntp.ntsc.ac.cn"
+    - "+.cn.ntp.org.cn"
+
+# 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的，DNS 服务域名
+# 只能使用纯 IP 地址，可使用加密 DNS
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+
+# 专用于 直连direct出口域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
+  direct-nameserver:
+    - 223.5.5.5
+  direct-nameserver-follow-policy: false # 是否遵循nameserver-policy，默认为不遵守，仅当direct-nameserver不为空时生效
+
+# 专用于 代理节点域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
+  proxy-server-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+
+ # 配置查询域名使用的 DNS 服务器
+  nameserver-policy:
+    '+.baidu.com': '114.114.114.114'
+    "rule-set:private_domain,cn_domain":
+      - 223.5.5.5
+      - 119.29.29.29
+    "rule-set:gfw_domain,geolocation-!cn":
+      - "https://dns.cloudflare.com/dns-query"
+      - "https://dns.google/dns-query" 
+# namesever尽量用运营商提供的DNS
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+
+## 出战策略组
+proxy-groups:
+  - name: MANUAL SWITCH  #手动切换具体节点
+#    icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
+    type: select
+    include-all: true
+  - name: PROXY  #节点选择大区域分类
+#    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/adjust.svg
+    type: select
+    proxies:
+      - MANUAL SWITCH
+      - ALL AUTO
+      - HK AUTO
+      - SG AUTO
+      - TW AUTO
+      - JP AUTO
+      - US AUTO
+      - DIRECT
+
+## 链式代理
+# 1.1 dialer-proxy的链式代理做法，默认——也是官方最新推出的推荐方法；
+# 1.2 该做法要求在配置文件中的proxies下，添加SOCKS5节点定义时需额外定义关键字dialer-proxy，通过关键字dialer-proxy指向这里的 链式代理组，表示打底节点（组）是指向的这里的链式代理组；
+# 1.3 以下落地节点组 DEST SK5 是汇总了所有在配置文件中定义的SOCKS5节点（要求自定义SK5节点名称时务必带上SK5或SOCKS5字样，方便自动筛选分类），方便手动选择哪个落地SOCKS5节点；
+# 汇总所有购买（确定可信）的SK5、HTTP节点组
+  - {name: DEST SK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|(?i)SOCKS5"}
+# 汇总免费的SK5、HTTP节点组(自定义得免费SK5、HTTP节点名称中务必含有free/Free/Free字样但不建议包含HTTP和SOCKS5相关字样，以便于自动筛选分类)
+  - {name: FreeProxy, type: select, include-all: true, filter: "(?i)免费|free|Free|FREE"}
+
+## 以下自动测速自动选择节点
+  - name: ALL AUTO
+#    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    type: url-test
+    interval: 300
+  - name: HK AUTO
+#    icon: https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/HK.png
+#    icon: https://gh-proxy.com/raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)香港|Hong Kong|HK|🇭🇰
+    type: url-test
+    interval: 300
+  - name: SG AUTO
+#    icon: https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/SG.png
+#    icon: https://gh-proxy.com/raw.githubusercontent.com/Orz-3/mini/master/Color/SG.png
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)新加坡|Singapore|🇸🇬
+    type: url-test
+    interval: 300
+  - name: TW AUTO
+#    icon: https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/TW.png
+#    icon: https://gh-proxy.com/raw.githubusercontent.com/Orz-3/mini/master/Color/TW.png
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)台湾|Taiwan|TW
+    type: url-test
+    interval: 300
+  - name: JP AUTO
+#    icon: https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/JP.png
+#    icon: https://gh-proxy.com/raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)日本|Japan|🇯🇵
+    type: url-test
+    interval: 300
+  - name: US AUTO
+#    icon: https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/US.png
+#    icon: https://gh-proxy.com/raw.githubusercontent.com/Orz-3/mini/master/Color/US.png
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    filter: (?i)美国|USA|🇺🇸
+    type: url-test
+    interval: 300
+## 以下通过手动选择节点
+  - name: AIGC
+#    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/chatgpt.svg
+    type: select
+    proxies:
+      - SG AUTO
+      - JP AUTO
+      - US AUTO
+  - name: Telegram
+#    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/telegram.svg
+    type: select
+    proxies:
+      - HK AUTO
+      - SG AUTO
+      - TW AUTO
+      - JP AUTO
+      - US AUTO
+  - name: Google
+#    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/google.svg
+    type: select
+    proxies:
+      - HK AUTO
+      - SG AUTO
+      - TW AUTO
+      - JP AUTO
+      - US AUTO
+
+######################################################################################################
+## 自定义的节点组，主要是为了细分和区分，并辅助上述链式代理进行使用——实际可以不用这些自定义节点组
+# 经由华东（Eastern China简写为East，包括上海/台湾/日本/美洲等节点）落地美洲的SK5节点 组
+  - {name: EC2US BASE, type: select, proxies: [JP AUTO, TW AUTO, US PerDef]}
+# 经由华南（Southern China简写SC，包括香港/新加坡/欧洲等节点）落地欧洲的SK5节点 组
+  - {name: SC2EUR BASE, type: select, proxies: [HK AUTO, SG AUTO, EUR PerDef]}
+######################################################################################################
+# 汇总位于美洲的自定义节点组，包括VPS-racknerd（US）/VPS-colocrossing(US)部署的节点
+  - {name: US PerDef, type: select, include-all: true, filter: "(?i)rn|racknerd|cc|colocrossing(?i)RN"}
+# 汇总位于欧洲的自定义节点组，包括VPS-netcup(DE)/VPS-SERV00(PL)/VPS-hostuno(PL)部署的节点
+  - {name: EUR PerDef, type: select, include-all: true, filter: "(?i)nc|netcup|serv00|hostuno(?i)NC"}
+
+# 2.1 relay的链式代理做法(有很多缺点(udp异常/grpc延迟过高等等)，官方已放弃该方法，但依然可用)；
+# 2.2 该做法秩序只需在本模板文件中定义好链式代理节点组，配置文件正常添加SOCKS5节点信息即可（要求自定义SK5节点名称时务必带上SK5或SOCKS5字样，方便自动筛选分类）
+# 2.3 配置文件中不需要像上面的dialer-proxy方法得设置其他/额外关键字指向这里的链式代理组，相对简单。
+#  - {name: EC2US链代, type: relay, proxies: [打底BASE节点/组名称, 落地DEST SK5节点/组名称]}
+#  - {name: DEST SK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|(?i)SOCKS5"}
+#  - {name: EC2US BASE, type: select, proxies: [JP AUTO, TW AUTO, US RN]}
+#  - {name: SC2EUR BASE, type: select, proxies: [HK AUTO, SG AUTO]}
+#  - {name: US RN, type: select, include-all: true, filter: "(?i)rn|racknerd|(?i)RN"}
+
+  - name: GLOBAL
+#    icon: https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/Global.png
+#    icon: https://gh-proxy.com/raw.githubusercontent.com/Orz-3/mini/master/Color/Global.png
+    type: select
+    include-all: true
+    exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
+    proxies:
+      - PROXY
+      - MANUAL SWITCH
+      - ALL AUTO
+      - AIGC
+      - Telegram
+      - Google
+      - HK AUTO
+      - SG AUTO
+      - TW AUTO
+      - JP AUTO
+      - US AUTO
+
+#匹配规则
+rules:
+  - "RULE-SET,private_domain,DIRECT"
+  - "RULE-SET,bing,AIGC"
+  - "RULE-SET,copilot,AIGC"
+  - "RULE-SET,bard,AIGC"
+  - "RULE-SET,openai,AIGC"
+  - "RULE-SET,claude,AIGC"
+  - "RULE-SET,steam,PROXY"
+  - "RULE-SET,telegram_domain,Telegram"
+  - "RULE-SET,telegram_ip,Telegram"
+  - "RULE-SET,google_domain,Google"
+  - "RULE-SET,google_ip,Google"
+  - "RULE-SET,gfw_domain,PROXY"
+  - "RULE-SET,geolocation-!cn,PROXY"
+  - "RULE-SET,cn_domain,DIRECT"
+  - "RULE-SET,cn_ip,DIRECT"
+  - "MATCH,PROXY"
+
+#规则集
+rule-providers:
+  private_domain:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml
+    path: ./ruleset/private.yaml
+    behavior: domain
+    interval: 86400
+    format: yaml
+    type: http
+  cn_domain:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml
+    path: ./ruleset/cn_domain.yaml
+    behavior: domain
+    interval: 86400
+    format: yaml
+    type: http
+  telegram_domain:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml
+    path: ./ruleset/telegram_domain.yaml
+    behavior: domain
+    interval: 86400
+    format: yaml
+    type: http
+  google_domain:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml
+    path: ./ruleset/google_domain.yaml
+    behavior: domain
+    interval: 86400
+    format: yaml
+    type: http
+  gfw_domain:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.yaml
+    path: ./ruleset/gfw.yaml
+    behavior: domain
+    interval: 86400
+    format: yaml
+    type: http
+  geolocation-!cn:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml
+    path: ./ruleset/geolocation-!cn.yaml
+    behavior: domain
+    interval: 86400
+    format: yaml
+    type: http
+  cn_ip:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml
+    path: ./ruleset/cn_ip.yaml
+    behavior: ipcidr
+    interval: 86400
+    format: yaml
+    type: http
+  telegram_ip:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml
+    path: ./ruleset/telegram_ip.yaml
+    behavior: ipcidr
+    interval: 86400
+    format: yaml
+    type: http
+  google_ip:
+    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.yaml
+    path: ./ruleset/google_ip.yaml
+    behavior: ipcidr
+    interval: 86400
+    format: yaml
+    type: http
+  bing:
+    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml
+    path: ./ruleset/bing.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+  copilot:
+    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml
+    path: ./ruleset/copilot.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+  claude:
+    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml
+    path: ./ruleset/claude.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+  bard:
+    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml
+    path: ./ruleset/bard.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+  openai:
+    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+    path: ./ruleset/openai.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+  steam:
+    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
+    path: ./ruleset/steam.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
