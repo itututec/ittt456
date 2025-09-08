@@ -1,0 +1,37 @@
+[SwitchyOmega Conditions]
+; Require: SwitchyOmega >= 2.3.2; Smartproxy >=1.6.2
+; Update Date: 2025/2/24
+; Author: itututec
+
+; IP 地址段
+; 10.*.*.*
+; 100.64.*.*
+; 127.*.*.*
+; 172.16.*.*
+; 192.168.*.*
+
+; cn 域名都不走代理
+; *.cn
+
+; 影视域名-走代理
+*.xiaoxintv.cc
+*.iyf.tv
+
+; 其他域名-走代理
+*.191.lol
+
+; 公共域名-走代理
+*.github.com
+*.github.dev
+*.notion.so
+*.bitwarden.com
+*.bitwarden.eu
+*.cobalt.tools
+*.ghproxy.com
+*.coze.com
+*.speedtest.net
+
+; outer博客-走代理
+*.llgjc1.com
+*.qichiyu.com
+*.bulianglin.com
