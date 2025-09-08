@@ -61,7 +61,7 @@ dns:
 # ──────────────── 机场订阅节点 ────────────────
 proxy-providers:     # 可作为链式中继节点
   69yun:    # 机场名称，需自定义修改
-    url: "https://checkhere.top/link/omMhR4PosdBCG5BY?clash=1"     # 机场订阅链接
+    url: "https://uncheckhere.live/link/#dnodohR4PosdBCG5BY%nd?clash=1"     # 机场订阅链接
     type: http
     interval: 86400
     health-check:
