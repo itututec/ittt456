@@ -1,6 +1,7 @@
 # 新版OpenClash 通用链式代理配置模板
 # 场景：机场订阅/节点 + 住宅 SOCKS5 链式代理，防止 DNS/WebRTC 泄漏
-# 提示：请务必替换【必改】部分为你自己的真实信息
+# 作者：itututec
+# 提示：请务必替换【必改】部分为真实可用的代理信息
 
 # ──────────────── 全局基础设置 ────────────────
 port: 7890                        # HTTP 代理端口，默认 7890
@@ -59,7 +60,7 @@ dns:
       - "+.ghproxy.com"
 
 # ──────────────── 机场订阅节点 ────────────────
-proxy-providers:     # 可作为链式中继节点
+proxy-providers:     # 可作为链代的中继节点
   69yun:    # 机场名称，需自定义修改
     url: "https://uncheckhere.live/link/#dnodohR4PosdBCG5BY%nd?clash=1"     # 机场订阅链接
     type: http
@@ -77,7 +78,7 @@ proxy-providers:     # 可作为链式中继节点
 
 # ──────────────── 节点配置 ────────────────
 proxies:
-  # === 机场节点——可作为链式中继节点（【必改】替换为真实信息）===
+  # === 机场节点——可作为链代的中继节点（【必改】替换为真实信息）===
   #- {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
   #- {name: bpb02, server: 2.3.4.5, port: 443, type: trojan, password: pass456, sni: example.org, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path2, headers: {Host: example.org}}}
   # - {name: bpb03, server: , port: 443, type: trojan, password: , sni: , skip-cert-verify: false, network: ws, ws-opts: {path: , headers: {Host: }}}   # 【可选】更多节点
