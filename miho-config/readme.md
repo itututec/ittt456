@@ -1,1 +1,1 @@
-readme
+在新版openclash和nikki上使用的配置文件
