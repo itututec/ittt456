@@ -19,15 +19,16 @@ proxy-groups:
       - DIRECT
 	  
 ## 链式代理
-# 1.1 dialer-proxy的链式代理做法，默认——也是官方最新推出的推荐方法；
-# 1.2 该做法要求在配置文件中的proxies下，添加SOCKS5节点定义时需额外定义关键字dialer-proxy，通过关键字dialer-proxy指向这里的 链式代理组，表示打底节点（组）是指向的这里的链式代理组；
-# 1.3 以下落地节点组 DEST SK5 是汇总了所有在配置文件中定义的SOCKS5节点（要求自定义SK5节点名称时务必带上SK5或SOCKS5字样，方便自动筛选分类），方便手动选择哪个落地SOCKS5节点；
-# 汇总所有购买（确定可信）的SK5、HTTP节点组
-  - {name: DEST SK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|(?i)SOCKS5"}
-# 汇总免费的SK5、HTTP节点组(自定义得免费SK5、HTTP节点名称中务必含有free/Free/Free字样但不建议包含HTTP和SOCKS5相关字样，以便于自动筛选分类)
+# 1.1 推荐采用dialer-proxy关键字定义中继节点（组）的链式代理做法，也是官方最新推出的推荐方法；
+# 1.2 dialer-proxy做法要求在配置文件中设置proxies节点时，对落地节点定义需额外定义关键字dialer-proxy来指向中继节点或节点组，以实现链式代理；
+
+# 1.3 节点策略组 DEST_SK5 是筛选汇总了配置文件中自定义的所有落地的SOCKS5节点（要求自定义相应的节点名称时应包含上SK5或SOCKS5字样，以方便自动筛选）；
+  - {name: DEST_SK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|(?i)SOCKS5"}
+
+# 1.4 节点策略组FreeProxy 是筛选汇总了配置文件中收集的免费节点组(要求自定义相应的节点名称时应包含上free/Free/Free字样但不建议包含HTTP和SOCKS5、SK5相关字样，以便于自动筛选)
   - {name: FreeProxy, type: select, include-all: true, filter: "(?i)免费|free|Free|FREE"}
 
-## 以下自动测速自动选择节点
+# 1.5 常见国家地区的策略分组（包含自动测速的定义)
   - name: ALL AUTO
     icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg
     include-all: true
@@ -97,10 +98,10 @@ proxy-groups:
       - US AUTO
       
 ######################################################################################################
-## 自定义的节点组，主要是为了细分和区分，并辅助上述链式代理进行使用——实际可以不用这些自定义节点组
-# 经由华东（Eastern China简写为East，包括上海/台湾/日本/美洲等节点）落地美洲的SK5节点 组
+## 中继节点策略组
+# 华东中继节点策略组（Eastern China简写为East，包括上海/台湾/日本/美洲等节点），落地节点是日韩、美洲时使用
   - {name: EC2US BASE, type: select, proxies: [JP AUTO, TW AUTO, US PerDef]}
-# 经由华南（Southern China简写SC，包括香港/新加坡/欧洲等节点）落地欧洲的SK5节点 组
+# 华南华东中继节点策略组（Southern China简写SC，包括香港/新加坡/欧洲等节点），落地节点是东南亚、欧洲时使用
   - {name: SC2EUR BASE, type: select, proxies: [HK AUTO, SG AUTO, EUR PerDef]}
 ######################################################################################################
 # 汇总位于美洲的自定义节点组，包括VPS-racknerd（US）/VPS-colocrossing(US)部署的节点
@@ -117,7 +118,7 @@ proxy-groups:
 #  - {name: SC2EUR BASE, type: select, proxies: [HK AUTO, SG AUTO]}
 #  - {name: US RN, type: select, include-all: true, filter: "(?i)rn|racknerd|(?i)RN"}
 
-## 全局模式，手动选择节点
+## 全局模式，手动切换节点
   - name: GLOBAL
     icon: https://fastly.jsdelivr.net/gh/Orz-3/mini@master/Color/Global.png
     include-all: true
@@ -136,6 +137,7 @@ proxy-groups:
       - US AUTO
     type: select
 
+# 分流规则
 rules:
   - "RULE-SET,private_domain,DIRECT"
   - "RULE-SET,bing,AIGC"
@@ -153,6 +155,7 @@ rules:
   - "RULE-SET,cn_ip,DIRECT"
   - "MATCH,PROXY"
 
+#规则集
 rule-providers:
   private_domain:
     url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml
