@@ -89,7 +89,7 @@ proxy-providers:
     url: "https://checkhere.top/link/omMhRsdfasdfsY?clash=1"     # 机场订阅链接
     type: http
     interval: 43200
-    filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"        # 不包含其他杂项节点
+    filter: "^((?!(到期时间|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"        # 不包含其他杂项节点
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
@@ -267,5 +267,6 @@ rule-providers:
   perdirect_domain: { <<: *class, url: "https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
 
   perproxy_domain: { <<: *class, url: "https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
+
 
 
