@@ -35,10 +35,10 @@
 ; 其他域名-直连
 *.mozilla.org
 *.dynv6.net
-*.surveymonkey.com
 
 ; 公共域名-直连
 *.gitea.com
 *.deepseek.com
 *.coze.cn
 *.yuque.com
+
