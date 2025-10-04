@@ -1,6 +1,6 @@
-# 新版OpenClash 通用链式代理配置模板
-# 场景：机场订阅/节点 + 住宅 SOCKS5 链式代理，防止 DNS/WebRTC 泄漏
-# 提示：请务必替换【必改】部分为你自己的真实信息
+# 新版OpClash 通用链式代理配置模板
+# 包含：机场订阅/单独节点i谭家 + 住宅 SOCKS5 链式代理 + 一机一IP，防止 DNS/WebRTC 泄漏
+# 提示：请务必将配置文件中【必改】部分按需修改为自己的真实信息方可使用—— #注释部分根据需要修改或删除或保留注释
 
 # ──────────────── 全局基础设置 ────────────────
 port: 7890                        # HTTP 代理端口，默认 7890
@@ -86,7 +86,7 @@ dns:
 # ──────────────── 机场订阅节点配置 ────────────────
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/omMhR4sscvdfsdfY?clash=1"     # 机场订阅链接
+    url: "https://checkhere.top/link/omMhRsdfasdfsY?clash=1"     # 机场订阅链接
     type: http
     interval: 86400
     health-check:
@@ -105,8 +105,8 @@ proxies:
   # === 机场节点——可作为链式中继节点（【必改】需替换为真实节点信息）===
   #- {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
   #- {name: bpb02, server: 2.3.4.5, port: 443, type: trojan, password: pass456, sni: example.org, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path2, headers: {Host: example.org}}}
-  - {"name":"RN-hy2","type":"hysteria2","server":"nnvvv.inf5688.eu.org","port":55553,"password":"9efsdfsc-5970-4376-a4ae-9asfdfc22c2d","sni":"rnvvv.inf5688.eu.org","skip-cert-verify":false,"tfo":false}
-  - {"name":"lunes6-hy2","type":"hysteria2","server":"node64.lunes.host","port":3247,"password":"K3dsdfasdfsdfi4J8Pzpt","sni":"node64.lunes.host","skip-cert-verify":true,"tfo":false}
+  - {"name":"RN-hy2","type":"hysteria2","server":"nnvvv.inf5688.eu.org","port":55553,"password":"9efsdfsc-5970-4376-a4ae-9affeafd22c2d","sni":"rnvvv.inf5688.eu.org","skip-cert-verify":false,"tfo":false}
+  - {"name":"lunes6-hy2","type":"hysteria2","server":"node64.lunes.host","port":3247,"password":"K3dsdfasdffeafsd4J8Pzpt","sni":"node64.lunes.host","skip-cert-verify":true,"tfo":false}
 
   # === 落地节点-住宅 SOCKS5 节点（一般需要单独购买SOCKS5节点，链式出口节点，需配合 关键字 dialer-proxy）===
   - name: 链代US01-SK5-Free                       # 自定义落地节点，用不上就整段注释掉或删除
@@ -188,8 +188,8 @@ rules:
   - DOMAIN-KEYWORD,rtc,REJECT
 
   # 2) 链式代理分流：一机一住宅IP（配合 DHCP 静态分配固定IP 使用，配置后 使得已定义好的 每台设备对应内部固定的IP和 连接外部唯一的落地住宅SK5 IP）；链代落地节点已另外设置好 dialer-proxy中继节点/组，这里只要引用即可
-  # - SRC-IP-CIDR,192.168.20.101/32,链代落地-住宅A    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅A)：发起IP需查阅设备实际分配的IP，再来这里进行修改
-  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅B)：发起IP需查阅设备实际分配的IP，再来这里进行修改
+  # - SRC-IP-CIDR,192.168.20.101/32,链代落地-住宅A    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅A)：发起IP需查阅设备实际分配到的IP，再来这里进行修改
+  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅B)：发起IP需查阅设备实际分配到的IP，再来这里进行修改
 
   # 3) 本地直连
   - RULE-SET,private_domain,DIRECT
@@ -253,4 +253,5 @@ rule-providers:
   apple_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
   private_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
   perdirect_domain: { <<: *class, url: "https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
+
   perproxy_domain: { <<: *class, url: "https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
