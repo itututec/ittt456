@@ -3,7 +3,6 @@
 # 直连补充列表
 
 # 域名后缀匹配——国内公共域名
-DOMAIN-SUFFIX,baidu.com
 DOMAIN-SUFFIX,gitea.com
 DOMAIN-SUFFIX,deepseek.com
 DOMAIN-SUFFIX,coze.cn
