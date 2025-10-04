@@ -1,8 +1,24 @@
-#本list主要用作OpClash和Nikki使用
+#本list主要用作OpClash和Nikki使用——直连列表
 
 # 直连补充列表
 
-# 域名后缀匹配
+# 域名后缀匹配——国内公共域名
 DOMAIN-SUFFIX,baidu.com
+DOMAIN-SUFFIX,gitea.com
+DOMAIN-SUFFIX,deepseek.com
+DOMAIN-SUFFIX,coze.cn
+DOMAIN-SUFFIX,yuque.com
 
+# 域名后缀匹配——其他收集域名
+DOMAIN-SUFFIX,mozilla.org
+DOMAIN-SUFFIX,dynv6.net
 
+# 域名关键字匹配
+DOMAIN-KEYWORD,keke1
+DOMAIN-KEYWORD,keke2
+DOMAIN-KEYWORD,keke3
+DOMAIN-KEYWORD,keke4
+DOMAIN-KEYWORD,keke5
+DOMAIN-KEYWORD,kkys01
+DOMAIN-KEYWORD,kkys02
+DOMAIN-KEYWORD,kkys03
