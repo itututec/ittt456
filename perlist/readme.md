@@ -1,6 +1,6 @@
 ## 1 自定义的 ip/domain 黑白名单
 
-## 2 以下三个自定义文件主要用作Zero Omega使用：
+## 2 以下三个自定义文件主要用作浏览器插件 Zero Omega或Smart Proxy 使用：
 ### blocklist.sorl
 ### directlist.sorl
 ### directlist.yaml
