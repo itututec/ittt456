@@ -151,13 +151,13 @@
 ## 出站策略组
 proxy-groups:
   - name: 🌐 ManualSwitch  #手动切换具体节点
-    icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
+#    icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
     type: select
     include-all: true
 #    filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}                        # 包含节点(?=.*(港|HK|(?i)Hong|Hongkong|HK))，同时不包含节点^((?!(台|日|韩|新|美|SK5|SOCKS5)).)
     filter: "^((?!(到期|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折|优惠|交流|讨论|emby|Emby)).)*$"        # 不包含 到期|硬盘服|资源服... 等其他杂项节点
   - name: 🚀 DefaultProxy  #手动选择策略组分类
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     proxies:
       - 🌐 ManualSwitch
@@ -191,56 +191,56 @@ proxy-groups:
 ## -------------------- 中继节点组 -------------------- ##
 ## c 中继节点组——辅助链式代理进行使用，可以根据需要定义，也可直接使用上述现成的策略组作为中继节点组
 # 华东中继组（Eastern China简写为East，包括 台湾/日本/美洲 等节点）→→→落地是去向 东亚/美洲 的住宅SK5节点
-  - {name: 🅱️ EC2Base, type: select, proxies: [🇯🇵 JP AUTO, 🇹🇼 TW AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}           #手动切换华东中继策略组
-#  - {name: 🅱️ EC2Base, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
+  - {name: 🅱️ EC2Base, type: select, proxies: [🇯🇵 JP AUTO, 🇹🇼 TW AUTO]}           #手动切换华东中继策略组
+#  - {name: 🅱️ EC2Base, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
 # 华南中继组（Southern China简写SC，包括 香港/新加坡/欧洲 等节点），手动选择华东中继策略组→→→落地是去向 东南亚(越南/印尼/马来西亚/新加坡)/欧洲 的住宅SK5节点
-  - {name: 🅱️ SC2Base, type: select, proxies: [🇭🇰 HK AUTO, 🇸🇬 SG AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}          #手动切换华南中继策略组
-#  - {name: 🅱️ SC2Base, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
+  - {name: 🅱️ SC2Base, type: select, proxies: [🇭🇰 HK AUTO, 🇸🇬 SG AUTO]}          #手动切换华南中继策略组
+#  - {name: 🅱️ SC2Base, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
 
 ## -------------------- 其他策略组，按需定义和分类 -------------------- ##
 ## d 落地节点组，包括住宅节点（命名需带 SK5|SOCKS5|住宅 等字样）
-  - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/DE.png}
+  - {name: ✅️ DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅"}
 
 ## e 自定义节点组，包括自己部署的节点 和 获取的免费节点（免费节点命名需带 free|Free|免费 等字样），非必选项，按需定义或配置
-  - {name: CustomAll, type: select, include-all: true, filter: "(?i)free|Free|免费|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}
+  - {name: ©️ SelfAll, type: select, include-all: true, filter: "(?i)free|Free|免费|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap"}
 
 ## ↓↓↓以下策略组自动测速自动选择节点↓↓↓
   - name: ♻️ ALL AUTO
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     type: url-test
     interval: 300
   - name: 🇭🇰 HK AUTO
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)香港|Hong Kong|HK|🇭🇰
     type: url-test
     interval: 300
   - name: 🇸🇬 SG AUTO
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)新加坡|Singapore|SG|🇸🇬
     type: url-test
     interval: 300
   - name: 🇹🇼 TW AUTO
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)台湾|Taiwan|TW|🇹🇼
     type: url-test
     interval: 300
   - name: 🇯🇵 JP AUTO
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)日本|Japan|JP|🇯🇵
     type: url-test
     interval: 300
   - name: 🇺🇲 US AUTO
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)美国|USA|🇺🇸
@@ -248,7 +248,7 @@ proxy-groups:
     interval: 300
 ## ↓↓↓以下策略组通过手动选择节点↓↓↓
   - name: 🤖 AIGC
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
     type: select
     proxies:
       - 🇭🇰 HK AUTO
@@ -257,7 +257,7 @@ proxy-groups:
       - 🇯🇵 JP AUTO
       - 🇺🇲 US AUTO
   - name: 📲 Telegram
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
     proxies:
       - 🇭🇰 HK AUTO
@@ -266,7 +266,7 @@ proxy-groups:
       - 🇯🇵 JP AUTO
       - 🇺🇲 US AUTO
   - name: 🔍 Google
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
     type: select
     proxies:
       - 🇭🇰 HK AUTO
@@ -276,7 +276,7 @@ proxy-groups:
       - 🇺🇲 US AUTO
 # ↓↓↓全局策略组↓↓↓
   - name: GLOBAL
-    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
+#    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
     type: select
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
@@ -419,11 +419,3 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
-
-
-
-
-
-
-
-
