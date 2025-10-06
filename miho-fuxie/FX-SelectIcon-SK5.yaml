@@ -163,6 +163,7 @@ proxy-groups:
     proxies:
       - 🌐 ManualSwitch
       - ♻️ ALL AUTO
+      - ✅️ DestSK5
       - 🇭🇰 HK AUTO
       - 🇸🇬 SG AUTO
       - 🇹🇼 TW AUTO
@@ -252,6 +253,7 @@ proxy-groups:
 #    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
     type: select
     proxies:
+      - ✅️ DestSK5
       - 🇭🇰 HK AUTO
       - 🇸🇬 SG AUTO
       - 🇹🇼 TW AUTO
@@ -261,6 +263,7 @@ proxy-groups:
 #    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
     proxies:
+      - ✅️ DestSK5
       - 🇭🇰 HK AUTO
       - 🇸🇬 SG AUTO
       - 🇹🇼 TW AUTO
@@ -270,6 +273,7 @@ proxy-groups:
 #    icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
     type: select
     proxies:
+      - ✅️ DestSK5
       - 🇭🇰 HK AUTO
       - 🇸🇬 SG AUTO
       - 🇹🇼 TW AUTO
@@ -285,6 +289,7 @@ proxy-groups:
       - 🚀 DefaultProxy
       - 🌐 ManualSwitch
       - ♻️ ALL AUTO
+      - ✅️ DestSK5
       - 🤖 AIGC
       - 📲 Telegram
       - 🔍 Google
@@ -420,4 +425,5 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+
 
