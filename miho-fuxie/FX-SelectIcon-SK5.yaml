@@ -161,7 +161,7 @@ proxy-groups:
     type: select
     proxies:
       - 🌐 ManualSwitch
-      - ALL AUTO
+      - ♻️ ALL AUTO
       - 🇭🇰 HK AUTO
       - 🇸🇬 SG AUTO
       - 🇹🇼 TW AUTO
@@ -205,7 +205,7 @@ proxy-groups:
   - {name: CustomAll, type: select, include-all: true, filter: "(?i)free|Free|免费|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}
 
 ## ↓↓↓以下策略组自动测速自动选择节点↓↓↓
-  - name: ALL AUTO
+  - name: ♻️ ALL AUTO
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
@@ -247,14 +247,16 @@ proxy-groups:
     type: url-test
     interval: 300
 ## ↓↓↓以下策略组通过手动选择节点↓↓↓
-  - name: AIGC
+  - name: 🤖 AIGC
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
     type: select
     proxies:
+      - 🇭🇰 HK AUTO
       - 🇸🇬 SG AUTO
+      - 🇹🇼 TW AUTO
       - 🇯🇵 JP AUTO
       - 🇺🇲 US AUTO
-  - name: Telegram
+  - name: 📲 Telegram
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
     proxies:
@@ -263,7 +265,7 @@ proxy-groups:
       - 🇹🇼 TW AUTO
       - 🇯🇵 JP AUTO
       - 🇺🇲 US AUTO
-  - name: Google
+  - name: 🔍 Google
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
     type: select
     proxies:
@@ -417,6 +419,7 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+
 
 
 
