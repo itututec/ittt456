@@ -1,0 +1,85 @@
+# 用于ClashParty 或 MihomoParty 将机场订阅节点/住宅IP转化为多出口的SK5被同时调用——比如指纹浏览器多窗口同时调用多个不同SK5
+# 可同时实现多个落地IP的链式代理（关键字dialer-proxy实现）
+# 版本：v251006
+# 作者：ittt456
+# proxies下的节点可用过订阅转换获取并替换——比如Sub-Store；listeners下面需要根据proxies下的节点信息进行相应的调整
+# 声明：仅作学习用，不得用于违法用途，不为使用后果负责
+
+allow-lan: true
+dns:
+  enable: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 223.5.5.5
+  nameserver:
+    - https://doh.pub/dns-query
+##########################################################
+listeners:
+# -----网络获取的免费HTTP/SOCKS IP-----
+  # - name: mixed6001
+  #   type: mixed
+  #   port: 6001
+  #   proxy: US001-Free-250409
+##########################################################
+# -----PerBuy的ISP SOCKS5-----
+  # - name: mixed9001
+  #   type: mixed
+  #   port: 9001
+  #   proxy: UK-SK5-ISP-Per
+##########################################################
+# ----69yun ProxyNodes----
+  - name: mixed3001                         # 自定义名称——为便于有序管理和区分，建议加上port序号
+    type: mixed
+    port: 3001                              # 自定义port——为便于有序管理和区，建议依序增加
+    proxy: 🇭🇰 [IPLC-移动优化-香港1] ✨ 2x   # proxy:后引用的是下面 proxies中定义好的 节点的名称
+  - name: mixed3002
+    type: mixed
+    port: 3002
+    proxy: 🇭🇰 [IPLC-移动优化-香港2] ✨ 2x
+  - name: mixed3003
+    type: mixed
+    port: 3003
+##########################################################
+# --------- VPS-RackNerd 部署 hy2 / tu5 / vl 等 ---------
+  - name: mixed9202
+    type: mixed
+    port: 9202
+    proxy: 🇺🇲 US-RN-vm-argo
+  - name: mixed9204
+    type: mixed
+    port: 9204
+    proxy: 🇺🇲 US-RN-hy2
+  - name: mixed9205
+    type: mixed
+    port: 9205
+    proxy: 🇺🇲 US-RN-tu5
+## 分割线↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑分割线 ##
+## 分割线↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓分割线 ##
+proxies:
+# --------- 链式代理 通过关键字dialer-proxy接中继节点(组)落地 ---------
+##-----Proxy来源于checkerproxy.net-----
+  # - name: US001-Free-250409
+  #   server: 98.170.57.231
+  #   port: 41455
+  #   type: socks5
+  #   dialer-proxy: 🇺🇲 US-RN-vm-argo  #中继节点（组）🇺🇲 US-RN-vm-argo是具体已经定义好的某个机场节点或自定义节点（名称）
+##########################################################
+# --------- 住宅IP / 落地IP / SOCKS5 ---------
+  # - name: UK-SK5-ISP-Per  #由Tony分享
+  #   server: 172.235.32.115
+  #   port: 8070
+  #   type: socks5
+  #   username: GB-O2xsh1h59h-90.199.59.128
+  #   password: adcvtsdfeuyjmm2
+  #   dialer-proxy: SC2Base                              #中继节点（组）SC2Base 是覆写模板或者机场订阅中已定义的中继节点组
+##########################################################
+# -----69yun ProxyNodes-----
+  - {"name":"🇭🇰 [IPLC-移动优化-香港1] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55721,"cipher":"aes-256-gcm","password":"EzdgaggdbiZrtt5IfeD9","udp":true}
+  - {"name":"🇭🇰 [IPLC-移动优化-香港2] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55725,"cipher":"aes-256-gcm","password":"EzdRstfadsZthdfg5ID9","udp":true}
+  - {"name":"🇭🇰 [IPLC-移动优化-香港3] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55707,"cipher":"aes-256-gcm","password":"EzdRbggeasdfZ1ttfID9","udp":true}
+##########################################################
+# --------- VPS-RackNerd 部署 hy2 / tu5 / vl 等 ---------
+  - {"name":"🇺🇲 US-RN-vm-argo","type":"vmess","server":"www.visa.com.sg","port":8443,"cipher":"auto","uuid":"9ef1a17c-5970-4376-a4ae-95geae22c2d","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/9ef1a17c-5970-4376-a4ae-95t2d-vm","headers":{"Host":"tun2sbx.inf56.eu.org"}},"servername":"sbx.inf5688.eu.org"}
+  - {"type":"hysteria2","name":"🇺🇲 US-RN-hy2","server":"rnvvv.inf56.eu.org","port":55553,"password":"9ef1a17c-5970-4376-a4ae-95dfasdfg22c2d","sni":"rnvvv.inf5688.eu.org","skip-cert-verify":false,"tfo":false}
+  - {"type":"tuic","name":"🇺🇲 US-RN-tu5","server":"rnvvv.inf56.eu.org","port":55554,"password":"9ef1a17c-5970-4376-a4ae-95yrgsdg2c2d","uuid":"9ef1a17c-5970-4376-a4ae-95dbyesdg2c2d","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"vvv.inf56.eu.org","skip-cert-verify":false,"allowInsecure":"0","version":5}
