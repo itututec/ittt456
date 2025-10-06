@@ -15,52 +15,73 @@ external-controller: :9090        # 外部控制面板端口
 dns:
   enable: true
   ipv6: false
-  listen: 0.0.0.0:53
-  enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
+  listen: 0.0.0.0:53                                                             # 开启 DNS 服务器监听
+  enhanced-mode: fake-ip                                            # 模式切换 redir-host / fake-ip
+  fake-ip-range: 198.18.0.1/16                                       # fake-ip 池设置
+  
+  # 配置fake-ip-filter的匹配模式，默认为blacklist，即如果匹配成功不返回fake-ip
+ # 可设置为whitelist，即只有匹配成功才返回fake-ip
+ # fake-ip-filter-mode: blacklist
+  
+ # 配置不使用 fake-ip 的域名
   fake-ip-filter:
-    - '*.lan'
     - localhost.ptlogin2.qq.com
-    - '*.msftconnecttest.com'
-    - '*.msftncsi.com'
     - 'stun.*.*'
-    - '*.stun.*'
- ###########
- #默认 dns, 用于解析 DNS 服务器 的域名； 必须为 ip, 可为加密 dns
+    - '*.stun.*'	
+    - "+.lan"
+    - "+.local"
+    - "rule-set:private_domain,cn_domain"
+    - "+.services.googleapis.cn"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "time.*.com"
+    - "+.pool.ntp.org"
+    - "+.ntp.tencent.com"
+    - "+.ntp1.aliyun.com"
+    - "+.ntp.ntsc.ac.cn"
+    - "+.cn.ntp.org.cn"
+
+ # 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的DNS 服务域名
+ # 默认 dns, 用于解析 DNS 服务器 的域名； 必须为 ip, 可为加密 dns
   default-nameserver:
     - 119.29.29.29
     - 223.5.5.5
     - 1.0.0.1
     - 8.8.8.8
+
+# 专用于 直连direct出口域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
+  direct-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  direct-nameserver-follow-policy: false                      # 是否遵循nameserver-policy，默认为不遵守，仅当direct-nameserver不为空时生效
+
  #默认的域名解析服务器，如不配置 fallback/proxy-server-nameserver , 则所有域名都由 nameserver 解析
   nameserver:
     - tls://dot.pub
     - https://dns.alidns.com/dns-query
- #指定域名查询的解析服务器，可使用 geosite, 优先于 nameserver/fallback 查询
+
+# 配置查询指定域名使用的 DNS服务器，可使用 geosite, 优先于 nameserver/fallback 查询
   nameserver-policy:
-        'www.baidu.com': '114.114.114.114'
-        '+.internal.crop.com': '10.0.0.1'         # 内部服务域名*.internal.crop.com 及其所有子域名将使用 DNS 服务器 10.0.0.1
-#        'geosite:cn': https://doh.pub/dns-query
-        'geosite:geolocation-!cn': [tls://8.8.4.4, https://1.0.0.1/dns-query]
-#        'geosite:private,apple': https://dns.alidns.com/dns-query
-#        'rule-set: google': 8.8.8.8
-# Google 相关域名
-        '+.google.com': '1.0.0.1'
-        '+.googleapis.com': '1.0.0.1'
-        '+.gstatic.com': '1.0.0.1'
-        '+.googleusercontent.com': '1.0.0.1'
-        '+.ggpht.com': '1.0.0.14'
-        '+.youtube.com': '1.0.0.1'
-        '+.ytimg.com': '1.0.0.1'
+    'www.baidu.com': '114.114.114.114'
+    '+.internal.crop.com': '10.0.0.1'         # 内部服务域名*.internal.crop.com 及其所有子域名将使用 DNS 服务器 10.0.0.1
+    "rule-set:private_domain,cn_domain,perdirect_domain":
+      - 223.5.5.5
+      - 119.29.29.29
+    "rule-set:youtube_domain,google_domain,github_domain,telegram_domain,geolocation-!cn":
+      - "https://dns.cloudflare.com/dns-query"
+      - "https://dns.google/dns-query" 
+
 #后备域名解析服务器，一般情况下使用境外 DNS, 保证结果可信
 #配置 fallback后默认启用 fallback-filter,geoip-code为 cn 
   fallback:
     - tls://dns.google
     - https://1.0.0.1/dns-query
     - https://doh.dns.sb/dns-query
- #代理节点域名解析服务器，仅用于解析代理节点的域名
+ 
+# 专用于 代理节点域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
   proxy-server-nameserver:
     - https://doh.pub/dns-query
+ 
  #后备域名解析服务器筛选，满足条件的将使用 fallback结果或只使用 fallback解析
   fallback-filter:
     geoip: true
@@ -265,8 +286,4 @@ rule-providers:
   apple_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
   private_ip: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
   perdirect_domain: { <<: *class, url: "https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
-
   perproxy_domain: { <<: *class, url: "https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
-
-
-
