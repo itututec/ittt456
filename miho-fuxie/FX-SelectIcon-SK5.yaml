@@ -296,21 +296,21 @@ proxy-groups:
 #匹配规则
 rules:
   - "RULE-SET,private_domain,DIRECT"
-  - "RULE-SET,bing,AIGC"
-  - "RULE-SET,copilot,AIGC"
-  - "RULE-SET,bard,AIGC"
-  - "RULE-SET,openai,AIGC"
-  - "RULE-SET,claude,AIGC"
-  - "RULE-SET,steam,DefaultProxy"
-  - "RULE-SET,telegram_domain,Telegram"
-  - "RULE-SET,telegram_ip,Telegram"
-  - "RULE-SET,google_domain,Google"
-  - "RULE-SET,google_ip,Google"
-  - "RULE-SET,gfw_domain,DefaultProxy"
-  - "RULE-SET,geolocation-!cn,DefaultProxy"
+  - "RULE-SET,bing,🤖 AIGC"
+  - "RULE-SET,copilot,🤖 AIGC"
+  - "RULE-SET,bard,🤖 AIGC"
+  - "RULE-SET,openai,🤖 AIGC"
+  - "RULE-SET,claude,🤖 AIGC"
+  - "RULE-SET,steam,🚀 DefaultProxy"
+  - "RULE-SET,telegram_domain,📲 Telegram"
+  - "RULE-SET,telegram_ip,📲 Telegram"
+  - "RULE-SET,google_domain,🔍 Google"
+  - "RULE-SET,google_ip,🔍 Google"
+  - "RULE-SET,gfw_domain,🚀 DefaultProxy"
+  - "RULE-SET,geolocation-!cn,🚀 DefaultProxy"
   - "RULE-SET,cn_domain,DIRECT"
   - "RULE-SET,cn_ip,DIRECT"
-  - "MATCH,DefaultProxy"
+  - "MATCH,🚀 DefaultProxy"
 
 #规则集
 rule-providers:
@@ -419,6 +419,7 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+
 
 
 
