@@ -150,23 +150,23 @@
 
 ## 出站策略组
 proxy-groups:
-  - name: ManualSwitch  #手动切换具体节点
+  - name: 🌐 ManualSwitch  #手动切换具体节点
     icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
     type: select
     include-all: true
 #    filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}                        # 包含节点(?=.*(港|HK|(?i)Hong|Hongkong|HK))，同时不包含节点^((?!(台|日|韩|新|美|SK5|SOCKS5)).)
     filter: "^((?!(到期|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折|优惠|交流|讨论|emby|Emby)).)*$"        # 不包含 到期|硬盘服|资源服... 等其他杂项节点
-  - name: DefaultProxy  #手动选择策略组分类
+  - name: 🚀 DefaultProxy  #手动选择策略组分类
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     proxies:
-      - ManualSwitch
+      - 🌐 ManualSwitch
       - ALL AUTO
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 🇭🇰 HK AUTO
+      - 🇸🇬 SG AUTO
+      - 🇹🇼 TW AUTO
+      - 🇯🇵 JP AUTO
+      - 🇺🇲 US AUTO
       - DIRECT
 
 ### 链式代理(组)配置
@@ -211,35 +211,35 @@ proxy-groups:
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     type: url-test
     interval: 300
-  - name: HK AUTO
+  - name: 🇭🇰 HK AUTO
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)香港|Hong Kong|HK|🇭🇰
     type: url-test
     interval: 300
-  - name: SG AUTO
+  - name: 🇸🇬 SG AUTO
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)新加坡|Singapore|SG|🇸🇬
     type: url-test
     interval: 300
-  - name: TW AUTO
+  - name: 🇹🇼 TW AUTO
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)台湾|Taiwan|TW|🇹🇼
     type: url-test
     interval: 300
-  - name: JP AUTO
+  - name: 🇯🇵 JP AUTO
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)日本|Japan|JP|🇯🇵
     type: url-test
     interval: 300
-  - name: US AUTO
+  - name: 🇺🇲 US AUTO
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
@@ -251,27 +251,27 @@ proxy-groups:
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
     type: select
     proxies:
-      - SG AUTO
-      - JP AUTO
-      - US AUTO
+      - 🇸🇬 SG AUTO
+      - 🇯🇵 JP AUTO
+      - 🇺🇲 US AUTO
   - name: Telegram
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
     proxies:
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 🇭🇰 HK AUTO
+      - 🇸🇬 SG AUTO
+      - 🇹🇼 TW AUTO
+      - 🇯🇵 JP AUTO
+      - 🇺🇲 US AUTO
   - name: Google
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
     type: select
     proxies:
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 🇭🇰 HK AUTO
+      - 🇸🇬 SG AUTO
+      - 🇹🇼 TW AUTO
+      - 🇯🇵 JP AUTO
+      - 🇺🇲 US AUTO
 # ↓↓↓全局策略组↓↓↓
   - name: GLOBAL
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
@@ -279,17 +279,17 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     proxies:
-      - DefaultProxy
-      - ManualSwitch
-      - ALL AUTO
-      - AIGC
-      - Telegram
-      - Google
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 🚀 DefaultProxy
+      - 🌐 ManualSwitch
+      - ♻️ ALL AUTO
+      - 🤖 AIGC
+      - 📲 Telegram
+      - 🔍 Google
+      - 🇭🇰 HK AUTO
+      - 🇸🇬 SG AUTO
+      - 🇹🇼 TW AUTO
+      - 🇯🇵 JP AUTO
+      - 🇺🇲 US AUTO
 
 #匹配规则
 rules:
@@ -417,6 +417,7 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+
 
 
 
