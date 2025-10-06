@@ -173,10 +173,10 @@ proxy-groups:
 ## -------------------- 先定义中继节点组 -------------------- ##
 ## a 中继节点组——辅助链式代理进行使用，可以根据需要定义，也可直接使用上述现成的策略组作为中继节点组
 # 华东中继组（Eastern China简写为East，包括 台湾/日本/美洲 等节点）→→→落地是去向 东亚/美洲 的住宅SK5节点
-  - {name: EC2Base, type: select, proxies: [JP AUTO, TW AUTO]}           #手动切换华东中继策略组
+  - {name: EC2Base, type: select, proxies: [JP AUTO, TW AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}           #手动切换华东中继策略组
 #  - {name: EC2Base, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
 # 华南中继组（Southern China简写SC，包括 香港/新加坡/欧洲 等节点），手动选择华东中继策略组→→→落地是去向 东南亚(越南/印尼/马来西亚/新加坡)/欧洲 的住宅SK5节点
-  - {name: SC2Base, type: select, proxies: [HK AUTO, SG AUTO]}          #手动切换华南中继策略组
+  - {name: SC2Base, type: select, proxies: [HK AUTO, SG AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}          #手动切换华南中继策略组
 #  - {name: SC2Base, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
   
 ## -------------------- dialer-proxy 链式代理 -------------------- ##
@@ -198,9 +198,9 @@ proxy-groups:
    # 3 为保证设置好的 relay链式代理 可以在clash内核的UI界面中被选择到，需要在Proxy Groups中的 手动选择组里面包含有上面定义好的 relay链式代理 名称，否则虽然定义了该链式代理，但无法在UI中选择也是白搭。
       
 # 落地节点组，包括住宅节点（命名需带 SK5|SOCKS5|住宅 等字样）
-  - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅"}
+  - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/DE.png}
 # 自定义节点组，包括自己部署的节点 和 获取的免费节点（免费节点命名需带 free|Free|免费 等字样）
-  - {name: CustomAll, type: select, include-all: true, filter: "(?i)free|Free|免费|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap"}
+  - {name: CustomAll, type: select, include-all: true, filter: "(?i)free|Free|免费|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}
 
 ## ↓↓↓以下策略组自动测速自动选择节点↓↓↓
   - name: ALL AUTO
@@ -415,4 +415,5 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+
 
