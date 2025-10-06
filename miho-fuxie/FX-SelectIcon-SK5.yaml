@@ -164,6 +164,7 @@ proxy-groups:
       - 🌐 ManualSwitch
       - ♻️ ALL AUTO
       - ✅️ DestSK5
+      - ©️ SelfAll
       - 🇭🇰 HK AUTO
       - 🇸🇬 SG AUTO
       - 🇹🇼 TW AUTO
@@ -290,6 +291,7 @@ proxy-groups:
       - 🌐 ManualSwitch
       - ♻️ ALL AUTO
       - ✅️ DestSK5
+      - ©️ SelfAll
       - 🤖 AIGC
       - 📲 Telegram
       - 🔍 Google
@@ -425,6 +427,7 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+
 
 
 
