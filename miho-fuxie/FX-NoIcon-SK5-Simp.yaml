@@ -4,6 +4,8 @@ proxy-groups:
 #    icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
     type: select
     include-all: true
+#    filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}                                # 包含节点(?=.*(港|HK|(?i)Hong|Hongkong|HK))，同时不包含节点^((?!(台|日|韩|新|美|SK5|SOCKS5)).)
+    filter: "^((?!(到期|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折|优惠|交流|讨论|emby|Emby)).)*$"        # 不包含 到期|硬盘服|资源服... 等其他杂项节点
   - name: PROXY  #节点选择大区域分类
 #    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/adjust.svg
     type: select
@@ -17,7 +19,7 @@ proxy-groups:
       - US AUTO
       - DIRECT
 
-## 链式代理
+## 链式代理配置
 # 1.1 dialer-proxy的链式代理做法，默认——也是官方最新推出的推荐方法；
 # 1.2 该做法要求在配置文件中的proxies下，添加SOCKS5节点定义时需额外定义关键字dialer-proxy，通过关键字dialer-proxy指向这里的 链式代理组，表示打底节点（组）是指向的这里的链式代理组；
 # 1.3 以下落地节点组 DEST SK5 是汇总了所有在配置文件中定义的SOCKS5节点（要求自定义SK5节点名称时务必带上SK5或SOCKS5字样，方便自动筛选分类），方便手动选择哪个落地SOCKS5节点；
@@ -26,7 +28,7 @@ proxy-groups:
 # 汇总免费的SK5、HTTP节点组(自定义得免费SK5、HTTP节点名称中务必含有free/Free/Free字样但不建议包含HTTP和SOCKS5相关字样，以便于自动筛选分类)
   - {name: FreeProxy, type: select, include-all: true, filter: "(?i)免费|free|Free|FREE"}
 
-## 以下自动测速自动选择节点
+## 以下策略组自动测速自动选择节点
   - name: ALL AUTO
 #    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/speed.svg
     include-all: true
@@ -73,7 +75,7 @@ proxy-groups:
     filter: (?i)美国|USA|🇺🇸
     type: url-test
     interval: 300
-## 以下通过手动选择节点
+## 以下策略组通过手动选择节点
   - name: AIGC
 #    icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/chatgpt.svg
     type: select
@@ -266,3 +268,4 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+
