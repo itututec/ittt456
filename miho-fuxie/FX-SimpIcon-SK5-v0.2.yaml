@@ -500,5 +500,3 @@ rule-providers:
   #   interval: 86400
   #   format: yaml
   #   type: http
-
-
