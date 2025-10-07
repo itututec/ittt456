@@ -170,6 +170,7 @@ proxies:
 ## 数据引用官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
  samega: &samega {type: select, include-all: true}                                                # 建立名为 samega 的数据锚点
  samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300}                # 建立名为 samegb 的数据锚点
+ samegp: &samegp {type: select, proxies: [🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}                # 建立名为 samegp 的数据锚点
 
 proxy-groups:
 # ──────────────── 需提前在配置文件中设定具体的中继节点：使用中灵活性略低 ────────────────
@@ -186,35 +187,58 @@ proxy-groups:
   #     - bpb02
 
 # 按地区分类分组
+# 未采用数据锚点时的原始设置
 #  - {name: 🌐 手动切换, type: select, include-all: true, filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}     # 含全部节点但不包含其他杂项节点
+#  - {name: 🚀 默认代理, type: select, proxies: [🌐 手动切换, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 🌞 落地节点, type: select, include-all: true, filter: "(?i)SOCKS5|SK5|链式代理|链代"}       # 只包含链式代理落地/SOCKS5节点
+#  - {name: 🔯 自建节点, type: select, include-all: true, filter: "(?=.*(RN|lunes|sap))^((?!(SK5|SOCKS5|链式代理|链代|到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+#  - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|HK|hongkong|hong kong"}
+#  - {name: 🇹🇼 台湾节点, type: select, include-all: true, filter: "(?i)台|Taiwan|TW|🇹🇼"}
+#  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|尼日)).)*$" }     # 包含节点名称中含有“日”字相关的节点，但同时不包含尼日利亚相关的节点
+#  - {name: 🇸🇬 狮城节点, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
+#  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|US|unitedstates|united states|America"}
+#  - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}
+#  - {name: ♻️ 台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(台|TW|(?i)Taiwan|TW))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$"}
+#  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$" }
+#  - {name: ♻️ 狮城自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$" }
+#  - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$"}
+#  - {name: 📹 YouTube, type: select, proxies: [🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 🍀 Google, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 🤖 ChatGPT, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 🐬 OneDrive, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 🪟 Microsoft, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 🎵 TikTok, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 📲 Telegram, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 🎥 NETFLIX, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 💶 PayPal, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+#  - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 默认代理, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🔯 自建节点,  🌐 手动切换]}
+# 引用数据锚点进行简化
   - {name: 🌐 手动切换, <<: *samega, filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}     # 全部节点但不包含其他杂项节点
-
   - {name: 🚀 默认代理, type: select, proxies: [🌐 手动切换, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 🌞 落地节点, type: select, include-all: true, filter: "(?i)SOCKS5|SK5|链式代理|链代"}       # 只包含链式代理落地/SOCKS5节点
-  - {name: 🔯 自建节点, type: select, include-all: true, filter: "(?=.*(RN|lunes|sap))^((?!(SK5|SOCKS5|链式代理|链代|到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
-  - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|HK|hongkong|hong kong"}
-  - {name: 🇹🇼 台湾节点, type: select, include-all: true, filter: "(?i)台|Taiwan|TW|🇹🇼"}
-  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|尼日)).)*$" }     # 包含节点名称中含有“日”字相关的节点，但同时不包含尼日利亚相关的节点
-  - {name: 🇸🇬 狮城节点, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
-  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|US|unitedstates|united states|America"}
-  - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}
-  - {name: ♻️ 台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(台|TW|(?i)Taiwan|TW))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$"}
-  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$" }
-  - {name: ♻️ 狮城自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$" }
-  - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$"}
-
-  - {name: 📹 YouTube, type: select, proxies: [🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 🍀 Google, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 🤖 ChatGPT, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 🐬 OneDrive, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 🪟 Microsoft, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 🎵 TikTok, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 📲 Telegram, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 🎥 NETFLIX, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
-  - {name: 💶 PayPal, type: select, proxies: [🌐 手动切换, 🔯 自建节点,  ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+  - {name: 🌞 落地节点, <<: *samega, filter: "(?i)SOCKS5|SK5|链式代理|链代"}       # 只包含链式代理落地/SOCKS5节点
+  - {name: 🔯 自建节点, <<: *samega, filter: "(?=.*(RN|lunes|sap))^((?!(SK5|SOCKS5|链式代理|链代|到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+  - {name: 🇭🇰 香港节点, <<: *samega, filter: "(?i)港|HK|hongkong|hong kong"}
+  - {name: 🇹🇼 台湾节点, <<: *samega, filter: "(?i)台|Taiwan|TW|🇹🇼"}
+  - {name: 🇯🇵 日本节点, <<: *samega, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|尼日)).)*$" }     # 包含节点名称中含有“日”字相关的节点，但同时不包含尼日利亚相关的节点
+  - {name: 🇸🇬 狮城节点, <<: *samega, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
+  - {name: 🇺🇲 美国节点, <<: *samega, filter: "(?i)美|US|unitedstates|united states|America"}
+  - {name: ♻️ 香港自动, <<: *samegb, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}
+  - {name: ♻️ 台湾自动, <<: *samegb, filter: "(?=.*(台|TW|(?i)Taiwan|TW))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$"}
+  - {name: ♻️ 日本自动, <<: *samegb, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$" }
+  - {name: ♻️ 狮城自动, <<: *samegb, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$" }
+  - {name: ♻️ 美国自动, <<: *samegb, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$"}
+  - {name: 📹 YouTube, <<: *samegp}
+  - {name: 🍀 Google, <<: *samegp}
+  - {name: 🤖 ChatGPT, <<: *samegp}
+  - {name: 👨🏿‍💻 GitHub, <<: *samegp}
+  - {name: 🐬 OneDrive, <<: *samegp}
+  - {name: 🪟 Microsoft, <<: *samegp}
+  - {name: 🎵 TikTok, <<: *samegp}
+  - {name: 📲 Telegram, <<: *samegp}
+  - {name: 🎥 NETFLIX, <<: *samegp}
+  - {name: 💶 PayPal, <<: *samegp}
   - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 默认代理, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🔯 自建节点,  🌐 手动切换]}
-
 # ──────────────── 分流规则 ────────────────
 rules:
   # 1) 防 WebRTC 泄漏（拦截 STUN）——如设置后经常出现问题，可注释掉不启用
@@ -272,7 +296,7 @@ rule-anchor:
 
 rule-providers: 
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
-  ai: {  <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
+  ai: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
   google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
   github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
