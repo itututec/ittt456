@@ -378,7 +378,6 @@ rule-providers:
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
 
-
   private_domain:
     url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml
     path: ./ruleset/private.yaml
@@ -484,3 +483,4 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+
