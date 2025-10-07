@@ -6,65 +6,65 @@
 # ICON：只有大分组Icon——采用url链接的png作为Icon；没有小分组Icon——采用emoji图标形式的Icon；如果ICON都不需要可#注释掉或直接删除
 
 #####↓↓↓ -------------------- 简化覆写模板 以下部分可注释掉或删除掉 -------------------- ↓↓↓#####
-# ## 全局基础配置
-# port: 7890                    # HTTP 代理端口，默认 7890
-# socks-port: 7891              # SOCKS5 代理端口，默认 7891
-# redir-port: 7892
-# mixed-port: 7893
-# tproxy-port: 7894
-# ipv6: false
-# allow-lan: true               # 是否允许局域网设备连接
-# unified-delay: true
-# tcp-concurrent: true
+## 全局基础配置
+port: 7890                    # HTTP 代理端口，默认 7890
+socks-port: 7891              # SOCKS5 代理端口，默认 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7894
+ipv6: false
+allow-lan: true               # 是否允许局域网设备连接
+unified-delay: true
+tcp-concurrent: true
   
-# geodata-mode: false
-# geodata-loader: standard
-# geo-auto-update: true
-# geo-update-interval: 48
-# geox-url:
-#   geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-#   geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
-#   mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
-#   asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+geodata-mode: false
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 48
+geox-url:
+  geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+  asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
   
-# ## 控制面板
-# external-controller: 0.0.0.0:9090       # 外部控制面板端口
-# secret: ""
-# external-ui: ui
-# external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+## 控制面板
+external-controller: 0.0.0.0:9090       # 外部控制面板端口
+secret: ""
+external-ui: ui
+external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
 
-# ## 匹配进程 always/strict/off
-# find-process-mode: strict
-# global-client-fingerprint: chrome
-# keep-alive-idle: 600
-# keep-alive-interval: 30
+## 匹配进程 always/strict/off
+find-process-mode: strict
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 30
 
-# ## 策略组选择和fakeip缓存
-# profile:
-#   store-selected: true
-#   store-fake-ip: true
+## 策略组选择和fakeip缓存
+profile:
+  store-selected: true
+  store-fake-ip: true
   
-# ## 流量嗅探
-# sniffer:
-#   enable: true
-#   sniff:
-#     HTTP:
-#       ports: [80, 8080-8880]
-#       override-destination: true
-#     TLS:
-#       ports: [443, 8443]
-#     QUIC:
-#       ports: [443, 8443]
-#   force-domain:
-#     - +.v2ex.com
-#   skip-domain:
-#     - "Mijia Cloud"
-#     - "dlg.io.mi.com"
-#     - "+.push.apple.com"
-#     - "+.apple.com"
-#     - "+.baidu.com"
+## 流量嗅探
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - +.v2ex.com
+  skip-domain:
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
+    - "+.push.apple.com"
+    - "+.apple.com"
+    - "+.baidu.com"
     
-# ## 代理模式
+## 代理模式
 # tun:
 #   enable: true
 #   stack: mixed
@@ -76,76 +76,104 @@
 #   auto-redirect: true
 #   auto-detect-interface: true
   
-# ## DNS 配置
-# #--------------------DNS各项设置官方说明 https://merlinkodo.github.io/Clash-Rev-Doc/config/dns/#nameserver-policy
-# dns:
-#   enable: true
+## DNS 配置
+#--------------------DNS各项设置官方说明 https://merlinkodo.github.io/Clash-Rev-Doc/config/dns/#nameserver-policy
+dns:
+  enable: true
 
-# # 开启 DNS 服务器监听
-#   listen: 0.0.0.0:1053
+# 开启 DNS 服务器监听
+  listen: 0.0.0.0:1053
 
-#   ipv6: false
+  ipv6: false
 
-# # 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
-# # 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
-# # 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
-# # 仅当proxy-server-nameserver非空时可以开启此选项, 强烈不建议和prefer-h3一起使用
-# # 此外，这三者配置中的dns服务器如果出现域名会采用default-nameserver配置项解析，也请确保正确配置default-nameserver
-#   respect-rules: true
+# 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
+# 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
+# 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
+# 仅当proxy-server-nameserver非空时可以开启此选项, 强烈不建议和prefer-h3一起使用
+# 此外，这三者配置中的dns服务器如果出现域名会采用default-nameserver配置项解析，也请确保正确配置default-nameserver
+  respect-rules: true
   
-# # 模式切换 redir-host / fake-ip
-#   enhanced-mode: fake-ip
-# #fake-ip 池设置
-#   fake-ip-range: 198.18.0.1/16
+# 模式切换 redir-host / fake-ip
+  enhanced-mode: fake-ip
+#fake-ip 池设置
+  fake-ip-range: 198.18.0.1/16
   
-# # 配置fake-ip-filter的匹配模式，默认为blacklist，即如果匹配成功不返回fake-ip
-# # 可设置为whitelist，即只有匹配成功才返回fake-ip
-#   fake-ip-filter-mode: blacklist
+# 配置fake-ip-filter的匹配模式，默认为blacklist，即如果匹配成功不返回fake-ip
+# 可设置为whitelist，即只有匹配成功才返回fake-ip
+  fake-ip-filter-mode: blacklist
   
-#  # 配置不使用 fake-ip 的域名
-#   fake-ip-filter:
-#     - "+.lan"
-#     - "+.local"
-#     - "rule-set:private_domain,cn_domain"
-#     - "+.services.googleapis.cn"
-#     - "+.msftconnecttest.com"
-#     - "+.msftncsi.com"
-#     - "time.*.com"
-#     - "+.pool.ntp.org"
-#     - "+.ntp.tencent.com"
-#     - "+.ntp1.aliyun.com"
-#     - "+.ntp.ntsc.ac.cn"
-#     - "+.cn.ntp.org.cn"
+ # 配置不使用 fake-ip 的域名
+  fake-ip-filter:
+    - "+.lan"
+    - "+.local"
+    - "rule-set:private_domain,cn_domain"
+    - "+.services.googleapis.cn"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "time.*.com"
+    - "+.pool.ntp.org"
+    - "+.ntp.tencent.com"
+    - "+.ntp1.aliyun.com"
+    - "+.ntp.ntsc.ac.cn"
+    - "+.cn.ntp.org.cn"
 
-# # 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的DNS 服务域名
-# # 只能使用纯 IP 地址，可使用加密 DNS
-#   default-nameserver:
-#     - 223.5.5.5
-#     - 119.29.29.29
+# 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的DNS 服务域名
+# 只能使用纯 IP 地址，可使用加密 DNS
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
 
-# # 专用于 直连direct出口域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
-#   direct-nameserver:
-#     - 223.5.5.5
-#   direct-nameserver-follow-policy: false    # 是否遵循nameserver-policy，默认为不遵守，仅当direct-nameserver不为空时生效
+# 专用于 直连direct出口域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
+  direct-nameserver:
+    - 223.5.5.5
+  direct-nameserver-follow-policy: false    # 是否遵循nameserver-policy，默认为不遵守，仅当direct-nameserver不为空时生效
 
-# # 专用于 代理节点域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
-#   proxy-server-nameserver:
-#     - 223.5.5.5
-#     - 119.29.29.29
+# 默认的域名解析服务器，如不配置 fallback/proxy-server-nameserver , 则所有域名都由 nameserver 解析
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
 
-#  # 配置查询指定域名使用的 DNS 服务器
-#   nameserver-policy:
-#     '+.baidu.com': '114.114.114.114'
-#     "rule-set:private_domain,cn_domain":
-#       - 223.5.5.5
-#       - 119.29.29.29
-#     "rule-set:gfw_domain,geolocation-!cn":
-#       - "https://dns.cloudflare.com/dns-query"
-#       - "https://dns.google/dns-query" 
-# # namesever尽量用运营商提供的DNS
-#   nameserver:
-#     - 223.5.5.5
-#     - 119.29.29.29
+# 配置查询指定域名使用的 DNS 服务器
+  nameserver-policy:
+    '+.baidu.com': '114.114.114.114'
+    "rule-set:private_domain,cn_domain":
+      - 223.5.5.5
+      - 119.29.29.29
+    "rule-set:gfw_domain,geolocation-!cn":
+      - "https://dns.cloudflare.com/dns-query"
+      - "https://dns.google/dns-query" 
+
+# 后备域名解析服务器，一般情况下使用境外 DNS, 保证结果可信
+# 配置 fallback 后，默认启用 fallback-filter,geoip-code为 CN 
+  fallback:
+    - https://1.0.0.1/dns-query
+    - https://doh.dns.sb/dns-query
+
+# 专用于 代理节点域名解析的 DNS 服务器，非必要配置项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
+
+# 后备域名解析服务器筛选，满足条件的将使用 fallback结果或只使用 fallback解析
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite: 
+         - gfw
+    ipcidr: 
+        - 240.0.0.0/4
+    domain:
+      - "+.google.com"
+      - "+.facebook.com"
+      - "+.youtube.com"
+      - "+.x.com"
+      - "+.openai.com"
+      - "+.tiktok.com"
+      - "+.icloud.com"
+      - "+.apple.com"
+      - "+.cloudflare.com"
+      - "+.amazonaws.com"
+      - "+.doubleclick.net"
+      - "+.ghproxy.com"
 #####↑↑↑ -------------------- 简化覆写模板 以上部分可注释掉或删除掉 -------------------- ↑↑↑#####
 
 
@@ -180,12 +208,12 @@ proxy-groups:
 ## -------------------- relay 链式代理 -------------------- ##
 ## b 基于关键字relay的链式代理做法——不推荐，有很多缺点(如udp异常/grpc延迟过高等)——官方已有新方法即dialer-proxy，但relay依然可用；
 # 1.1 只需在本模板文件中定义好type为relay的链式代理节点组，不需要在proxies下添加落地节点时额外定义关键字dialer-proxy信息，配置相对简单。
-#  - {name: EC2US, type: relay, proxies: [中继节点(组)名称, 落地节点(组)名称]}                              #范例基本书写格式，表示通过 中继节点(组)→→→落地节点(组)
+#  - {name: EC2US, type: relay, proxies: [中继节点(组)名称, 落地节点(组)名称]}                         #范例基本书写格式，表示通过 中继节点(组)→→→落地节点(组)
 # 👉👉👉↓↓↓以下四行是实际范例书写格式和注释说明↓↓↓
-#  - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|(?i)SOCKS5"}          #范例落地节点组，包含住宅SOCKS5节点
-#  - {name: EC2Base, type: select, proxies: [JP AUTO, TW AUTO]}                                         #范例华东中继组，包含JP AUTO, TW AUTO等策略组的节点
-#  - {name: SC2Base, type: select, proxies: [HK AUTO, SG AUTO]}                                         #范例华南中继组，包含HK AUTO, SG AUTO等策略组的节点
-#  - {name: relay链代, type: relay, proxies: [EC2Base, DestSK5]}                                      #范例relay链式代理，表示通过 中继节点(组)EC2SK5→→→落地节点(组)LandingSK5
+#  - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|(?i)SOCKS5"}        #范例落地节点组，包含住宅SOCKS5节点
+#  - {name: EC2Base, type: select, proxies: [JP AUTO, TW AUTO]}                                        #范例华东中继组，包含JP AUTO, TW AUTO等策略组的节点
+#  - {name: SC2Base, type: select, proxies: [HK AUTO, SG AUTO]}                                        #范例华南中继组，包含HK AUTO, SG AUTO等策略组的节点
+#  - {name: relay链代, type: relay, proxies: [EC2Base, DestSK5]}                                       #范例relay链式代理，表示通过 中继节点(组)EC2SK5→→→落地节点(组)LandingSK5
   # relay特别说明(参考https://clash-meta.gitbook.io/clash.meta-wiki-older/function/proxygroups/relay 和 https://merlinkodo.github.io/Clash-Rev-Doc/config/proxy-groups/relay/)：
    # 1 relay支持传输UDP，前提是代理链的头尾节点都要支持 UDP over TCP。目前支持 udp 的协议有 vmess/vless/trojan/ss/ssr/tuic/hy，不支持udp协议的是不能使用relay实现链式代理的；
    # 2 添加type为relay的代理组，且该代理组的节点顺序是，打底/中继节点(组)名称在前，落地socks5节点(组)名称在后(落地节点必须支持udp协议，设置建议打开udp为true)；
@@ -323,122 +351,107 @@ rules:
 #规则集
 rule-providers:
   private_domain:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml
     path: ./ruleset/private.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   cn_domain:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml
     path: ./ruleset/cn_domain.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   telegram_domain:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml
     path: ./ruleset/telegram_domain.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   google_domain:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml
     path: ./ruleset/google_domain.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   gfw_domain:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.yaml
     path: ./ruleset/gfw.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   geolocation-!cn:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml
     path: ./ruleset/geolocation-!cn.yaml
     behavior: domain
     interval: 86400
     format: yaml
     type: http
   cn_ip:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml
     path: ./ruleset/cn_ip.yaml
     behavior: ipcidr
     interval: 86400
     format: yaml
     type: http
   telegram_ip:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml
     path: ./ruleset/telegram_ip.yaml
     behavior: ipcidr
     interval: 86400
     format: yaml
     type: http
   google_ip:
-    url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.yaml
     path: ./ruleset/google_ip.yaml
     behavior: ipcidr
     interval: 86400
     format: yaml
     type: http
   bing:
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml
     path: ./ruleset/bing.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   copilot:
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml
     path: ./ruleset/copilot.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   claude:
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml
     path: ./ruleset/claude.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   bard:
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml
     path: ./ruleset/bard.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   openai:
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
     path: ./ruleset/openai.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   steam:
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
+    url: https://hub.gitmirror.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
     path: ./ruleset/steam.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
