@@ -164,7 +164,13 @@ proxies:
     udp: true
 #    dialer-proxy: To住宅A-华东中继组         # 指定前置中继节点或节点组，如果能直连也可以不需要通过中继节点/组——注释掉或删除dialer-proxy即可
 
-# ──────────────── 策略组 ────────────────
+# ──────────────── 策略组定义 ────────────────
+# 配置数据锚点
+## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
+## 数据引用官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
+ samega: &samega {type: select, include-all: true}                                                # 建立名为 samega 的数据锚点
+ samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300}                # 建立名为 samegb 的数据锚点
+
 proxy-groups:
 # ──────────────── 需提前在配置文件中设定具体的中继节点：使用中灵活性略低 ────────────────
 ## 中继组：提前设定好中继节点（经由机场节点 → 住宅出口链式）  
@@ -179,11 +185,6 @@ proxy-groups:
   #     - bpb01
   #     - bpb02
 
-# 常用策略组分组
-## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
-## 数据引用官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
- samega: &samega {type: select, include-all: true}                                                # 建立名为 samega 的数据锚点
- samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300}                # 建立名为 samegb 的数据锚点
 # 按地区分类分组
 #  - {name: 🌐 手动切换, type: select, include-all: true, filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}     # 含全部节点但不包含其他杂项节点
   - {name: 🌐 手动切换, <<: *samega, filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}     # 全部节点但不包含其他杂项节点
