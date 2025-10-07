@@ -1,7 +1,7 @@
 # 新版OpClash 通用链式代理配置模板
 # 版本：v0.2-251007
 # 作者：ittt456
-# 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP，防止 DNS/WebRTC 泄漏；多分流规则，DNS防泄露
+# 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP，防止 DNS/WebRTC 泄漏（可选）；多分流规则，DNS防泄露
 # 提示：请务必将配置文件中【必改】部分按需修改为自己的真实信息方可使用—— #注释部分根据需要修改或删除或保留注释
 # 声明：仅作学习用，不得用于违法用途，不为使用后果负责
 
@@ -83,8 +83,8 @@ proxies:
   # === 机场节点——可作为链式中继节点（【必改】需替换为真实节点信息）===
   #- {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
   #- {name: bpb02, server: 2.3.4.5, port: 443, type: trojan, password: pass456, sni: example.org, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path2, headers: {Host: example.org}}}
-  - {"name":"RN-hy2","type":"hysteria2","server":"nnvvv.inf5688.eu.org","port":55553,"password":"9efsdfsc-5970-4376-a4ae-9affeafd22c2d","sni":"rnvvv.inf5688.eu.org","skip-cert-verify":false,"tfo":false}
-  - {"name":"lunes6-hy2","type":"hysteria2","server":"node64.lunes.host","port":3247,"password":"K3dsdfasdffeafsd4J8Pzpt","sni":"node64.lunes.host","skip-cert-verify":true,"tfo":false}
+  - {"name":"RN-hy2","type":"hysteria2","server":"nnvvv.inf5688.eu.org","port":55553,"password":"9efsdfsc-5970-4376-a4ae-9*****fd22c2d","sni":"rnvvv.inf5688.eu.org","skip-cert-verify":false,"tfo":false}
+  - {"name":"lunes6-hy2","type":"hysteria2","server":"node64.lunes.host","port":3247,"password":"K3dsd******eafsd4J8Pzpt","sni":"node64.lunes.host","skip-cert-verify":true,"tfo":false}
 
   # === 落地节点-住宅 SOCKS5 节点（一般需要单独购买SOCKS5节点，链式出口节点，需配合 关键字 dialer-proxy）===
   - name: 链代US01-SK5-Free                       # 自定义落地节点，用不上就整段注释掉或删除
@@ -251,4 +251,5 @@ rule-providers:
   private_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
+
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
