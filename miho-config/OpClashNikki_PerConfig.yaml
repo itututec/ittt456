@@ -116,7 +116,7 @@ proxy-providers:
     url: "https://checkhere.top/link/omMhRsdfasdfsY?clash=1"     # 机场订阅链接
     type: http
     interval: 43200
-    filter: "^((?!(到期时间|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"        # 不包含其他杂项节点
+    filter: "^((?!(Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"        # 不包含其他杂项节点
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
@@ -188,10 +188,10 @@ proxy-groups:
 
 # 按地区分类分组
 # 未采用数据锚点时的原始设置
-#  - {name: 🌐 手动切换, type: select, include-all: true, filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}     # 含全部节点但不包含其他杂项节点
+#  - {name: 🌐 手动切换, type: select, include-all: true, filter: "^((?!(Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"}     # 含全部节点但不包含其他杂项节点
 #  - {name: 🚀 默认代理, type: select, proxies: [🌐 手动切换, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
 #  - {name: 🌞 落地节点, type: select, include-all: true, filter: "(?i)SOCKS5|SK5|链式代理|链代"}       # 只包含链式代理落地/SOCKS5节点
-#  - {name: 🔯 自建节点, type: select, include-all: true, filter: "(?=.*(RN|lunes|sap))^((?!(SK5|SOCKS5|链式代理|链代|到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+#  - {name: 🔯 自建节点, type: select, include-all: true, filter: "(?=.*(RN|lunes|sap))^((?!(SK5|SOCKS5|链式代理|链代|Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
 #  - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|HK|hongkong|hong kong"}
 #  - {name: 🇹🇼 台湾节点, type: select, include-all: true, filter: "(?i)台|Taiwan|TW|🇹🇼"}
 #  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|尼日)).)*$" }     # 包含节点名称中含有“日”字相关的节点，但同时不包含尼日利亚相关的节点
