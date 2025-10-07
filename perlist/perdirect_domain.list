@@ -2,13 +2,16 @@
 
 # 直连补充列表
 
+# 域名后缀匹配——重要搜集域名
+# DOMAIN-SUFFIX,keke1.app
+
 # 域名后缀匹配——国内公共域名
 DOMAIN-SUFFIX,gitea.com
 DOMAIN-SUFFIX,deepseek.com
 DOMAIN-SUFFIX,coze.cn
 DOMAIN-SUFFIX,yuque.com
 
-# 域名后缀匹配——个人搜集域名
+# 域名后缀匹配——常用影视域名
 DOMAIN-SUFFIX,keke1.app
 DOMAIN-SUFFIX,keke2.app
 DOMAIN-SUFFIX,keke3.app
