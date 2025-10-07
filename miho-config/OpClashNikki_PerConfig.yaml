@@ -166,17 +166,6 @@ proxies:
 
 # ──────────────── 策略组 ────────────────
 proxy-groups:
-#──────────────── 负载均衡 策略组——经测试再OpClash中无法正常使用，暂不推荐 ────────────────
-#- name: ⚖️ 负载均衡-华东
-#  type: load-balance
-# use:
-#    - 69yun         # 引用机场代理——填引用的机场provider名称
-#  filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|美|SK5|SOCKS5)).)*$"
-#  url: 'https://www.gstatic.com/generate_204'
-   #lazy: true         #  打开lazy时,未选择到当前策略组时,则不会进行测试
-   #disable-udp: true          # 禁用该策略组的UDP
-#  strategy: consistent-hashing # or round-robin
-
 # ──────────────── 需提前在配置文件中设定具体的中继节点：使用中灵活性略低 ────────────────
 ## 中继组：提前设定好中继节点（经由机场节点 → 住宅出口链式）  
 # ──────────────── 中继节点组：设置 包含多个 自动节点策略组 即可，比较灵活，推荐使用 ────────────────
@@ -190,8 +179,15 @@ proxy-groups:
   #     - bpb01
   #     - bpb02
 
-# 通用分组——按地区分类分组
-  - {name: 🌐 手动切换, type: select, include-all: true, filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}     # 全部节点但不包含其他杂项节点
+# 常用策略组分组
+## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点
+## 数据引用官方文档：https://wiki.metacubex.one/handbook/syntax/#_7
+ samega: &samega {type: select, include-all: true}                # 建立名为 samega 的数据锚点
+ samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300}                # 建立名为 samegb 的数据锚点
+# 按地区分类分组
+#  - {name: 🌐 手动切换, type: select, include-all: true, filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}     # 含全部节点但不包含其他杂项节点
+  - {name: 🌐 手动切换, <<: *samega, filter: "^((?!(到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}     # 全部节点但不包含其他杂项节点
+
   - {name: 🚀 默认代理, type: select, proxies: [🌐 手动切换, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
   - {name: 🌞 落地节点, type: select, include-all: true, filter: "(?i)SOCKS5|SK5|链式代理|链代"}       # 只包含链式代理落地/SOCKS5节点
   - {name: 🔯 自建节点, type: select, include-all: true, filter: "(?=.*(RN|lunes|sap))^((?!(SK5|SOCKS5|链式代理|链代|到期时间|硬盘服|资源服|教学服|机场邮箱|国内|永久|基础服|折扣码|涨价|8 折|折)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
