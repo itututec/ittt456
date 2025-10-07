@@ -113,7 +113,7 @@ dns:
 # ──────────────── 机场订阅节点配置 ────────────────
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/omMhRsdfasdfsY?clash=1"     # 机场订阅链接
+    url: "https://checkhere.top/link/omM******sdfsY?clash=1"     # 机场订阅链接
     type: http
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"        # 不包含其他杂项节点
@@ -133,8 +133,8 @@ proxies:
   # === 机场节点——可作为链式中继节点（【必改】需替换为真实节点信息）===
   #- {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
   #- {name: bpb02, server: 2.3.4.5, port: 443, type: trojan, password: pass456, sni: example.org, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path2, headers: {Host: example.org}}}
-  - {"name":"RN-hy2","type":"hysteria2","server":"nnvvv.inf5688.eu.org","port":55553,"password":"9efsdfsc-5970-4376-a4ae-9affeafd22c2d","sni":"rnvvv.inf5688.eu.org","skip-cert-verify":false,"tfo":false}
-  - {"name":"lunes6-hy2","type":"hysteria2","server":"node64.lunes.host","port":3247,"password":"K3dsdfasdffeafsd4J8Pzpt","sni":"node64.lunes.host","skip-cert-verify":true,"tfo":false}
+  - {"name":"RN-hy2","type":"hysteria2","server":"nnvvv.inf5688.eu.org","port":55553,"password":"9efsdfsc-5970-4376-a4ae-9af*****d22c2d","sni":"rnvvv.inf5688.eu.org","skip-cert-verify":false,"tfo":false}
+  - {"name":"lunes6-hy2","type":"hysteria2","server":"node64.lunes.host","port":3247,"password":"K3ds*****ffeafsd4J8Pzpt","sni":"node64.lunes.host","skip-cert-verify":true,"tfo":false}
 
   # === 落地节点-住宅 SOCKS5 节点（一般需要单独购买SOCKS5节点，链式出口节点，需配合 关键字 dialer-proxy）===
   - name: 链代US01-SK5-Free                       # 自定义落地节点，用不上就整段注释掉或删除
