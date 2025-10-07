@@ -216,7 +216,7 @@ rules:
   - MATCH,🐟 漏网之鱼
 
 # 规则集定义
-## type：可选http/file/inline；  behavior：可选domain/ipcidr/classical；  format：可选yaml/text/mrs/list
+## type：可选http/file/inline；  behavior：可选domain/ipcidr/classical；  format：可选yaml/mrs/text(包括list/ini等文本文件)
 # 配置规则集 共用部分的数据锚点
 ## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
 ## 数据引用官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
@@ -251,6 +251,6 @@ rule-providers:
   private_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
-
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+
 
