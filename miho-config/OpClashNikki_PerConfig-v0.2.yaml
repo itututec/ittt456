@@ -63,7 +63,7 @@ dns:
 # ──────────────── 机场订阅节点配置 ────────────────
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/omMhRsdfasdfsY?clash=1"     # 机场订阅链接
+    url: "https://checkhere.top/link/omMh*******sY?clash=1"     # 机场订阅链接
     type: http
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"        # 不包含其他杂项节点
@@ -252,5 +252,6 @@ rule-providers:
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+
 
 
