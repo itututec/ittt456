@@ -5,3 +5,5 @@
 ### > 指定设备走指定的落地链代IP
 
 ## 2 ClashParty-MutiPorts2SK5-模板.yaml 用于ClashParty 或 MihomoParty 将机场订阅节点/住宅IP转化为多出口的SK5被同时调用——比如指纹浏览器多窗口同时调用多个不同SK5
+
+## 3 net-check.list包含常用的测速 / DNS Leak 检测网址的域名或 IP
