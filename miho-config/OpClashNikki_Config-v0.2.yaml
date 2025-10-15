@@ -253,9 +253,3 @@ rule-providers:
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
-
-
-
-
-
-
