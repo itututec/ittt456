@@ -119,9 +119,10 @@ proxies:
 # 配置策略组 共用部分的数据锚点
 ## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
 ## 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
-samega: &samega {type: select, include-all: true}                                                # 建立名为 samega 的数据锚点
-samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300}                # 建立名为 samegb 的数据锚点
-samegp: &samegp {type: select, proxies: [DIRECT, 🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}                # 建立名为 samegp 的数据锚点
+samega: &samega {type: select, include-all: true, proxies: [DIRECT]}                        # 建立名为 samega 的数据锚点
+samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300, proxies: [DIRECT, REJECT]}                # 建立名为 samegb 的数据锚点
+samegp: &samegp {type: select, proxies: [DIRECT, 🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, REJECT]}                # 建立名为 samegp 的数据锚点
+samegd: &samegd {type: select, proxies: [🌐 手动切换, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, REJECT]}                # 建立名为 samegd 的数据锚点——专门供 默认代理 引用
 
 
 proxy-groups:
@@ -141,7 +142,7 @@ proxy-groups:
 # 按地区分类分组
 # 引用数据锚点进行简化
   - {name: 🌐 手动切换, <<: *samega, filter: "^((?!(Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"}     # 全部节点但不包含其他杂项节点
-  - {name: 🚀 默认代理, type: select, proxies: [🌐 手动切换, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}
+  - {name: 🚀 默认代理,  <<: *samegd, type: select}
   - {name: 🌞 落地节点, <<: *samega, filter: "(?i)SOCKS5|SK5|链式代理|链代"}       # 只包含链式代理落地/SOCKS5节点
   - {name: 🔯 自建节点, <<: *samega, filter: "(?=.*(RN|lunes|sap))^((?!(SK5|SOCKS5|链式代理|链代|Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
   - {name: 🇭🇰 香港节点, <<: *samega, filter: "(?i)港|HK|hongkong|hong kong"}
@@ -253,4 +254,5 @@ rule-providers:
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+
 
