@@ -175,7 +175,8 @@ rules:
  # - DOMAIN-KEYWORD,turn,REJECT
  # - DOMAIN-KEYWORD,rtc,REJECT
 
- # 2) 链式代理分流：一机一住宅IP（配合 DHCP 静态分配固定IP 使用，配置后 使得已定义好的 每台设备对应内部固定的IP和 连接外部唯一的落地住宅SK5 IP）；链代落地节点已另外设置好 dialer-proxy中继节点/组，这里只要引用即可
+ # 2) 链式代理分流：一机一住宅IP（配合 DHCP 静态分配固定IP 使用——也可以在新版0.47通过  覆写设置》规则设置》自定义规则  进行添加
+ ## 配置后 使得已定义好的 每台设备对应内部固定的IP和 连接外部唯一的落地住宅SK5 IP）；链代落地节点已另外设置好 dialer-proxy中继节点/组，这里只要引用即可
  # - SRC-IP-CIDR,192.168.20.101/32,链代落地-住宅A    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅A)：发起IP需查阅设备实际分配到的IP，再来这里进行修改
  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅B)：发起IP需查阅设备实际分配到的IP，再来这里进行修改
 
@@ -252,6 +253,7 @@ rule-providers:
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+
 
 
 
