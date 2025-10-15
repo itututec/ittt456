@@ -121,7 +121,7 @@ proxies:
 ## 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
 samega: &samega {type: select, include-all: true}                                                # 建立名为 samega 的数据锚点
 samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300}                # 建立名为 samegb 的数据锚点
-samegp: &samegp {type: select, proxies: [🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}                # 建立名为 samegp 的数据锚点
+samegp: &samegp {type: select, proxies: [DIRECT, 🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}                # 建立名为 samegp 的数据锚点
 
 
 proxy-groups:
@@ -253,3 +253,4 @@ rule-providers:
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+
