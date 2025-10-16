@@ -37,7 +37,7 @@ dns:
   nameserver:                    # 保留
     - 223.5.5.5
     - 119.29.29.29
-    - 192.168.2.1
+    - 192.168.2.1             # 自定义追加的上游DNS解析服务器——一般是上级路由器IP或者本地运营商的DNS服务器——解析最高效
     
  # 后备域名解析服务器，一般情况下使用境外 DNS, 保证结果可信
  # 配置 fallback后默认启用 fallback-filter,geoip-code为 cn 
@@ -254,5 +254,6 @@ rule-providers:
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+
 
 
