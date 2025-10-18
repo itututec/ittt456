@@ -1,5 +1,5 @@
 # 新版OpClash 通用链式代理配置模板
-# 版本：v0.2-251007
+# 版本：v0.2-251007/25101/
 # 作者：ittt456
 # 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP，防止 DNS/WebRTC 泄漏（可选）；多分流规则，DNS防泄露
 # 提示：请务必将配置文件中【必改】部分按需修改为自己的真实信息方可使用—— #注释部分根据需要修改或删除或保留注释
@@ -273,3 +273,4 @@ rule-providers:
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 常用网络检测域名——个人收集
   net-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+
