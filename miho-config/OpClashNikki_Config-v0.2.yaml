@@ -120,8 +120,8 @@ proxies:
 ## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
 ## 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
 samega: &samega {type: select, include-all: true, proxies: [DIRECT]}                        # 建立名为 samega 的数据锚点
-samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300, proxies: [DIRECT, REJECT]}                # 建立名为 samegb 的数据锚点
-samegp: &samegp {type: select, proxies: [DIRECT, 🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, REJECT]}                # 建立名为 samegp 的数据锚点
+samegb: &samegb {type: url-test, include-all: true, tolerance: 20, interval: 300}                # 建立名为 samegb 的数据锚点
+samegp: &samegp {type: select, proxies: [🌐 手动切换, 🔯 自建节点, ♻️ 美国自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点]}                # 建立名为 samegp 的数据锚点
 samegd: &samegd {type: select, proxies: [🌐 手动切换, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动,  🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, REJECT]}                # 建立名为 samegd 的数据锚点——专门供 默认代理 引用
 
 
@@ -143,8 +143,10 @@ proxy-groups:
 # 引用数据锚点进行简化
   - {name: 🌐 手动切换, <<: *samega, filter: "^((?!(Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"}     # 全部节点但不包含其他杂项节点
   - {name: 🚀 默认代理,  <<: *samegd, type: select}
+  
   - {name: 🌞 落地节点, <<: *samega, filter: "(?i)SOCKS5|SK5|链式代理|链代"}       # 只包含链式代理落地/SOCKS5节点
   - {name: 🔯 自建节点, <<: *samega, filter: "(?=.*(RN|lunes|sap))^((?!(SK5|SOCKS5|链式代理|链代|Traffic|Expire|Premium|频道|订阅|到期|重置|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+  
   - {name: 🇭🇰 香港节点, <<: *samega, filter: "(?i)港|HK|hongkong|hong kong"}
   - {name: 🇹🇼 台湾节点, <<: *samega, filter: "(?i)台|Taiwan|TW|🇹🇼"}
   - {name: 🇯🇵 日本节点, <<: *samega, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|尼日)).)*$" }     # 包含节点名称中含有“日”字相关的节点，但同时不包含尼日利亚相关的节点
@@ -155,6 +157,7 @@ proxy-groups:
   - {name: ♻️ 日本自动, <<: *samegb, filter: "(?=.*(日|JP|(?i)Japan))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$" }
   - {name: ♻️ 狮城自动, <<: *samegb, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$" }
   - {name: ♻️ 美国自动, <<: *samegb, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$"}
+  
   - {name: 📹 YouTube, <<: *samegp}
   - {name: 🍀 Google, <<: *samegp}
   - {name: 🤖 ChatGPT, <<: *samegp}
@@ -165,6 +168,7 @@ proxy-groups:
   - {name: 🎵 TikTok, <<: *samegp}
   - {name: 📲 Telegram, <<: *samegp}
   - {name: 🎥 NETFLIX, <<: *samegp}
+  - {name: ✈️ Speedtest, <<: *samegp}
   - {name: 💶 PayPal, <<: *samegp}
   - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 默认代理, ♻️ 香港自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🔯 自建节点,  🌐 手动切换]}
 
@@ -182,7 +186,9 @@ rules:
  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B    # 匹配数据发起 IP:192.168.20.102 走对应的 落地SK5节点:链代落地-住宅B,发起IP需查阅设备实际分配到的IP，再来这里进行修改
 
  # 3) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
+  - RULE-SET,private_domain,DIRECT
   - RULE-SET,net-check,🚀 默认代理
+  
   - RULE-SET,GoogleCNProxy,🚀 默认代理 
   - RULE-SET,perproxy_domain,🚀 默认代理
   - RULE-SET,ai,🤖 ChatGPT
@@ -194,6 +200,7 @@ rules:
   - RULE-SET,microsoft_domain,🪟 Microsoft
   - RULE-SET,apple_domain,DIRECT
   - RULE-SET,tiktok_domain,🎵 TikTok
+  - RULE-SET,speedtest_domain,✈️ Speedtest
   - RULE-SET,telegram_domain,📲 Telegram
   - RULE-SET,netflix_domain,🎥 NETFLIX
   - RULE-SET,paypal_domain,💶 PayPal
@@ -202,10 +209,11 @@ rules:
   - RULE-SET,google_ip,🍀 Google,no-resolve
   - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
   - RULE-SET,telegram_ip,📲 Telegram,no-resolve
+  
+  - RULE-SET,gfw_domain,🚀 默认代理
   - RULE-SET,geolocation-!cn,🚀 默认代理
  
   # 4) 本地直连
-  - RULE-SET,private_domain,DIRECT
   - RULE-SET,private_ip,DIRECT,no-resolve
 #  - IP-CIDR,127.0.0.0/8,DIRECT                                           #匹配数据目标IP(直连)
   
@@ -265,7 +273,3 @@ rule-providers:
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 常用网络检测域名——个人收集
   net-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
-
-
-
-
