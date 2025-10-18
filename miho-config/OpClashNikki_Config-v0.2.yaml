@@ -186,7 +186,6 @@ rules:
  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B    # 匹配数据发起 IP:192.168.20.102 走对应的 落地SK5节点:链代落地-住宅B,发起IP需查阅设备实际分配到的IP，再来这里进行修改
 
  # 3) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
-  - RULE-SET,private_domain,DIRECT
   - RULE-SET,net-check,🚀 默认代理
   
   - RULE-SET,GoogleCNProxy,🚀 默认代理 
@@ -214,6 +213,7 @@ rules:
   - RULE-SET,geolocation-!cn,🚀 默认代理
  
   # 4) 本地直连
+  - RULE-SET,private_domain,DIRECT
   - RULE-SET,private_ip,DIRECT,no-resolve
 #  - IP-CIDR,127.0.0.0/8,DIRECT                                           #匹配数据目标IP(直连)
   
@@ -273,4 +273,5 @@ rule-providers:
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 常用网络检测域名——个人收集
   net-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+
 
