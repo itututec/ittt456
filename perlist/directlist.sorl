@@ -13,9 +13,12 @@
 ; 10.147.20.*
 ; 10.10.10.*
 
-; local IP-直连
+; 本地IP-直连
+; 192.168.1.147
 ; 192.168.2.147
 ; 192.168.3.147
+; 192.168.4.147
+; 192.168.5.147
 ; 10.147.20.147
 
 ; cn 域名-直连
@@ -37,16 +40,15 @@
 *.ncat22.com
 *.ncat23.com
 
-; 其他域名-直连
-*.mozilla.org
-*.dynv6.net
-
 ; 公共域名-直连
 *.gitea.com
 *.deepseek.com
 *.coze.cn
 *.yuque.com
-*.jianguoyun.com
+
+; 其他域名-直连
+*.mozilla.org
+*.dynv6.net
 
 
 
