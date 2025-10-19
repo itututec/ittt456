@@ -1,6 +1,7 @@
 [SwitchyOmega Conditions]
 ; Require: SwitchyOmega >= 2.3.2; Smartproxy >=1.6.2
-; Update Date: 2025/2/24
+; 自定义/自收集 常用 直连域名/IP
+; Update Date: 2025/10/19
 ; Author: itututec
 
 ; IP 地址段-直连
@@ -19,7 +20,7 @@
 ; cn 域名-直连
 ; *.cn
 
-;自定义域名
+;自定义域名-直连
 *.surveymonkey.club
 
 ; 影视域名-直连
@@ -31,6 +32,9 @@
 *.kkys01.com
 *.kkys02.com
 *.kkys03.com
+*.ncat21.com
+*.ncat22.com
+*.ncat23.com
 
 ; 其他域名-直连
 *.mozilla.org
@@ -41,4 +45,6 @@
 *.deepseek.com
 *.coze.cn
 *.yuque.com
+*.jianguoyun.com
+
 
