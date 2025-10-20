@@ -51,7 +51,7 @@ dns:
  # 通配符 + 类似 DOMAIN-SUFFIX, 可以一次性匹配多个级别，比如＋.baidu.com 匹配 tieba.baidu.com 和 123.tieba.baidu.com 或者 baidu.com
  # 通配符 . 可以一次性匹配多个级别，比如.baidu.com 匹配 tieba.baidu.com 和 123.tieba.baidu.com, 但不能匹配 baidu.com
 #  fake-ip-filter:
-#   - geosite:cn
+#    - geosite:cn
 #    - localhost.ptlogin2.qq.com
 #    - 'stun.*.*'
 #    - '*.stun.*'	
@@ -288,6 +288,7 @@ rule-providers:
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 常用网络检测域名——个人收集
   net-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+
 
 
 
