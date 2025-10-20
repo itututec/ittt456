@@ -185,7 +185,10 @@ rules:
  # - SRC-IP-CIDR,192.168.20.101/32,链代落地-住宅A    # 匹配数据发起 IP:192.168.20.101 走对应的 落地SK5节点:链代落地-住宅A,发起IP需查阅设备实际分配到的IP，再来这里进行修改
  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B    # 匹配数据发起 IP:192.168.20.102 走对应的 落地SK5节点:链代落地-住宅B,发起IP需查阅设备实际分配到的IP，再来这里进行修改
 
- # 3) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
+ # 3) BT 和 PT 等下载流量分流问题——下载机/NAS设备的全部流量将直连
+ # - SRC-IP-CIDR,192.168.1.201/32,DIRECT
+
+ # 4) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
   - RULE-SET,net-check,🚀 默认代理
   
   - RULE-SET,GoogleCNProxy,🚀 默认代理 
@@ -212,18 +215,18 @@ rules:
   - RULE-SET,gfw_domain,🚀 默认代理
   - RULE-SET,geolocation-!cn,🚀 默认代理
  
-  # 4) 本地直连
+  # 5) 本地直连
   - RULE-SET,private_domain,DIRECT
   - RULE-SET,private_ip,DIRECT,no-resolve
-#  - IP-CIDR,127.0.0.0/8,DIRECT                                           #匹配数据目标IP(直连)
+  # - IP-CIDR,127.0.0.0/8,DIRECT                                           #匹配数据目标IP(直连)
   
-  # 5) 国内直连
+  # 6) 国内直连
   - RULE-SET,perdirect_domain,DIRECT
   - RULE-SET,cn_domain,DIRECT
   - RULE-SET,cn_ip,DIRECT,no-resolve
   - GEOIP,CN,DIRECT,no-resolve
  
-  # 6) 其他流量默认走代理/兜底设置
+  # 7) 其他流量默认走代理/兜底设置
   - MATCH,🐟 漏网之鱼
 
 # 规则集定义
@@ -273,5 +276,6 @@ rule-providers:
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 常用网络检测域名——个人收集
   net-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+
 
 
