@@ -23,13 +23,18 @@ respect-rules: true
 # ──────────────── DNS 设置（防 DNS 泄漏） ────────────────
 #--------------------DNS各项设置官方说明 https://merlinkodo.github.io/Clash-Rev-Doc/config/dns/#nameserver-policy
 dns:
-  enable: true   
+  enable: true
+
+ # ipv6:false表示不开启ipv6 解析——ipleak.net检测时IPv4是国外的，IPv6地址是没有的，且没有DNS泄露/污染
+ # ipv6:true表示开启ipv6 解析，需同时在 Openwrt》插件设置》IPv6设置 中勾选 IPv6流量代理 和 允许 IPv6 类型 DNS 解析，
+ # 这样ipleak.net检测时IPv4和IPv6都是国外的，且没有DNS泄露/污染——否则ipleak.net检测时IPv6地址是本地公网IPv6，存在风险
   ipv6: false
+  
   listen: 0.0.0.0:7874                                                             # 开启 DNS 服务器监听
   enhanced-mode: fake-ip                                            # 模式切换 redir-host / fake-ip
   fake-ip-range: 198.18.0.1/16                                       # fake-ip 池设置 
   
-  # 配置fake-ip-filter的匹配模式，默认为blacklist，即如果匹配成功不返回fake-ip
+ # 配置fake-ip-filter的匹配模式，默认为blacklist，即如果匹配成功不返回fake-ip
  # 可设置为whitelist，即只有匹配成功才返回fake-ip
  # fake-ip-filter-mode: blacklist
   
@@ -289,6 +294,7 @@ rule-providers:
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 常用网络检测域名——个人收集
   net-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+
 
 
 
