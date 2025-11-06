@@ -41,15 +41,17 @@
 ; *.ncat23.com
 
 ; 公共域名-直连
-*.cloudflare.com
+;*.cloudflare.com
 *.gitea.com
 *.deepseek.com
 *.coze.cn
 *.yuque.com
+*.netlib.re
 
 ; 其他域名-直连
 *.mozilla.org
 *.dynv6.net
+
 
 
 
