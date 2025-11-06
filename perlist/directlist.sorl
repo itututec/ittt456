@@ -47,10 +47,12 @@
 *.coze.cn
 *.yuque.com
 *.netlib.re
+*.360.net
 
 ; 其他域名-直连
 *.mozilla.org
 *.dynv6.net
+
 
 
 
