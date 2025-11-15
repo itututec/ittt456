@@ -236,7 +236,7 @@ proxy-groups:
   - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/DE.png}
 
 ## e 自定义节点组，包括自己部署的节点 和 获取的免费节点（免费节点命名需带 free|Free|免费 等字样），非必选项，按需定义或配置
-  - {name: SelfAll, type: select, include-all: true, filter: "(?i)free|Free|免费|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}
+  - {name: SelfAll, type: select, include-all: true, filter: "(?i)free|Free|免费|pD|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}      # pD表示自定义的节点——personal Define nodes的缩写
 
 ## ↓↓↓以下策略组自动测速自动选择节点↓↓↓
   - name: ALL AUTO
@@ -500,3 +500,4 @@ rule-providers:
   #   interval: 86400
   #   format: yaml
   #   type: http
+
