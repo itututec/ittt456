@@ -1,7 +1,7 @@
-# 版本：v0.2-251007
+# 版本：v0.3-251117
 # 作者：ittt456
 # 适用：用作Clash-Party覆写模板 (DNS防泄漏）
-# 备注：部分功能可选，可通过#注释或取消#注释实现是否可用，同样功能的不建议同时使用容易出问题
+# 备注：部分功能可选，可通过#注释或取消#注释实现是否可用，同样功能的不建议同时使用容易出问题 / 修改策略组为中文名称
 # 声明：仅作学习用，不得用于违法用途，不为使用后果负责
 # ICON：只有大分组Icon——采用url链接的png作为Icon；没有小分组Icon——采用emoji图标形式的Icon；如果ICON都不需要可#注释掉或直接删除
 
@@ -212,12 +212,12 @@ proxy-groups:
 ## -------------------- relay 链式代理 -------------------- ##
 ## b 基于关键字relay的链式代理做法——不推荐，有很多缺点(如udp异常/grpc延迟过高等)——官方已有新方法即dialer-proxy，但relay依然可用；
 # 1.1 只需在本模板文件中定义好type为relay的链式代理节点组，不需要在proxies下添加落地节点时额外定义关键字dialer-proxy信息，配置相对简单。
-#  - {name: EC2US, type: relay, proxies: [中继节点(组)名称, 落地节点(组)名称]}                              #范例基本书写格式，表示通过 中继节点(组)→→→落地节点(组)
+#  - {name: 华东中继, type: relay, proxies: [中继节点(组)名称, 落地节点(组)名称]}                              #范例基本书写格式，表示通过 中继节点(组)→→→落地节点(组)
 # 👉👉👉↓↓↓以下四行是实际范例书写格式和注释说明↓↓↓
 #  - {name: 落地SK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|(?i)SOCKS5"}          #范例落地节点组，包含住宅SOCKS5节点
-#  - {name: 华东中继, type: select, proxies: [JP AUTO, TW AUTO]}                                         #范例华东中继组，包含JP AUTO, TW AUTO等策略组的节点
-#  - {name: 华南中继, type: select, proxies: [HK AUTO, SG AUTO]}                                         #范例华南中继组，包含HK AUTO, SG AUTO等策略组的节点
-#  - {name: relay链代, type: relay, proxies: [EC2Base, DestSK5]}                                      #范例relay链式代理，表示通过 中继节点(组)EC2SK5→→→落地节点(组)LandingSK5
+#  - {name: 华东中继, type: select, proxies: [日本自动, 台湾自动]}                                         #范例华东中继组，包含JP AUTO, TW AUTO等策略组的节点
+#  - {name: 华南中继, type: select, proxies: [香港自动, 狮城自动]}                                         #范例华南中继组，包含HK AUTO, SG AUTO等策略组的节点
+#  - {name: relay链代, type: relay, proxies: [华东中继, 落地SK5]}                                      #范例relay链式代理，表示通过 中继节点(组)EC2SK5→→→落地节点(组)LandingSK5
   # relay特别说明(参考https://clash-meta.gitbook.io/clash.meta-wiki-older/function/proxygroups/relay 和 https://merlinkodo.github.io/Clash-Rev-Doc/config/proxy-groups/relay/)：
    # 1 relay支持传输UDP，前提是代理链的头尾节点都要支持 UDP over TCP。目前支持 udp 的协议有 vmess/vless/trojan/ss/ssr/tuic/hy，不支持udp协议的是不能使用relay实现链式代理的；
    # 2 添加type为relay的代理组，且该代理组的节点顺序是，打底/中继节点(组)名称在前，落地socks5节点(组)名称在后(落地节点必须支持udp协议，设置建议打开udp为true)；
@@ -226,10 +226,10 @@ proxy-groups:
 ## -------------------- 中继节点组 -------------------- ##
 ## c 中继节点组——辅助链式代理进行使用，可以根据需要定义，也可直接使用上述现成的策略组作为中继节点组
 # 华东中继组（Eastern China简写为East，包括 台湾/日本/美洲 等节点）→→→落地是去向 东亚/美洲 的住宅SK5节点
-  - {name: 华东中继, type: select, proxies: [JP AUTO, TW AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}           #手动切换华东中继策略组
+  - {name: 华东中继, type: select, proxies: [日本自动, 台湾自动], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}           #手动切换华东中继策略组
 #  - {name: 华东中继, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
 # 华南中继组（Southern China简写SC，包括 香港/新加坡/欧洲 等节点），手动选择华东中继策略组→→→落地是去向 东南亚(越南/印尼/马来西亚/新加坡)/欧洲 的住宅SK5节点
-  - {name: 华南中继, type: select, proxies: [HK AUTO, SG AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}          #手动切换华南中继策略组
+  - {name: 华南中继, type: select, proxies: [香港自动, 狮城自动], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}          #手动切换华南中继策略组
 #  - {name: 华南中继, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
 
 ## -------------------- 其他策略组，按需定义和分类 -------------------- ##
@@ -394,110 +394,3 @@ rule-providers:
   bard: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml"}
   openai: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"}
   steam: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml"}
-
-  # 原始格式——未采用数据引用，有点繁长
-  # private_domain:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml
-  #   path: ./ruleset/private.yaml
-  #   behavior: domain
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # cn_domain:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml
-  #   path: ./ruleset/cn_domain.yaml
-  #   behavior: domain
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # telegram_domain:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml
-  #   path: ./ruleset/telegram_domain.yaml
-  #   behavior: domain
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # google_domain:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml
-  #   path: ./ruleset/google_domain.yaml
-  #   behavior: domain
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # gfw_domain:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.yaml
-  #   path: ./ruleset/gfw.yaml
-  #   behavior: domain
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # geolocation-!cn:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml
-  #   path: ./ruleset/geolocation-!cn.yaml
-  #   behavior: domain
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # cn_ip:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml
-  #   path: ./ruleset/cn_ip.yaml
-  #   behavior: ipcidr
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # telegram_ip:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml
-  #   path: ./ruleset/telegram_ip.yaml
-  #   behavior: ipcidr
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # google_ip:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.yaml
-  #   path: ./ruleset/google_ip.yaml
-  #   behavior: ipcidr
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # bing:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml
-  #   path: ./ruleset/bing.yaml
-  #   behavior: classical
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # copilot:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml
-  #   path: ./ruleset/copilot.yaml
-  #   behavior: classical
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # claude:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml
-  #   path: ./ruleset/claude.yaml
-  #   behavior: classical
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # bard:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml
-  #   path: ./ruleset/bard.yaml
-  #   behavior: classical
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # openai:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
-  #   path: ./ruleset/openai.yaml
-  #   behavior: classical
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
-  # steam:
-  #   url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml
-  #   path: ./ruleset/steam.yaml
-  #   behavior: classical
-  #   interval: 86400
-  #   format: yaml
-  #   type: http
