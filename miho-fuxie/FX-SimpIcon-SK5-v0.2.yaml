@@ -16,6 +16,12 @@ ipv6: false
 allow-lan: true               # 是否允许局域网设备连接
 unified-delay: true
 tcp-concurrent: true
+
+## 控制面板
+external-controller: 127.0.0.1:9090       # 外部控制面板端口
+secret: ""
+external-ui: ui
+external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
   
 geodata-mode: false
 geodata-loader: standard
@@ -27,11 +33,6 @@ geox-url:
   mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
   asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
   
-## 控制面板
-external-controller: 0.0.0.0:9090       # 外部控制面板端口
-secret: ""
-external-ui: ui
-external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
 
 ## 匹配进程 always/strict/off
 find-process-mode: strict
@@ -182,20 +183,20 @@ dns:
 
 ## 出站策略组
 proxy-groups:
-  - name: ManualSwitch  #手动切换具体节点
+  - name: H_Switch  # 手动切换具体节点
     icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
     type: select
     include-all: true
 #    filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}                        # 包含节点(?=.*(港|HK|(?i)Hong|Hongkong|HK))，同时不包含节点^((?!(台|日|韩|新|美|SK5|SOCKS5)).)
     filter: "^((?!(到期|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折|优惠|交流|讨论|emby|Emby)).)*$"        # 不包含 到期|硬盘服|资源服... 等其他杂项节点
-  - name: DefaultProxy  #手动选择策略组分类
+  - name: D_Proxy  # 默认策略组/节点
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     proxies:
-      - ManualSwitch
+      - H_Switch
       - ALL AUTO
       - DestSK5
-      - SelfAll
+      - Self ALL
       - HK AUTO
       - SG AUTO
       - TW AUTO
@@ -236,7 +237,7 @@ proxy-groups:
   - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/DE.png}
 
 ## e 自定义节点组，包括自己部署的节点 和 获取的免费节点（免费节点命名需带 free|Free|免费 等字样），非必选项，按需定义或配置
-  - {name: SelfAll, type: select, include-all: true, filter: "(?i)free|Free|免费|pD|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}      # pD表示自定义的节点——personal Define nodes的缩写
+  - {name: Self ALL, type: select, include-all: true, filter: "(?i)free|Free|免费|pD|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}
 
 ## ↓↓↓以下策略组自动测速自动选择节点↓↓↓
   - name: ALL AUTO
@@ -318,11 +319,11 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     proxies:
-      - DefaultProxy
-      - ManualSwitch
+      - D_Proxy
+      - H_Switch
       - ALL AUTO
       - DestSK5
-      - SelfAll
+      - Self ALL
       - AIGC
       - Telegram
       - Google
@@ -335,20 +336,20 @@ proxy-groups:
 #匹配规则
 rules:
   # 1) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
-  - RULE-SET,net-check,DefaultProxy
-  - RULE-SET,GoogleCNProxy,DefaultProxy
+  - RULE-SET,net-check,D_Proxy
+  - RULE-SET,GoogleCNProxy,D_Proxy
   - RULE-SET,bing,AIGC
   - RULE-SET,copilot,AIGC
   - RULE-SET,bard,AIGC
   - RULE-SET,openai,AIGC
   - RULE-SET,claude,AIGC
-  - RULE-SET,steam,DefaultProxy
+  - RULE-SET,steam,D_Proxy
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,google_domain,Google
   - RULE-SET,google_ip,Google,no-resolve
-  - RULE-SET,gfw_domain,DefaultProxy
-  - RULE-SET,geolocation-!cn,DefaultProxy,no-resolve
+  - RULE-SET,gfw_domain,D_Proxy
+  - RULE-SET,geolocation-!cn,D_Proxy,no-resolve
 
   # 2) 本地直连
   - RULE-SET,private_domain,DIRECT
@@ -361,7 +362,7 @@ rules:
   - GEOIP,CN,DIRECT,no-resolve
 
   # 4) 其他流量默认走代理/兜底设置
-  - MATCH,DefaultProxy
+  - MATCH,D_Proxy
 
 # 规则集定义
 ## type：可选http/file/inline；  behavior：可选domain/ipcidr/classical；  format：可选yaml/text/mrs/list
@@ -370,7 +371,7 @@ rules:
 ## 数据引用官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
 rule-anchor:
   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}                # 建立名为 ip 的数据锚点
-  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}        # 建立名为 domain 的数据锚点
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: yaml}        # 建立名为 domain 的数据锚点
   class: &class {type: http, interval: 86400, behavior: classical, format: text}      # 建立名为 clashh 的数据锚点
 
 rule-providers:
@@ -500,4 +501,3 @@ rule-providers:
   #   interval: 86400
   #   format: yaml
   #   type: http
-
