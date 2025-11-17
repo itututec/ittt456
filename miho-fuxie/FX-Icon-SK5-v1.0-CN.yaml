@@ -221,8 +221,8 @@ proxy-groups:
 #  - {name: 华东中继, type: relay, proxies: [中继节点(组)名称, 落地节点(组)名称]}                              #范例基本书写格式，表示通过 中继节点(组)→→→落地节点(组)
 # 👉👉👉↓↓↓以下四行是实际范例书写格式和注释说明↓↓↓
 #  - {name: 落地SK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|http|SOCKS5"}          #范例落地节点组，包含住宅SOCKS5节点
-#  - {name: 华东中继, type: select, proxies: [日本自动, 台湾自动,日本节点, 台湾节点]}                                         #范例华东中继组，包含JP AUTO, TW AUTO等策略组的节点
-#  - {name: 华南中继, type: select, proxies: [香港自动, 狮城自动,香港节点, 狮城节点]}                                         #范例华南中继组，包含HK AUTO, SG AUTO等策略组的节点
+#  - {name: 华东中继, type: select, proxies: [日本自动, 台湾自动,日本节点, 台湾节点]}                      #范例华东中继组，包含JP AUTO, TW AUTO等策略组的节点
+#  - {name: 华南中继, type: select, proxies: [香港自动, 狮城自动,香港节点, 狮城节点]}                      #范例华南中继组，包含HK AUTO, SG AUTO等策略组的节点
 #  - {name: relay链代, type: relay, proxies: [华东中继, 落地SK5]}                                      #范例relay链式代理，表示通过 中继节点(组)EC2SK5→→→落地节点(组)LandingSK5
   # relay特别说明(参考https://clash-meta.gitbook.io/clash.meta-wiki-older/function/proxygroups/relay 和 https://merlinkodo.github.io/Clash-Rev-Doc/config/proxy-groups/relay/)：
    # 1 relay支持传输UDP，前提是代理链的头尾节点都要支持 UDP over TCP。目前支持 udp 的协议有 vmess/vless/trojan/ss/ssr/tuic/hy，不支持udp协议的是不能使用relay实现链式代理的；
