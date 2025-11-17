@@ -183,25 +183,25 @@ dns:
 
 ## 出站策略组
 proxy-groups:
-  - name: H_Switch  # 手动切换具体节点
+  - name: 手动切换  # 手动切换具体节点
     icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
     type: select
     include-all: true
 #    filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}                        # 包含节点(?=.*(港|HK|(?i)Hong|Hongkong|HK))，同时不包含节点^((?!(台|日|韩|新|美|SK5|SOCKS5)).)
     filter: "^((?!(到期|硬盘服|资源服|教学服|邮箱|国内|永久|基础服|折扣码|涨价|折|优惠|交流|讨论|emby|Emby)).)*$"        # 不包含 到期|硬盘服|资源服... 等其他杂项节点
-  - name: D_Proxy  # 默认策略组/节点
+  - name: 默认代理  # 默认策略组/节点
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png
     type: select
     proxies:
-      - H_Switch
-      - ALL AUTO
-      - DestSK5
-      - Self ALL
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 手动切换
+      - 全部自动
+      - 落地SK5
+      - 自建全部
+      - 香港自动
+      - 狮城自动
+      - 台湾自动
+      - 日本自动
+      - 美国自动
       - DIRECT
 
 ### 链式代理(组)配置
@@ -214,9 +214,9 @@ proxy-groups:
 # 1.1 只需在本模板文件中定义好type为relay的链式代理节点组，不需要在proxies下添加落地节点时额外定义关键字dialer-proxy信息，配置相对简单。
 #  - {name: EC2US, type: relay, proxies: [中继节点(组)名称, 落地节点(组)名称]}                              #范例基本书写格式，表示通过 中继节点(组)→→→落地节点(组)
 # 👉👉👉↓↓↓以下四行是实际范例书写格式和注释说明↓↓↓
-#  - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|(?i)SOCKS5"}          #范例落地节点组，包含住宅SOCKS5节点
-#  - {name: EC2Base, type: select, proxies: [JP AUTO, TW AUTO]}                                         #范例华东中继组，包含JP AUTO, TW AUTO等策略组的节点
-#  - {name: SC2Base, type: select, proxies: [HK AUTO, SG AUTO]}                                         #范例华南中继组，包含HK AUTO, SG AUTO等策略组的节点
+#  - {name: 落地SK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|(?i)SOCKS5"}          #范例落地节点组，包含住宅SOCKS5节点
+#  - {name: 华东中继, type: select, proxies: [JP AUTO, TW AUTO]}                                         #范例华东中继组，包含JP AUTO, TW AUTO等策略组的节点
+#  - {name: 华南中继, type: select, proxies: [HK AUTO, SG AUTO]}                                         #范例华南中继组，包含HK AUTO, SG AUTO等策略组的节点
 #  - {name: relay链代, type: relay, proxies: [EC2Base, DestSK5]}                                      #范例relay链式代理，表示通过 中继节点(组)EC2SK5→→→落地节点(组)LandingSK5
   # relay特别说明(参考https://clash-meta.gitbook.io/clash.meta-wiki-older/function/proxygroups/relay 和 https://merlinkodo.github.io/Clash-Rev-Doc/config/proxy-groups/relay/)：
    # 1 relay支持传输UDP，前提是代理链的头尾节点都要支持 UDP over TCP。目前支持 udp 的协议有 vmess/vless/trojan/ss/ssr/tuic/hy，不支持udp协议的是不能使用relay实现链式代理的；
@@ -226,55 +226,55 @@ proxy-groups:
 ## -------------------- 中继节点组 -------------------- ##
 ## c 中继节点组——辅助链式代理进行使用，可以根据需要定义，也可直接使用上述现成的策略组作为中继节点组
 # 华东中继组（Eastern China简写为East，包括 台湾/日本/美洲 等节点）→→→落地是去向 东亚/美洲 的住宅SK5节点
-  - {name: EC2Base, type: select, proxies: [JP AUTO, TW AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}           #手动切换华东中继策略组
-#  - {name: EC2Base, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
+  - {name: 华东中继, type: select, proxies: [JP AUTO, TW AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}           #手动切换华东中继策略组
+#  - {name: 华东中继, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
 # 华南中继组（Southern China简写SC，包括 香港/新加坡/欧洲 等节点），手动选择华东中继策略组→→→落地是去向 东南亚(越南/印尼/马来西亚/新加坡)/欧洲 的住宅SK5节点
-  - {name: SC2Base, type: select, proxies: [HK AUTO, SG AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}          #手动切换华南中继策略组
-#  - {name: SC2Base, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
+  - {name: 华南中继, type: select, proxies: [HK AUTO, SG AUTO], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}          #手动切换华南中继策略组
+#  - {name: 华南中继, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
 
 ## -------------------- 其他策略组，按需定义和分类 -------------------- ##
 ## d 落地节点组，包括住宅节点（命名需带 SK5|SOCKS5|住宅 等字样）
-  - {name: DestSK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/DE.png}
+  - {name: 落地SK5, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/DE.png}
 
 ## e 自定义节点组，包括自己部署的节点 和 获取的免费节点（免费节点命名需带 free|Free|免费 等字样），非必选项，按需定义或配置
   - {name: Self ALL, type: select, include-all: true, filter: "(?i)free|Free|免费|pD|rn|racknerd|RN|cc|colocrossingnc|netcup|serv00|hostuno|lunes|sap", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Static.png}
 
 ## ↓↓↓以下策略组自动测速自动选择节点↓↓↓
-  - name: ALL AUTO
+  - name: 全部自动
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     type: url-test
     interval: 300
-  - name: HK AUTO
+  - name: 香港自动
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)香港|Hong Kong|HK|🇭🇰
     type: url-test
     interval: 300
-  - name: SG AUTO
+  - name: 狮城自动
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)新加坡|Singapore|SG|🇸🇬
     type: url-test
     interval: 300
-  - name: TW AUTO
+  - name: 台湾自动
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Taiwan.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)台湾|Taiwan|TW|🇹🇼
     type: url-test
     interval: 300
-  - name: JP AUTO
+  - name: 日本自动
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Japan.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     filter: (?i)日本|Japan|JP|🇯🇵
     type: url-test
     interval: 300
-  - name: US AUTO
+  - name: 美国自动
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
@@ -286,32 +286,32 @@ proxy-groups:
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png
     type: select
     proxies:
-      - DestSK5
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 落地SK5
+      - 香港自动
+      - 狮城自动
+      - 台湾自动
+      - 日本自动
+      - 美国自动
   - name: Telegram
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Telegram.png
     type: select
     proxies:
-      - DestSK5
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 落地SK5
+      - 香港自动
+      - 狮城自动
+      - 台湾自动
+      - 日本自动
+      - 美国自动
   - name: Google
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Google_Search.png
     type: select
     proxies:
-      - DestSK5
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 落地SK5
+      - 香港自动
+      - 狮城自动
+      - 台湾自动
+      - 日本自动
+      - 美国自动
 # ↓↓↓全局策略组↓↓↓
   - name: GLOBAL
     icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png
@@ -319,37 +319,37 @@ proxy-groups:
     include-all: true
     exclude-filter: (?i)GB|Traffic|Expire|Premium|频道|订阅|ISP|流量|到期|重置
     proxies:
-      - D_Proxy
-      - H_Switch
-      - ALL AUTO
-      - DestSK5
-      - Self ALL
+      - 默认代理
+      - 手动切换
+      - 全部自动
+      - 落地SK5
+      - 自建全部
       - AIGC
       - Telegram
       - Google
-      - HK AUTO
-      - SG AUTO
-      - TW AUTO
-      - JP AUTO
-      - US AUTO
+      - 香港自动
+      - 狮城自动
+      - 台湾自动
+      - 日本自动
+      - 美国自动
 
 #匹配规则
 rules:
   # 1) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
-  - RULE-SET,net-check,D_Proxy
-  - RULE-SET,GoogleCNProxy,D_Proxy
+  - RULE-SET,net-check,默认代理
+  - RULE-SET,GoogleCNProxy,默认代理
   - RULE-SET,bing,AIGC
   - RULE-SET,copilot,AIGC
   - RULE-SET,bard,AIGC
   - RULE-SET,openai,AIGC
   - RULE-SET,claude,AIGC
-  - RULE-SET,steam,D_Proxy
+  - RULE-SET,steam,默认代理
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,google_domain,Google
   - RULE-SET,google_ip,Google,no-resolve
-  - RULE-SET,gfw_domain,D_Proxy
-  - RULE-SET,geolocation-!cn,D_Proxy,no-resolve
+  - RULE-SET,gfw_domain,默认代理
+  - RULE-SET,geolocation-!cn,默认代理,no-resolve
 
   # 2) 本地直连
   - RULE-SET,private_domain,DIRECT
@@ -362,7 +362,7 @@ rules:
   - GEOIP,CN,DIRECT,no-resolve
 
   # 4) 其他流量默认走代理/兜底设置
-  - MATCH,D_Proxy
+  - MATCH,默认代理
 
 # 规则集定义
 ## type：可选http/file/inline；  behavior：可选domain/ipcidr/classical；  format：可选yaml/text/mrs/list
