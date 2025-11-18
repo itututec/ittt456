@@ -174,9 +174,10 @@ proxy-groups:
   - {name: GitHub, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/GitHub.png}
   - {name: Reddit, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Reddit.svg}
   - {name: OneDrive, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/OneDrive.svg}
-  - {name:  Microsoft, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Microsoft.png}
+  - {name: Microsoft, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Microsoft.png}
   - {name: TikTok, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/TikTok.png}
   - {name: Telegram, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Telegram.png}
+  - {name: Facebook, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Facebook.png}
   - {name: NETFLIX, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Netflix.svg}
   - {name: Games, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Game.png}
   - {name: Networks, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Speedtest.png}
@@ -216,6 +217,7 @@ rules:
   - RULE-SET,apple_domain,DIRECT
   - RULE-SET,tiktok_domain,TikTok
   - RULE-SET,telegram_domain,Telegram
+  - RULE-SET,facebook_domain,Facebook
   - RULE-SET,netflix_domain,NETFLIX
   - RULE-SET,paypal_domain,PayPal
   - RULE-SET,apple_ip,DIRECT,no-resolve
@@ -254,11 +256,12 @@ rule-providers:
   private_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
 
   # 常用国外网站域名
-  ai: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
+  ai_domain: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
   youtube_domain: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
   google_domain: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
   github_domain: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
   telegram_domain: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  facebook_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"}
   netflix_domain: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
   paypal_domain: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
   onedrive_domain: { <<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
