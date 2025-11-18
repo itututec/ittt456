@@ -284,4 +284,4 @@ rule-providers:
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 常用网络检测域名——个人收集
-  network_check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+  network_check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
