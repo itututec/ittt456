@@ -107,7 +107,7 @@ proxies:
   #- {name: hy2, server: 1.2.3.4, port: 443, type: hysteria2, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
 
   # === 落地节点-ISP住宅 SOCKS5 节点（一般需要单独购买SOCKS5节点，链式出口节点，需配合 关键字 dialer-proxy）===
-  - name: 链代US01-SK5-Free                       # 自定义落地节点，用不上就整段注释掉或删除
+  - name: 落地SK5-US01                       # 自定义落地节点，用不上就整段注释掉或删除
     type: socks5
     server: 184.178.172.13                                   # 【必改】SOCKS5 的IP地址
     port: 15311                                                       # 【必改】端口号
@@ -116,7 +116,7 @@ proxies:
     udp: true
     dialer-proxy: 华东中继节点                        # 指定前置中继节点或节点组，如果能直连也可以不需要通过中继节点/组——注释掉或删除dialer-proxy即可
 
-  - name: 链代US02-SK5-Free                       # 自定义落地节点，用不上就整段注释掉或删除
+  - name: 落地SK5-US02                       # 自定义落地节点，用不上就整段注释掉或删除
     type: socks5
     server: 162.253.68.97                                   # 【必改】SOCKS5 的IP地址
     port: 4145                                                        # 【必改】端口号
