@@ -1,4 +1,4 @@
-## 覆写模板，可用于mihomo-party使用
+## 覆写模板，可用于mihomo-party使用：
 
 ### 1 自定义覆写模板（带Icon）：
     - FX-SelectIcon-SK5.yaml
