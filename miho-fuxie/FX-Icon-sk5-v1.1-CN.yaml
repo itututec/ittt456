@@ -208,7 +208,7 @@ proxy-groups:
 #匹配规则
 rules:
   # 1) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
-  - RULE-SET,net-check,默认代理
+  - RULE-SET,network-check,默认代理
   - RULE-SET,GoogleCNProxy,默认代理
   - RULE-SET,bing,AIGC
   - RULE-SET,copilot,AIGC
@@ -255,7 +255,7 @@ rule-anchor:
 
 rule-providers:
   # 简化后格式——引用锚点数据，简单明了
-  net-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+  network-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
   GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
   perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   private_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml"}
