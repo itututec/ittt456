@@ -14,6 +14,14 @@ mode: rule                        # 使用规则模式分流
 log-level: info                   # 日志级别
 external-controller: :9090        # 外部控制面板端口
 
+# 为防止使用插件朋友遇到面板问题，我注释掉了此模块。
+# 跑裸核朋友自行删除注释即可，使用nikki仅内核的ui路径改为/etc/nikki/run/ui
+# external-controller: 0.0.0.0:9090
+# secret: ""
+# external-ui: "/etc/mihomo/ui"
+# external-ui-name: zashboard
+# external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+
 # 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
 # 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
 # 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
@@ -23,6 +31,34 @@ respect-rules: true
 
 tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
 unified-delay: true         # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差
+
+# 嗅探
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - "+.v2ex.com"
+  skip-domain:
+    - "+.baidu.com"
+
+# 入站  
+tun:
+  enable: true      # 是否启用 tun 模式来路由全局流量
+  stack: mixed      # tun 模式堆栈,可用值system/gvisor/mixed/lwip,如无使用问题,建议使用 system 栈;MacOS 用户推荐 gvisor栈
+  dns-hijack: ["any:53", "tcp://any:53"]      # dns劫持,一般设置为 any:53 即可, 即劫持所有 53 端口的 udp 流量
+  #使用nikki，混入全部不修改的情况，开启接口指定为nikki
+  #使用仅内核自行修改下面三项为true
+  #device: utun0      # 指定 tun 网卡名称,MacOS 设备只能使用 utun 开头的网卡名
+  auto-route: false      # 自动设置全局路由,可以自动将全局流量路由进入 tun 网卡
+  auto-redirect: false
+  auto-detect-interface: false      # 自动选择流量出口接口,多出口网卡同时连接的设备建议手动指定出口网卡
 
 # ──────────────── DNS 设置（防 DNS 泄漏） ────────────────
 #--------------------DNS各项设置官方说明 https://merlinkodo.github.io/Clash-Rev-Doc/config/dns/#nameserver-policy
