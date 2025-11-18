@@ -111,6 +111,7 @@ proxy-providers:
 # ──────────────── 单个节点配置，可添加多个节点，每行一个 ────────────────
 proxies:
   # - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
+  # - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
 
   # === 机场节点——可作为链式中继节点（【必改】需替换为真实节点信息）===
   #- {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
@@ -307,6 +308,7 @@ rule-providers:
   perproxy_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 常用网络检测域名——个人收集
   net-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+
 
 
 
