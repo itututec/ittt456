@@ -1,12 +1,10 @@
-# 版本：v1.1-251118
+# 版本：v1.0-251117
 # 作者：ittt456
-# 适用：用作Clash Party覆写模板 (DNS防泄漏）
+# 适用：用作Clash-Party覆写模板 (DNS防泄漏）
 # 备注：部分功能可选，可通过#注释或取消#注释实现是否可用，同样功能的不建议同时使用容易出问题
 # 声明：仅作学习用，不得用于违法用途，不为使用后果负责
 # ICON：只有大分组Icon——采用url链接的png作为Icon；没有小分组Icon——采用emoji图标形式的Icon；如果ICON都不需要可#注释掉或直接删除
-# 新增：
-## - 仅保留策略组和规则集内容（去掉全局设置比如DNS部分），新增细化策略组分组
-## - 策略组包含自建组/中继组
+# 新增：中文策略组 / 策略组更加多样
 
 # 配置策略组 共用部分的数据锚点
 autosetting: &autosetting
@@ -17,10 +15,10 @@ autosetting: &autosetting
 proxygroup: &proxygroup
   type: select
   proxies:
-    - 手动选择
-    - 全部自动
+    - 手选节点    
     - 落地节点
     - 自建节点
+    - 全部自动
     - 自建自动
     - 香港自动
     - 狮城自动
@@ -37,7 +35,7 @@ proxygroup: &proxygroup
 
 ## 出站策略组
 proxy-groups:
-  - name: 手动选择  # 手动切换和选择具体节点
+  - name: 手选节点  # 手动切换和选择具体节点
     icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png
     type: select
     include-all: true
@@ -70,10 +68,10 @@ proxy-groups:
 ## c 中继节点组——辅助链式代理进行使用，可以根据需要定义，也可直接使用上述现成的策略组作为中继节点组
 # 华东中继组（Eastern China简写为East，包括 台湾/日本/美洲 等节点）→→→落地是去向 东亚/美洲 的住宅SK5节点
   - {name: 华东中继节点, type: select, proxies: [日本自动, 台湾自动,日本节点, 台湾节点], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}           #手动切换华东中继策略组
-#  - {name: 华东中继自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
+#  - {name: 华东中继自动, type: url-test, include-all: true, tolerance: 50, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
 # 华南中继组（Southern China简写SC，包括 香港/新加坡/欧洲 等节点），手动选择华东中继策略组→→→落地是去向 东南亚(越南/印尼/马来西亚/新加坡)/欧洲 的住宅SK5节点
   - {name: 华南中继节点, type: select, proxies: [香港自动, 狮城自动,香港节点, 狮城节点], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}          #手动切换华南中继策略组
-#  - {name: 华南中继自动, type: url-test, include-all: true, tolerance: 20, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
+#  - {name: 华南中继自动, type: url-test, include-all: true, tolerance: 50, interval: 300, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
 
 ## -------------------- 其他策略组，按需定义和分类 -------------------- ##
 ## d 落地节点组，比如落地的ISP住宅节点（命名需带 SK5|SOCKS5|住宅 等字样）
@@ -148,8 +146,26 @@ proxy-groups:
     <<: *autosetting
 
 ## ↓↓↓以下常用策略组通过手动选择节点↓↓↓
+  - name: YouTube
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/YouTube.png
+    <<: *proxygroup
+  - name: Google
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Google_Search.png
+    <<: *proxygroup
   - name: AIGC
     icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Bot.png
+    <<: *proxygroup
+  - name: GitHub
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/GitHub.png
+    <<: *proxygroup
+  - name: Reddit
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Reddit.svg
+    <<: *proxygroup
+  - name: OneDrive
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/OneDrive.svg
+    <<: *proxygroup
+  - name: Microsoft
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Microsoft.png
     <<: *proxygroup
   - name: TikTok
     icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/TikTok.png
@@ -157,17 +173,20 @@ proxy-groups:
   - name: Telegram
     icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Telegram.png
     <<: *proxygroup
+  - name: Facebook
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Facebook.png
+    <<: *proxygroup
+  - name: NETFLIX
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Netflix.svg
+    <<: *proxygroup
   - name: Games
     icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Game.png
     <<: *proxygroup
-  - name: Reddit
-    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Reddit.svg
+  - name: Networks
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Speedtest.png
     <<: *proxygroup
-  - name: Google
-    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Google_Search.png
-    <<: *proxygroup
-  - name: Microsoft
-    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Microsoft.png
+  - name: PayPal
+    icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/PayPal.png
     <<: *proxygroup
   - name: 漏网之鱼
     icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/fish.svg
@@ -179,12 +198,11 @@ proxy-groups:
     type: select
     include-all: true
     proxies:
-      - 默认代理
-      - 手动选择
-      - 全部自动
+      - 手选节点
       - 落地节点
-      - 自建自动
-      - 自建节点   
+      - 自建节点
+      - 全部自动
+      - 自建自动         
       - 香港自动
       - 狮城自动
       - 台湾自动
@@ -195,51 +213,64 @@ proxy-groups:
       - 台湾节点
       - 日本节点
       - 美国节点
+      - 其他节点
+      - YouTube
+      - Google
       - AIGC
+      - GitHub
+      - Reddit
+      - OneDrive
+      - Microsoft
       - TikTok
       - Telegram
-      - Reddit
+      - Facebook
+      - NETFLIX
       - Games
-      - Microsoft
-      - Google
+      - Networks
+      - PayPal
       - DIRECT
       - REJECT      
 
 #匹配规则
 rules:
-  # 1) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
-  - RULE-SET,network-check,默认代理
-  - RULE-SET,GoogleCNProxy,默认代理
-  - RULE-SET,bing,AIGC
-  - RULE-SET,copilot,AIGC
-  - RULE-SET,bard,AIGC
-  - RULE-SET,openai,AIGC
-  - RULE-SET,claude,AIGC
-  - RULE-SET,metaai,AIGC
-  - RULE-SET,perplexity,AIGC
-  - RULE-SET,microsoft,Microsoft
+  # 1) 常见跨境平台强制走代理策略组——策略组已在proxy-groups中定义好
+  - RULE-SET,network_check,默认代理
+  - RULE-SET,perproxy_domain,默认代理
+
+  - RULE-SET,ai_domain,AIGC
+  # - RULE-SET,bing,AIGC
+  # - RULE-SET,copilot,AIGC
+  # - RULE-SET,bard,AIGC
+  # - RULE-SET,openai,AIGC
+  # - RULE-SET,claude,AIGC
+  # - RULE-SET,metaai,AIGC
+  # - RULE-SET,perplexity,AIGC
+
+  - RULE-SET,microsoft_domain,Microsoft
   - RULE-SET,steam,Games
   - RULE-SET,EA,Games
-  - RULE-SET,Reddit,Reddit 
+  - RULE-SET,reddit_domain,Reddit 
   - RULE-SET,tiktok_domain,TikTok
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,google_domain,Google
   - RULE-SET,google_ip,Google,no-resolve
+  - RULE-SET,GoogleCNProxy_ip,默认代理,no-resolve
   - RULE-SET,gfw_domain,默认代理
   - RULE-SET,geolocation-!cn,默认代理,no-resolve
 
-  # 2) 本地直连
+  # 1+) 本地直连
+  - RULE-SET,private_ip,DIRECT
   - RULE-SET,private_domain,DIRECT
   - IP-CIDR,127.0.0.0/8,DIRECT   
-
-  # 3) 国内直连
+  
+  # 2) 国内直连
   - RULE-SET,perdirect_domain,DIRECT
   - RULE-SET,cn_domain,DIRECT
   - RULE-SET,cn_ip,DIRECT,no-resolve
   - GEOIP,CN,DIRECT,no-resolve
 
-  # 4) 其他流量默认走代理/兜底设置
+  # 3) 其他流量默认走代理/兜底设置
   - MATCH,漏网之鱼
 
 # 规则集定义
@@ -252,30 +283,54 @@ rule-anchor:
   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}                # 建立名为 ip 的数据锚点
   domain: &domain {type: http, interval: 86400, behavior: domain, format: yaml}        # 建立名为 domain 的数据锚点
   class: &class {type: http, interval: 86400, behavior: classical, format: text}      # 建立名为 clashh 的数据锚点
+# 以下规则集url中的引用列表 优先采用.mrs格式：二进制格式文件更小，但不能直接查阅，其次推荐.list格式——可直接打开查阅
+rule-providers:          # 简化后格式——引用锚点数据，简单明了
+  # 常用本地域名 / ip
+  private_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
+  private_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
 
-rule-providers:
-  # 简化后格式——引用锚点数据，简单明了
-  network-check: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
-  GoogleCNProxy: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
-  perdirect_domain: { <<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
-  private_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml"}
-  cn_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml"} 
-  tiktok_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.yaml"}
-  telegram_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml"}
-  microsoft: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.yaml"}
-  google_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml"}
-  gfw_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.yaml"}
-  geolocation-!cn: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml"}
-  cn_ip: { <<: *ip, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml"}
-  telegram_ip: { <<: *ip, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml"}
-  google_ip: { <<: *ip, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.yaml"}
-  bing: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml"}
-  copilot: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"}
-  claude: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"}
-  bard: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml"}
-  openai: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"}
+  # 常用国外网站域名
+  youtube_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
+  google_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
+  github_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
+  telegram_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  facebook_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"}
+  netflix_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
+  paypal_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
+  onedrive_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
+  microsoft_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
+  apple_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
+  tiktok_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
+  reddit_domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs"}
+  speedtest_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
+  # AIGC类域名
+  ai_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
+  copilot: {<<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"}
+  claude: {<<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"}
+  bard: {<<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml"}
+  openai: {<<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"}
   metaai: {<<: *class, url: "https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/MetaAi.list"}
   perplexity: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.yaml"}
-  Reddit: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.yaml"}
+  # 游戏类域名  
   EA: {<<: *class, url: "https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml"}
-  steam: { <<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml"}
+  steam: {<<: *class, url: "https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml"}
+  
+  # CN相关域名
+  gfw_domain: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
+  geolocation-!cn: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
+  cn_domain: {<<: *domain, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"} 
+
+  # 常用国外网站IP
+  cn_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
+  apple_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
+  telegram_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
+  netflix_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
+  google_ip: {<<: *ip, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
+  GoogleCNProxy_ip: {<<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+  
+  # 自用收集域名——个人收集
+  perdirect_domain: {<<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
+  perproxy_domain: {<<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
+  # 网络检测类域名——个人收集
+  network_check: {<<: *class, url: "https://hub.gitmirror.com/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/net-check.list"}
+  
