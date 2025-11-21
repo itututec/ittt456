@@ -173,8 +173,8 @@ proxy-groups:
 # ──────────────── 需提前在配置文件中设定具体的中继节点：使用中灵活性略低 ────────────────
 ## 中继节点组：提前设定好中继节点/组（经由机场节点 → 住宅出口链式）  
 # ──────────────── 中继节点/组 定义方式1：设置 包含多个 节点策略组 即可，比较灵活，推荐使用 ────────────────
-  - {name: 华东中继节点, type: select, proxies: [日本自动, 台湾自动, 日本节点, 台湾节点], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}
-  - {name: 华南中继节点, type: select, proxies: [香港自动, 狮城自动, 香港节点, 狮城节点], icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BosLife_1.png}
+  - {name: 华东中继节点, type: select, proxies: [日本自动, 台湾自动, 日本节点, 台湾节点], icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/BosLife_1.png}
+  - {name: 华南中继节点, type: select, proxies: [香港自动, 狮城自动, 香港节点, 狮城节点], icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Color/BosLife_1.png}
 
 # ──────────────── 中继节点：指定中继节点组包含哪些具体的中继节点，不够灵活，除非明确所包含的中继节点稳定可靠 ────────────────  
   # - name: 华东中继节点
@@ -185,10 +185,10 @@ proxy-groups:
 
 # 按地区分类分组
 # 引用数据锚点进行简化
-  - {name: 手选节点, include-all: true, type: select, icon: https://fastly.jsdelivr.net/gh/shindgewongxj/WHATSINStash@master/icon/select.png}       # 全部节点但不包含其他杂项节点
-  - {name: 默认代理, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png}
+  - {name: 手选节点, include-all: true, type: select, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Select.png}       # 全部节点但不包含其他杂项节点
+  - {name: 默认代理, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Proxy.png}
   
-  - {name: 落地节点, include-all: true, type: select, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/DE.png}       # 只包含链式代理落地/SOCKS5节点
+  - {name: 落地节点, include-all: true, type: select, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Dest_2m.png}       # 只包含链式代理落地/SOCKS5节点
   - {name: 自建节点, include-all: true, type: select, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Static.png}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
   
   - {name: 香港节点, include-all: true, type: select, filter: "(?i)港|HK|Hong|Hongkong|HK|🇭🇰", icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Hong_Kong.png}
