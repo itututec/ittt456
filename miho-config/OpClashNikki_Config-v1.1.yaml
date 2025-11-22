@@ -137,11 +137,17 @@ proxies:
   - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
   - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
 
-  # === 机场节点——可作为链式中继节点（【必改】需替换为真实节点信息）===
+  # ===  自建节点——通过VPS / NAT小鸡 部署
+  # ----- 独角鲸vps: hk-nat4 -----
+  # - {"type":"anytls","name":"🇭🇰 HK_nat4-anytls-pD","server":"165.99.42.228","port":56567,"skip-cert-verify":true,"password":"0119af93-4214-432a-861c-dd368bfb91b1","allowInsecure":"1"}
+  # - {"type":"hysteria2","name":"🇭🇰 HK_nat4-hy2-pD","server":"165.99.42.228","port":56565,"password":"0119af93-4214-432a-861c-dd368bfb91b1","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  # - {"type":"tuic","name":"🇭🇰 HK_nat4-tuic-pD","server":"165.99.42.228","port":56566,"password":"0119af93-4214-432a-861c-dd368bfb91b1","uuid":"0119af93-4214-432a-861c-dd368bfb91b1","sni":"www.bing.com","alpn":["h3"],"skip-cert-verify":true,"allowInsecure":"1","congestion-controller":"bbr","version":5}
+
+  # === 机场/自建节点——可作为链式中继节点（【必改】需替换为真实节点信息）===
   #- {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
   #- {name: bpb02, server: 2.3.4.5, port: 443, type: trojan, password: pass456, sni: example.org, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path2, headers: {Host: example.org}}}
   #- {name: hy2, server: 1.2.3.4, port: 443, type: hysteria2, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
-
+ 
   # === 落地节点-ISP住宅 SOCKS5 节点（一般需要单独购买SOCKS5节点，链式出口节点，需配合 关键字 dialer-proxy）===
   - name: 落地SK5-US01                       # 自定义落地节点，用不上就整段注释掉或删除
     type: socks5
