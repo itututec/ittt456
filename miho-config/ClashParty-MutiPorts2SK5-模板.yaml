@@ -15,24 +15,25 @@ dns:
   nameserver:
     - https://doh.pub/dns-query
 ##########################################################
+
 listeners:
-# -----网络获取的免费HTTP/SOCKS IP-----
+# ----- 自建节点 -----
   # - name: mixed6001
   #   type: mixed
   #   port: 6001
   #   proxy: US001-Free-250409
 ##########################################################
-# -----PerBuy的ISP SOCKS5-----
+# ----- 落地节点 ISP SOCKS5 -----
   # - name: mixed9001
   #   type: mixed
   #   port: 9001
   #   proxy: UK-SK5-ISP-Per
 ##########################################################
-# ----69yun ProxyNodes----
-  - name: mixed3001                         # 自定义名称——为便于有序管理和区分，建议加上port序号
+# ---- 69yun ProxyNodes ----
+  - name: mixed3001
     type: mixed
-    port: 3001                              # 自定义port——为便于有序管理和区，建议依序增加
-    proxy: 🇭🇰 [IPLC-移动优化-香港1] ✨ 2x   # proxy:后引用的是下面 proxies中定义好的 节点的名称
+    port: 3001
+    proxy: 🇭🇰 [IPLC-移动优化-香港1] ✨ 2x
   - name: mixed3002
     type: mixed
     port: 3002
@@ -40,46 +41,172 @@ listeners:
   - name: mixed3003
     type: mixed
     port: 3003
-##########################################################
-# --------- VPS-RackNerd 部署 hy2 / tu5 / vl 等 ---------
+    proxy: 🇭🇰 [IPLC-移动优化-香港3] ✨ 2x
+  - name: mixed3004
+    type: mixed
+    port: 3004
+    proxy: 🇭🇰 [IPLC-移动优化-香港4] ✨ 2x
+  - name: mixed3005
+    type: mixed
+    port: 3005
+    proxy: 🇭🇰 [IPLC-移动优化-香港5] ✨ 2x
+  - name: mixed3006
+    type: mixed
+    port: 3006
+    proxy: 🇭🇰 [IPLC-移动优化-香港6] ✨ 2x
+  - name: mixed3007
+    type: mixed
+    port: 3007
+    proxy: 🇭🇰 [直连-香港2] ✨ 1x
+  - name: mixed3008
+    type: mixed
+    port: 3008
+    proxy: 🇹🇼 [IPLC-移动优化-家宽-台湾1] ✨ 2x
+  - name: mixed3009
+    type: mixed
+    port: 3009
+    proxy: 🇹🇼 [IPLC-移动优化-台湾] ✨ 2x
+  - name: mixed3010
+    type: mixed
+    port: 3010
+    proxy: 🇹🇼 [国际入口-台湾] ✨ 2x
+  - name: mixed3011
+    type: mixed
+    port: 3011
+    proxy: 🇰🇷 [IPLC-移动优化-韩国] ✨ 2x
+  - name: mixed3012
+    type: mixed
+    port: 3012
+    proxy: 🇯🇵 [IPLC-移动优化-日本2] ✨ 2x
+  - name: mixed3013
+    type: mixed
+    port: 3013
+    proxy: 🇯🇵 [IPLC-移动优化-日本] ✨ 2x
+  - name: mixed3014
+    type: mixed
+    port: 3014
+    proxy: 🇸🇬 [IPLC-移动优化-新加坡-主] ✨ 2x
+  - name: mixed3015
+    type: mixed
+    port: 3015
+    proxy: 🇸🇬 [IPLC-移动优化-新加坡] ✨ 2x
+  - name: mixed3016
+    type: mixed
+    port: 3016
+    proxy: 🇦🇺 [IPLC-移动优化-澳大利亚] ✨ 2x
+  - name: mixed3017
+    type: mixed
+    port: 3017
+    proxy: 🇨🇦 [IPLC-移动优化-加拿大-蒙特利尔] ✨ 2x
+  - name: mixed3018
+    type: mixed
+    port: 3018
+    proxy: 🇺🇲 [IPLC-移动优化-美国1] ✨ 2x
+  - name: mixed3019
+    type: mixed
+    port: 3019
+    proxy: '[IPLC-移动优化-墨西哥] ✨ 2x'
+  - name: mixed3020
+    type: mixed
+    port: 3020
+    proxy: 🇧🇷 [IPLC-移动优化-巴西] ✨ 2x
+  - name: mixed3021
+    type: mixed
+    port: 3021
+    proxy: 🇩🇪 [IPLC-移动优化-德国-主] ✨ 2x
+  - name: mixed3022
+    type: mixed
+    port: 3022
+    proxy: 🇫🇷 [IPLC-移动优化-法国] ✨ 2x
+  - name: mixed3023
+    type: mixed
+    port: 3023
+    proxy: '[IPLC-移动优化-葡萄牙] ✨ 2x'
+  - name: mixed3024
+    type: mixed
+    port: 3024
+    proxy: 🇳🇱 [IPLC-移动优化-荷兰-阿姆斯特丹] ✨ 2x
+  - name: mixed3025
+    type: mixed
+    port: 3025
+    proxy: 🇳🇱 [IPLC-移动优化-荷兰-德龙滕] ✨ 2x
+  - name: mixed3026
+    type: mixed
+    port: 3026
+    proxy: 🇬🇧 [IPLC-移动优化-英国] ✨ 2x
+# ----- 购买racknerd部署Proxy-US CA -----
+  - name: mixed9201
+    type: mixed
+    port: 9201
+    proxy: 🇺🇲 US_RN-vm-ws-pD
   - name: mixed9202
     type: mixed
     port: 9202
-    proxy: 🇺🇲 US-RN-vm-argo
+    proxy: 🇺🇲 US_RN-anytls-pD
+  - name: mixed9203
+    type: mixed
+    port: 9203
+    proxy: 🇺🇲 US_RN-hy2-pD
   - name: mixed9204
     type: mixed
     port: 9204
-    proxy: 🇺🇲 US-RN-hy2
+    proxy: 🇺🇲 US_RN-tuic-pD
   - name: mixed9205
     type: mixed
     port: 9205
-    proxy: 🇺🇲 US-RN-tu5
+    proxy: 🇺🇲 US_RN-tlsargo-pD-8443
+# -----独角鲸vps: hk-nat4-----
+  - name: mixed9401
+    type: mixed
+    port: 9401
+    proxy: 🇭🇰 HK_nat4-anytls-pD
+  - name: mixed9402
+    type: mixed
+    port: 9402
+    proxy: 🇭🇰 HK_nat4-hy2-pD
+  - name: mixed9403
+    type: mixed
+    port: 9403
+    proxy: 🇭🇰 HK_nat4-tuic-pD
 ## 分割线↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑分割线 ##
+
 ## 分割线↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓分割线 ##
 proxies:
-# --------- 链式代理 通过关键字dialer-proxy接中继节点(组)落地 ---------
-##-----Proxy来源于checkerproxy.net-----
-  # - name: US001-Free-250409
-  #   server: 98.170.57.231
-  #   port: 41455
-  #   type: socks5
-  #   dialer-proxy: 🇺🇲 US-RN-vm-argo  #中继节点（组）🇺🇲 US-RN-vm-argo是具体已经定义好的某个机场节点或自定义节点（名称）
+#----- 自建节点 -----
+  - name: 🇬🇧 落地SK5-UK01
+    server: 172.235.32.115
+    port: 8000
+    type: socks5
+    username: GB-O2xsh1h59h-90.199.59.128
+    password: adcvul1tuyjmm2
+    dialer-proxy: 华南中继节点
+
+# ----- VPS-RackNerd 部署 -----
+  - {"name":"🇺🇲 US_RN-vm-ws-pD","type":"vmess","server":"23.95.239.140","port":36370,"cipher":"auto","uuid":"0130ecb9-0fd0-48ee-ac93-fc28edc43df6","alterId":0,"tls":false,"network":"ws","ws-opts":{"path":"/0130ecb9-0fd0-48ee-ac92-fc28edc43df6-vm","headers":{"Host":"www.bing.com"}},"client-fingerprint":""}
+  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD","server":"23.95.239.140","port":47379,"skip-cert-verify":true,"password":"0130ecb9-0fd0-48ee-ac93-fc28edc43df6","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.239.140","port":36565,"password":"0130ecb9-0fd0-48ee-ac93-fc28edc43df6","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.239.140","port":36566,"password":"0130ecb9-0fd0-48ee-ac93-fc28edc43df6","uuid":"0130ecb9-0fd0-48ee-ac92-fc28edc43df6","sni":"www.bing.com","alpn":["h3"],"skip-cert-verify":true,"allowInsecure":"1","congestion-controller":"bbr","version":5}
+  - {"name":"🇺🇲 US_RN-tlsargo-pD-8443","type":"vmess","server":"malaysia.com","port":8443,"cipher":"auto","uuid":"0130ecb9-0fd0-48ee-ac93-fc28edc43df6","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/0130ecb9-0fd0-48ee-ac92-fc28edc43df6-vm","headers":{"Host":"sbx2rnus256.inf5688.eu.org"}},"client-fingerprint":"chrome","servername":"sbx2rnus256.inf5688.eu.org"}
+
+# ----- 独角鲸VPS: hk-nat4 -----
+  - {"type":"anytls","name":"🇭🇰 HK_nat4-anytls-pD","server":"165.99.42.238","port":56567,"skip-cert-verify":true,"password":"0119af93-4214-432a-862c-dd368bfb92b1","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇭🇰 HK_nat4-hy2-pD","server":"165.99.42.238","port":56565,"password":"0119af93-4214-432a-862c-dd368bfb92b1","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇭🇰 HK_nat4-tuic-pD","server":"165.99.42.238","port":56566,"password":"0119af93-4214-432a-862c-dd368bfb92b1","uuid":"0119af93-4214-432a-861c-dd368bfb92b1","sni":"www.bing.com","alpn":["h3"],"skip-cert-verify":true,"allowInsecure":"1","congestion-controller":"bbr","version":5}
+
 ##########################################################
-# --------- 住宅IP / 落地IP / SOCKS5 ---------
-  # - name: UK-SK5-ISP-Per  #由Tony分享
+
+# ----- 落地节点 ISP SOCKS5 -----
+  # - name: 🇺🇸 落地SK5-US01
   #   server: 172.235.32.115
-  #   port: 8070
+  #   port: 8000
   #   type: socks5
   #   username: GB-O2xsh1h59h-90.199.59.128
-  #   password: adcvtsdfeuyjmm2
-  #   dialer-proxy: SC2Base                              #中继节点（组）SC2Base 是覆写模板或者机场订阅中已定义的中继节点组
+  #   password: adcvul1tuyjmm2
+  #   dialer-proxy: 华东中继节点
+
 ##########################################################
+
 # -----69yun ProxyNodes-----
   - {"name":"🇭🇰 [IPLC-移动优化-香港1] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55721,"cipher":"aes-256-gcm","password":"EzdgaggdbiZrtt5IfeD9","udp":true}
   - {"name":"🇭🇰 [IPLC-移动优化-香港2] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55725,"cipher":"aes-256-gcm","password":"EzdRstfadsZthdfg5ID9","udp":true}
   - {"name":"🇭🇰 [IPLC-移动优化-香港3] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55707,"cipher":"aes-256-gcm","password":"EzdRbggeasdfZ1ttfID9","udp":true}
-##########################################################
-# --------- VPS-RackNerd 部署 hy2 / tu5 / vl 等 ---------
-  - {"name":"🇺🇲 US-RN-vm-argo","type":"vmess","server":"www.visa.com.sg","port":8443,"cipher":"auto","uuid":"9ef1a17c-5970-4376-a4ae-95geae22c2d","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/9ef1a17c-5970-4376-a4ae-95t2d-vm","headers":{"Host":"tun2sbx.inf56.eu.org"}},"servername":"sbx.inf5688.eu.org"}
-  - {"type":"hysteria2","name":"🇺🇲 US-RN-hy2","server":"rnvvv.inf56.eu.org","port":55553,"password":"9ef1a17c-5970-4376-a4ae-95dfasdfg22c2d","sni":"rnvvv.inf5688.eu.org","skip-cert-verify":false,"tfo":false}
-  - {"type":"tuic","name":"🇺🇲 US-RN-tu5","server":"rnvvv.inf56.eu.org","port":55554,"password":"9ef1a17c-5970-4376-a4ae-95yrgsdg2c2d","uuid":"9ef1a17c-5970-4376-a4ae-95dbyesdg2c2d","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"vvv.inf56.eu.org","skip-cert-verify":false,"allowInsecure":"0","version":5}
