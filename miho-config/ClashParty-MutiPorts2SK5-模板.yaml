@@ -173,14 +173,6 @@ listeners:
 ## 分割线↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓分割线 ##
 proxies:
 #----- 自建节点 -----
-  - name: 🇬🇧 落地SK5-UK01
-    server: 172.235.32.115
-    port: 8000
-    type: socks5
-    username: GB-O2xsh1h59h-90.199.59.128
-    password: adcvul1tuyjmm2
-    dialer-proxy: 华南中继节点
-
 # ----- VPS-RackNerd 部署 -----
   - {"name":"🇺🇲 US_RN-vm-ws-pD","type":"vmess","server":"23.95.239.140","port":36370,"cipher":"auto","uuid":"0130ecb9-0fd0-48ee-ac93-fc28edc43df6","alterId":0,"tls":false,"network":"ws","ws-opts":{"path":"/0130ecb9-0fd0-48ee-ac92-fc28edc43df6-vm","headers":{"Host":"www.bing.com"}},"client-fingerprint":""}
   - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD","server":"23.95.239.140","port":47379,"skip-cert-verify":true,"password":"0130ecb9-0fd0-48ee-ac93-fc28edc43df6","allowInsecure":"1"}
@@ -196,6 +188,16 @@ proxies:
 ##########################################################
 
 # ----- 落地节点 ISP SOCKS5 -----
+#----- 免费节点 -----
+  - name: 🇬🇧 落地SK5-UK01       # 由Tony分享
+    server: 172.235.32.115
+    port: 8000
+    type: socks5
+    username: GB-O2xsh1h59h-90.199.59.128
+    password: adcvul1tuyjmm2
+    dialer-proxy: 华南中继节点
+
+#----- 购买节点：ISP SOCKS5 -----
   # - name: 🇺🇸 落地SK5-US01
   #   server: 172.235.32.115
   #   port: 8000
@@ -210,3 +212,6 @@ proxies:
   - {"name":"🇭🇰 [IPLC-移动优化-香港1] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55721,"cipher":"aes-256-gcm","password":"EzdgaggdbiZrtt5IfeD9","udp":true}
   - {"name":"🇭🇰 [IPLC-移动优化-香港2] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55725,"cipher":"aes-256-gcm","password":"EzdRstfadsZthdfg5ID9","udp":true}
   - {"name":"🇭🇰 [IPLC-移动优化-香港3] ✨ 2x","type":"ss","server":"69-in-1.226969.xyz","port":55707,"cipher":"aes-256-gcm","password":"EzdRbggeasdfZ1ttfID9","udp":true}
+
+##########################################################
+
