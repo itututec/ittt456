@@ -17,10 +17,20 @@ external-controller: :9090        # 外部控制面板端口
 # 为防止使用插件朋友遇到面板问题，我注释掉了此模块。
 # 跑裸核朋友自行删除注释即可，使用nikki仅内核的ui路径改为/etc/nikki/run/ui
 # external-controller: 0.0.0.0:9090
-# secret: ""
+# secret: "yy369258yy"        # 建议设置登录密钥
 # external-ui: "/etc/mihomo/ui"
 # external-ui-name: zashboard
-# external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+# external-ui-url: "https://gh.catmak.name/https://github.com/Zephyruso/zashboard/releases/download/v2.2.0/dist.zip"
+
+# geodata-mode: false
+# geodata-loader: standard
+# geo-auto-update: true
+# geo-update-interval: 48
+# geox-url:
+#   geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+#   geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+#   mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+#   asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
 
 # 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
 # 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
@@ -31,6 +41,7 @@ respect-rules: true
 
 tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
 unified-delay: true         # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差
+disable-keep-alive: true    # 推荐在给移动设备代理时启用，可以解决待机异常耗电的问题
 
 # 嗅探
 sniffer:
