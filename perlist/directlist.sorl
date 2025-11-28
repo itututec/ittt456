@@ -27,6 +27,7 @@
 ; 自定义域名-直连
 ; 聚水潭电商分销
 *.scm121.com
+*.ttdahuo.com
 ; 沉浸式翻译
 *.immersivetranslate.com
 ; Github加速
@@ -59,6 +60,7 @@
 ; 其他域名-直连
 *.mozilla.org
 *.dynv6.net
+
 
 
 
