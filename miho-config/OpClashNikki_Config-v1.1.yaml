@@ -203,6 +203,7 @@ proxy-groups:
 
 # 按地区分类分组
 # 引用数据锚点进行简化
+# Github加速备选：https://fastly.jsdelivr.net/  或  https://hub.gitmirror.com/  或  https://gh-proxy.com/  或  https://ghfast.top/  或  https://gh.catmak.name/
   - {name: 手选节点, include-all: true, type: select, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Select.png}       # 全部节点但不包含其他杂项节点
   - {name: 默认代理, <<: *proxygroup, icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/Proxy.png}
   
