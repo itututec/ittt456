@@ -34,6 +34,7 @@ proxygroup: &proxygroup
     - REJECT
 
 ## 出站策略组
+#  Github加速备选：https://fastly.jsdelivr.net/  或  https://hub.gitmirror.com/  或  https://gh-proxy.com/  或  https://ghfast.top/  或  https://gh.catmak.name/
 proxy-groups:
   - name: 手选节点  # 手动切换和选择具体节点
     icon: https://fastly.jsdelivr.net/gh/itututec/ittt456@main/Icons/select.png
