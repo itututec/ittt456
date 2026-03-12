@@ -46,13 +46,13 @@ mediagroup: &mediagroup
 ## 出站策略组
 proxy-groups:
   - name: 手选节点  # 手动切换和选择具体节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Select.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Select.png
     type: select
     include-all: true
 #    filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}                        # 包含节点(?=.*(港|HK|(?i)Hong|Hongkong|HK))，同时不包含节点^((?!(台|日|韩|新|美|SK5|SOCKS5)).)
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|ISP|流量|重置|到期|服|邮箱|email|国内|永久|涨价|折|优惠|交流|讨论|mby|云)).)*$"        # 不包含 到期|硬盘服|资源服... 等其他杂项节点
   - name: 默认代理  # 默认策略组/节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png
     <<: *mediagroup
 
 ### 链式代理(组)配置
@@ -77,160 +77,160 @@ proxy-groups:
 ## -------------------- 中继节点组 -------------------- ##
 ## c 中继节点组——辅助链式代理进行使用，可以根据需要定义，也可直接使用上述现成的策略组作为中继节点组
 # 华东中继组（Eastern China简写为East，包括 台湾/日本/美洲 等节点）→→→落地是去向 东亚/美洲 的住宅SK5节点
-  - {name: 华东中继节点, type: select, proxies: [日本故转, 台湾故转,日本自动, 台湾自动,日本节点, 台湾节点], icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}           #手动切换华东中继策略组
-#  - {name: 华东中继自动, type: url-test, include-all: true, tolerance: 50, interval: 300, icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
+  - {name: 华东中继节点, type: select, proxies: [日本故转, 台湾故转,日本自动, 台湾自动,日本节点, 台湾节点], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}           #手动切换华东中继策略组
+#  - {name: 华东中继自动, type: url-test, include-all: true, tolerance: 50, interval: 300, icon: https://proxy.tututec.eu.org//https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png, filter: "(?=.*(台|TW|(?i)Taiwan|TW|日|JP|(?i)Japan))^((?!(尼日利亚|港|韩|新|SK5|SOCKS5)).)*$"}          # 自动从华东中继节点中的筛选节点中选择自动测速最低的作为中继节点
 # 华南中继组（Southern China简写SC，包括 香港/新加坡/欧洲 等节点），手动选择华东中继策略组→→→落地是去向 东南亚(越南/印尼/马来西亚/新加坡)/欧洲 的住宅SK5节点
-  - {name: 华南中继节点, type: select, proxies: [香港故转, 狮城故转,香港自动, 狮城自动,香港节点, 狮城节点], icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}          #手动切换华南中继策略组
-#  - {name: 华南中继自动, type: url-test, include-all: true, tolerance: 50, interval: 300, icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
+  - {name: 华南中继节点, type: select, proxies: [香港故转, 狮城故转,香港自动, 狮城自动,香港节点, 狮城节点], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}          #手动切换华南中继策略组
+#  - {name: 华南中继自动, type: url-test, include-all: true, tolerance: 50, interval: 300, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png, filter: "(?=.*(港|HK|(?i)Hong|Hongkong|HK|新加坡|坡|狮城|SG|Singapore))^((?!(台|韩|日|美|SK5|SOCKS5)).)*$"}          # 自动从华南中继节点中的筛选节点中选择自动测速最低的作为中继节点
 
 ## -------------------- 其他策略组，按需定义和分类 -------------------- ##
 ## d 落地节点组，比如落地的ISP住宅节点（命名需带 SK5|SOCKS5|住宅 等字样）
-  - {name: 落地节点, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Dest_2m.png}
+  - {name: 落地节点, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Dest_2m.png}
 
 ## e 自建节点组，包括自己部署的节点 和 获取的免费节点（免费节点命名需带 free|Free|免费 等字样 / 自建节点命名需要 pD 字样），非必选项，按需定义或配置
   - name: 自建节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static_1.png
     filter: (?i)free|Free|免费|pD
     include-all: true
     type: select
 
 ## ↓↓↓以下策略组手动选择区域内节点↓↓↓
   - name: 香港节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Hong_Kong.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Hong_Kong.png
     filter: (?i)香港|Hong Kong|HK|🇭🇰
     include-all: true
     type: select
   - name: 狮城节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Singapore.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Singapore.png
     filter: (?i)新加坡|Singapore|SG|🇸🇬
     include-all: true
     type: select
   - name: 台湾节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Taiwan.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Taiwan.png
     filter: (?i)台湾|Taiwan|TW|🇹🇼
     include-all: true
     type: select
   - name: 日本节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Japan.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Japan.png
     filter: (?i)日本|Japan|JP|🇯🇵
     include-all: true
     type: select
   - name: 美国节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/United_States.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/United_States.png
     filter: (?i)美国|USA|US|🇺🇸
     include-all: true
     type: select
   - name: 其他节点
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Star.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Star.png
     filter: ^((?!(港|HK|Hong Kong|🇭🇰|HongKong|台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$      # 排除所列的节点/组
     include-all: true
     type: select
 
 ## ↓↓↓以下是故障转移策略组节点↓↓↓
   - name: 自建故转
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png
     filter: (?i)free|Free|免费|pD
     <<: *fallbackgroup
   - name: 香港故转
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png
     filter: (?i)香港|Hong Kong|HK|🇭🇰
     <<: *fallbackgroup
   - name: 狮城故转
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png
     filter: (?i)新加坡|Singapore|SG|🇸🇬
     <<: *fallbackgroup
   - name: 台湾故转
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png
     filter: (?i)台湾|Taiwan|TW|🇹🇼
     <<: *fallbackgroup
   - name: 日本故转
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png
     filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$"
     <<: *fallbackgroup
   - name: 美国故转
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png
     filter: (?i)美国|USA|US|🇺🇸
     <<: *fallbackgroup
 
 ## ↓↓↓以下策略组自动测速自动选择节点↓↓↓
   - name: 自建自动
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png
     filter: (?i)free|Free|免费|pD
     <<: *autogroup
   - name: 香港自动
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png
     filter: (?i)香港|Hong Kong|HK|🇭🇰
     <<: *autogroup
   - name: 狮城自动
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png
     filter: (?i)新加坡|Singapore|SG|🇸🇬
     <<: *autogroup
   - name: 台湾自动
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png
     filter: (?i)台湾|Taiwan|TW|🇹🇼
     <<: *autogroup
   - name: 日本自动
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png
     filter: (?i)日本|Japan|JP|🇯🇵
     <<: *autogroup
   - name: 美国自动
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png
     filter: (?i)美国|USA|US|🇺🇸
     <<: *autogroup
   - name: 全部自动
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Auto.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Auto.png
     <<: *autogroup
 
 ## ↓↓↓以下常用策略组通过手动选择节点↓↓↓
   - name: YouTube
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/YouTube.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/YouTube.png
     <<: *mediagroup
   - name: Google
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Google_Search.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Google_Search.png
     <<: *mediagroup
   - name: AIGC
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Bot.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Bot.png
     <<: *mediagroup
   - name: GitHub
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/GitHub.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/GitHub.png
     <<: *mediagroup
   - name: Reddit
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Reddit.svg
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Reddit.svg
     <<: *mediagroup
   - name: OneDrive
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/OneDrive.svg
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/OneDrive.svg
     <<: *mediagroup
   - name: Microsoft
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Microsoft.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Microsoft.png
     <<: *mediagroup
   - name: TikTok
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TikTok.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TikTok.png
     <<: *mediagroup
   - name: Telegram
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Telegram_1.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Telegram_1.png
     <<: *mediagroup
   - name: Facebook
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Facebook.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Facebook.png
     <<: *mediagroup
   - name: NETFLIX
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Netflix.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Netflix.png
     <<: *mediagroup
   - name: Games
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png
     <<: *mediagroup
   - name: Networks
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png
     <<: *mediagroup
   - name: PayPal
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png
     <<: *mediagroup
   - name: 漏网之鱼
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg
     <<: *mediagroup
 
 # ↓↓↓全局策略组↓↓↓
   - name: GLOBAL
-    icon: https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png
+    icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png
     type: select
     include-all: true
     proxies:
@@ -325,52 +325,50 @@ rule-anchor:
 # 以下规则集url中的引用列表 优先采用.mrs格式：二进制格式文件更小，但不能直接查阅，其次推荐.list格式——可直接打开查阅
 rule-providers:          # 简化后格式——引用锚点数据，简单明了
   # 常用本地域名 / ip
-  private_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
-  private_ip: {<<: *ip, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
+  private_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
+  private_ip: {<<: *ip, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
 
   # 常用国外网站域名
-  youtube_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
-  google_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
-  github_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
-  telegram_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
-  facebook_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"}
-  netflix_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
-  paypal_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
-  onedrive_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
-  microsoft_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
-  apple_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
-  tiktok_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
-  reddit_domain: {<<: *domain, url: "https://gh.catmak.name/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs"}
-  speedtest_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
+  youtube_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
+  google_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
+  github_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
+  telegram_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  facebook_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"}
+  netflix_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
+  paypal_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
+  onedrive_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
+  microsoft_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
+  apple_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
+  tiktok_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
+  reddit_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs"}
+  speedtest_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
   # AIGC类域名
-  ai_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
-  copilot: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"}
-  claude: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"}
-  bard: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml"}
-  openai: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"}
-  metaai: {<<: *class, url: "https://gh.catmak.name/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/MetaAi.list"}
-  perplexity: {<<: *domain, url: "https://gh.catmak.name/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.yaml"}
+  ai_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
+  copilot: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"}
+  claude: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"}
+  bard: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml"}
+  openai: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"}
+  metaai: {<<: *class, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/MetaAi.list"}
+  perplexity: {<<: *domain, url: "https://proxy.tututec.eu.org/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.yaml"}
   # 游戏类域名  
-  EA: {<<: *class, url: "https://gh.catmak.name/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml"}
-  steam: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml"}
+  EA: {<<: *class, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml"}
+  steam: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml"}
   
   # CN相关域名
   gfw_domain: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
-  geolocation-!cn: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
-  cn_domain: {<<: *domain, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"} 
+  geolocation-!cn: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
+  cn_domain: {<<: *domain, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"} 
 
   # 常用国外网站IP
-  cn_ip: {<<: *ip, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
-  apple_ip: {<<: *ip, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
-  telegram_ip: {<<: *ip, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
-  netflix_ip: {<<: *ip, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
-  google_ip: {<<: *ip, url: "https://gh.catmak.name/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
-  GoogleCNProxy_ip: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+  cn_ip: {<<: *ip, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
+  apple_ip: {<<: *ip, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
+  telegram_ip: {<<: *ip, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
+  netflix_ip: {<<: *ip, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
+  google_ip: {<<: *ip, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
+  GoogleCNProxy_ip: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
   
   # 自用收集域名——个人收集
-  perdirect_domain: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
-  perproxy_domain: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
+  perdirect_domain: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
+  perproxy_domain: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 网络检测类域名——个人收集
-  network_check: {<<: *class, url: "https://gh.catmak.name/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
-
-
+  network_check: {<<: *class, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
