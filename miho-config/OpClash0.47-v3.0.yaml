@@ -112,8 +112,8 @@ proxy-providers:
 # ──────────────── 单个节点添加 ────────────────
 proxies:
 # 讲英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以
-  - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
-  - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
+ # - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
+ # - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
   
   # === 落地节点-ISP住宅 SOCKS5 节点（一般需要单独购买SOCKS5节点，链式出口节点，需配合 关键字 dialer-proxy）===
   - name: 落地SK5-US01                       # 自定义落地节点，用不上就整段注释掉或删除
@@ -150,8 +150,8 @@ proxies:
 selectgroup: &selectgroup {type: select, include-all: true}                # 建立名为 selectgroup 的数据锚点
 autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}                # 建立名为 autogroup 的数据锚点
 fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}                # 建立名为 fallbackgroup 的数据锚点
-mediagroup: &mediagroup {type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 直连, 拒绝]}      # 建立名为 proxygroup 的策略组数据锚点
-mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动]}     # 建立名为abcgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
+mediagroup: &mediagroup {type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}      # 建立名为 proxygroup 的策略组数据锚点
+mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}     # 建立名为abcgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
 gbobalgroup: &gbobalgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼]}     # 建立名为 globalgroup 的专用于Global的策略组数据锚点
 # --------------------------------------------------------------------------
 proxy-groups:
@@ -246,7 +246,7 @@ rules:
   - RULE-SET,ai_domain,AIGC
   - RULE-SET,onedrive_domain,OneDrive
   - RULE-SET,microsoft_domain,Microsoft
-  - RULE-SET,apple_domain,直连
+  - RULE-SET,apple_domain,DIRECT
   - RULE-SET,github_domain,GitHub
   - RULE-SET,reddit_domain,Reddit  
   - RULE-SET,tiktok_domain,TikTok
@@ -263,15 +263,15 @@ rules:
   - RULE-SET,geolocation-!cn, 默认代理
 
    # 5) 本地直连
-  - RULE-SET,private_domain,直连
-  - RULE-SET,private_ip,直连,no-resolve
-  - IP-CIDR,127.0.0.0/8,直连                                           #匹配数据目标IP(直连)
+  - RULE-SET,private_domain,DIRECT
+  - RULE-SET,private_ip,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT                                           #匹配数据目标IP(直连)
 
   # 6) 国内直连
-  - RULE-SET,perdirect_domain,直连
-  - RULE-SET,cn_domain,直连
-  - RULE-SET,cn_ip,直连,no-resolve
-  - GEOIP,CN,直连,no-resolve  
+  - RULE-SET,perdirect_domain,DIRECT
+  - RULE-SET,cn_domain,DIRECT
+  - RULE-SET,cn_ip,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT,no-resolve  
  
   # 7) 其他流量默认走代理
   - MATCH,漏网之鱼 
