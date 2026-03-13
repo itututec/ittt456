@@ -44,6 +44,8 @@ proxy-groups:
   - {name: Networks, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
   - {name: PayPal, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
 
+# 兜底策略组
+  - {name: 漏网之鱼, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
 
 ## 链式代理（组）配置
 # -------------------- dialer-proxy 链式代理（推荐，但设置略微复杂） -------------------- ##
@@ -81,13 +83,32 @@ proxy-groups:
 # 华南中继组（包括 香港/新加坡/欧洲 等节点）→→→落地是去向 东南亚(越南/印尼/马来西亚/新加坡)/欧洲 的住宅SK5节点
   - {name: 华南中继, type: select, proxies: [香港故转, 狮城故转, 香港自动, 狮城自动, 香港节点, 狮城节点], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
 
-# 兜底策略组
-  - {name: 漏网之鱼, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
-  
+# 一机一 IP 专用策略组 
+  - {name: 手机139-ip236, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
+  - {name: 手机175-ip115, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}
+  - {name: OpenClaw-ip230, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Linux.jpg}
+    
   # - {name: GLOBAL, type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
 
 # ──────────────── 分流规则 ────────────────
 rules:
+# 1) 防 WebRTC 泄漏（拦截 STUN）——如设置后经常出现问题，可注释掉不启用
+ # - DOMAIN-SUFFIX,stun.l.google.com,REJECT
+ # - DOMAIN-KEYWORD,stun,REJECT
+ # - DOMAIN-KEYWORD,turn,REJECT
+ # - DOMAIN-KEYWORD,rtc,REJECT
+
+# 2) 链式代理分流：一机一住宅IP（配置后 使得已定义好固定的IP的设备，走指定的 出口节点（组）——出口节点（组）可以是落地住宅SK5或指定节点（组））
+# 如果出口节点（组）因为网络原因不能直接联通，则需要链式代理通过中继节点（组）连接，即添加 dialer-proxy中继节点/组设置好，这里只要引用即可。比如下面的链式代理节点(组) 落地-住宅A 已经在上面做好了dialer-proxy设置
+  # - SRC-IP-CIDR,192.168.20.101/32,链代落地-住宅A    # 匹配数据发起IP也就是192.168.20.101(走对应的 落地SK5节点（组）：链代落地-住宅A)：所谓 设备的发起IP 需查阅该设备被路由器DHCP分配到的IP或在路由器中自定义的IP，再来这里进行修改匹配
+  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B 
+  - SRC-IP-CIDR,192.168.2.236/32,手机139-ip236         # 匹配数据发起IP也就是192.168.2.236这台设备 走 指定节点策略组（组）：手机139-ip236
+  - SRC-IP-CIDR,192.168.2.115/32,手机175-ip115         # 匹配数据发起IP也就是192.168.2.115这台设备 走 指定节点策略组（组）：手机175-ip115
+  - SRC-IP-CIDR,192.168.2.230/32,OpenClaw-ip230  
+
+# 3) BT 和 PT 等下载流量分流问题——下载机/NAS设备的全部流量将直连
+  # - SRC-IP-CIDR,192.168.1.201/32,DIRECT
+
   - RULE-SET,private_domain,DIRECT
   - RULE-SET,private_ip,DIRECT,no-resolve
   
@@ -178,4 +199,5 @@ rule-providers:
   perproxy_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 网络检测类域名——个人收集
   network_check: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
+
 
