@@ -1,51 +1,61 @@
 # 时间：20260313
 # 经测试，启用GLOBAL策略组后，显示时策略组顺序就会错乱，并与配置文件的顺序不一样，建议注释掉GlOBAL策略组使用
 
+# ──────────────── 策略组定义 ────────────────
+# 配置策略组 共用部分的数据锚点
+## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
+## 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
+selectgroup: &selectgroup {type: select, include-all: true, proxies: [DIRECT, REJECT]}                # 建立名为 selectgroup 的数据锚点
+autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}                # 建立名为 autogroup 的数据锚点
+fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}                # 建立名为 fallbackgroup 的数据锚点
+mediagroup: &mediagroup {type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}      # 建立名为 proxygroup 的策略组数据锚点
+mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}     # 建立名为abcgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
+globalgroup: &globalgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼]}     # 建立名为 globalgroup 的专用于Global的策略组数据锚点
+# --------------------------------------------------------------------------
 proxy-groups:
-# 通用策略组
-  - {name: 默认代理, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png}
-  - {name: 手选节点, type: select, include-all: true, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Select.png}  
-  - {name: 落地节点, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Dest_2m.png}
-  - {name: 自建节点, type: select, include-all: true, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png} 
+# 按地区分类分组
+  - {name: 默认代理, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png}
+  - {name: 手选节点, <<: *selectgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Select.png}       # 全部节点但不包含其他杂项节点
+  
+  - {name: 落地节点, <<: *selectgroup, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Dest_2m.png}       # 只包含链式代理落地/SOCKS5节点
+  - {name: 自建节点, <<: *selectgroup, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
      
-  - {name: 香港节点, type: select, include-all: true, filter: "(?i)港|HK|Hong|Hongkong|HK|🇭🇰", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Hong_Kong.png}
-  - {name: 台湾节点, type: select, include-all: true, filter: "(?i)台|Taiwan|TW|🇹🇼", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Taiwan.png}
-  - {name: 日本节点, type: select, include-all: true, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|尼日)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Japan.png }     # 包含名称中含有“日”字的节点，同时不包含尼日利亚的节点
-  - {name: 狮城节点, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore|🇸🇬", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Singapore.png}
-  - {name: 美国节点, type: select, include-all: true, filter: "(?i)美|US|unitedstates|united states|America|🇺🇲", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/United_States.png}
-  - {name: 其他节点, type: select, include-all: true, filter: "^((?!(剩余|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Star.png}
+  - {name: 香港节点, <<: *selectgroup, filter: "(?i)港|HK|Hong|Hongkong|HK|🇭🇰", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Hong_Kong.png}
+  - {name: 台湾节点, <<: *selectgroup, filter: "(?i)台|Taiwan|TW|🇹🇼", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Taiwan.png}
+  - {name: 日本节点, <<: *selectgroup, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|尼日)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Japan.png }     # 包含节点名称中含有“日”字相关的节点，同时不包含尼日利亚相关的节点
+  - {name: 狮城节点, <<: *selectgroup, filter: "(?i)新加坡|坡|狮城|SG|Singapore|🇸🇬", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Singapore.png}
+  - {name: 美国节点, <<: *selectgroup, filter: "(?i)美|US|unitedstates|united states|America|🇺🇲", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/United_States.png}
+  - {name: 其他节点, <<: *selectgroup, filter: "^((?!(剩余|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Star.png}        # 排除所列出地区的节点
 
-  - {name: 自建故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png} 
-  - {name: 香港故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png}
-  - {name: 台湾故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(台|TW|Taiwan|TW|🇹🇼))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png}
-  - {name: 日本故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png}
-  - {name: 狮城故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png}
-  - {name: 美国故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png}
+  - {name: 自建故转, <<: *fallbackgroup, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+  - {name: 香港故转, <<: *fallbackgroup, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png}
+  - {name: 台湾故转, <<: *fallbackgroup, filter: "(?=.*(台|TW|Taiwan|TW|🇹🇼))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png}
+  - {name: 日本故转, <<: *fallbackgroup, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png}
+  - {name: 狮城故转, <<: *fallbackgroup, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png}
+  - {name: 美国故转, <<: *fallbackgroup, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png}
  
-  - {name: 自建自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png}
-  - {name: 香港自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png}
-  - {name: 台湾自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(台|TW|Taiwan|TW|🇹🇼))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png}
-  - {name: 日本自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png}
-  - {name: 狮城自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png}
-  - {name: 美国自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png}
+  - {name: 自建自动, <<: *autogroup, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+  - {name: 香港自动, <<: *autogroup, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png}
+  - {name: 台湾自动, <<: *autogroup, filter: "(?=.*(台|TW|Taiwan|TW|🇹🇼))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png}
+  - {name: 日本自动, <<: *autogroup, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png}
+  - {name: 狮城自动, <<: *autogroup, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png}
+  - {name: 美国自动, <<: *autogroup, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png}
 
-  - {name: YouTube, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/YouTube.png}
-  - {name: Google, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Google_Search.png}
-  - {name: AIGC, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Bot.png}
-  - {name: GitHub, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/GitHub.png}
-  - {name: Reddit, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Reddit.svg}
-  - {name: OneDrive, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/OneDrive.svg}
-  - {name: Microsoft, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Microsoft.png}
-  - {name: TikTok, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TikTok.png}
-  - {name: Telegram, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Telegram.svg}
-  - {name: Facebook, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Facebook.png}
-  - {name: NETFLIX, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Netflix.png}
-  - {name: Games, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
-  - {name: Networks, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
-  - {name: PayPal, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
-
-# 兜底策略组
-  - {name: 漏网之鱼, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
+  - {name: YouTube, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/YouTube.png}
+  - {name: Google, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Google_Search.png}
+  - {name: AIGC, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Bot.png}
+  - {name: GitHub, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/GitHub.png}
+  - {name: Reddit, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Reddit.svg}
+  - {name: OneDrive, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/OneDrive.svg}
+  - {name: Microsoft, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Microsoft.png}
+  - {name: TikTok, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TikTok.png}
+  - {name: Telegram, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Telegram.png}
+  - {name: Facebook, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Facebook.png}
+  - {name: NETFLIX, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Netflix.png}
+  - {name: Games, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
+  - {name: Networks, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
+  - {name: PayPal, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
+  - {name: 漏网之鱼, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
 
 ## 链式代理（组）配置
 # -------------------- dialer-proxy 链式代理（推荐，但设置略微复杂） -------------------- ##
@@ -84,11 +94,12 @@ proxy-groups:
   - {name: 华南中继, type: select, proxies: [香港故转, 狮城故转, 香港自动, 狮城自动, 香港节点, 狮城节点], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
 
 # 一机一 IP 专用策略组 
-  - {name: 手机139-ip236, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
-  - {name: 手机175-ip115, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}
-  - {name: OpenClaw-ip230, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Linux.jpg}
+  - {name: 手机139-ip236, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
+  - {name: 手机175-ip115, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}
+  - {name: OpenClaw-ip230, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Linux.jpg}
     
-  # - {name: GLOBAL, type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
+# ↓↓↓全局策略组↓↓↓
+#  - {name: GLOBAL, <<: *globalgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
 
 # ──────────────── 分流规则 ────────────────
 rules:
