@@ -1,16 +1,15 @@
 # 时间：20260313
 # 经测试，启用GLOBAL策略组后，显示时策略组顺序就会错乱，并与配置文件的顺序不一样，建议注释掉GlOBAL策略组使用
 
-# 出站策略，根据自己情况调整每个策略里分组排序，增删都可以，比如把美国自动放到第一个，比如删除香港故转，注意别漏掉表情逗号等。
-# 如果相应分组没有筛选到对应的国家，请根据自己节点名字调整筛选关键字。
-# 没有再使用锚点，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
 proxy-groups:
   - {name: 🚀 默认代理, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
   - {name: 🌐 全部节点, type: select, include-all: true, filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
-  🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
+  
+  - {name: 📹 YouTube, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
   - {name: 🍀 Google, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
   - {name: 🤖 ChatGPT, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT, filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
   - {name: 👨🏿‍💻 GitHub, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
+  - {name: 🎈 Reddit, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
   - {name: 🐬 OneDrive, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
   - {name: 🪟 Microsoft, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
   - {name: 🎵 TikTok, type: select, include-all: true, proxies: [🔯 自建故转, 🔯 台湾故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 台湾自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT, filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
@@ -39,7 +38,7 @@ proxy-groups:
   - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
  
-  - {name: 🐟 漏网之鱼, type: select, include-all: true, proxies: [🚀 默认代理, 🔯 自建故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
+  # - {name: 🐟 漏网之鱼, type: select, include-all: true, proxies: [🚀 默认代理, 🔯 自建故转, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, ♻️ 自建自动, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🌐 全部节点, DIRECT, REJECT], filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"}
 
 ## 中继节点组：提前设定好中继节点/组（经由机场节点 → 住宅出口链式）  
 # ──────────────── 中继节点/组 定义方式1：设置 包含多个 节点策略组 即可，比较灵活，推荐使用 ────────────────
@@ -77,6 +76,7 @@ rules:
 
   - RULE-SET,ai,🤖 ChatGPT
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
+  - RULE-SET,reddit_domain,🎈 Reddit
   - RULE-SET,youtube_domain,📹 YouTube
   - RULE-SET,google_domain,🍀 Google
   - RULE-SET,onedrive_domain,🐬 OneDrive
@@ -112,6 +112,7 @@ rule-providers:
   youtube_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
   google_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
   github_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
+  reddit_domain: { <<: *domain, url: "https://proxy.tututec.eu.org/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs"}
   telegram_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
   netflix_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
   paypal_domain: { <<: *domain, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
@@ -135,4 +136,3 @@ rule-providers:
   perproxy_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 网络检测类域名——个人收集
   network_check: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
-
