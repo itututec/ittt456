@@ -1,9 +1,7 @@
-proxy-groups:
-## 中继节点组 
-  - {name: 华东中继节点, type: select, proxies: [日本故转, 台湾故转, 日本自动, 台湾自动, 日本节点, 台湾节点], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
-  - {name: 华南中继节点, type: select, proxies: [香港故转, 狮城故转, 香港自动, 狮城自动, 香港节点, 狮城节点], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
+# 时间：20260313
+# 经测试，启用GLOBAL策略组后，显示时策略组顺序就会错乱，并与配置文件的顺序不一样，建议注释掉GlOBAL策略组使用
 
-# 按地区分类分组
+proxy-groups:
   - {name: 默认代理, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png}
   - {name: 手选节点, type: select, include-all: true, icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Select.png}  
   - {name: 落地节点, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Dest_2m.png}
@@ -44,6 +42,11 @@ proxy-groups:
   - {name: Games, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
   - {name: Networks, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
   - {name: PayPal, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
+
+## 中继节点组 
+  - {name: 华东中继, type: select, proxies: [日本故转, 台湾故转, 日本自动, 台湾自动, 日本节点, 台湾节点], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
+  - {name: 华南中继, type: select, proxies: [香港故转, 狮城故转, 香港自动, 狮城自动, 香港节点, 狮城节点], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
+
   - {name: 漏网之鱼, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
   
   # - {name: GLOBAL, type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
@@ -140,5 +143,3 @@ rule-providers:
   perproxy_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
   # 网络检测类域名——个人收集
   network_check: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
-
-  
