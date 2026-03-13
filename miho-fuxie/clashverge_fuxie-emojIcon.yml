@@ -46,7 +46,7 @@ proxy-groups:
   - {name: PayPal, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
   - {name: 漏网之鱼, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
   
-  - {name: GLOBAL, type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
+  # - {name: GLOBAL, type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼], icon: https://ghfast.top/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
 
 # ──────────────── 分流规则 ────────────────
 rules:
@@ -73,9 +73,12 @@ rules:
   - RULE-SET,geolocation-!cn, 默认代理
 
    # 5) 本地直连
+  - RULE-SET,private_domain,DIRECT
+  - RULE-SET,private_ip,DIRECT,no-resolve
   - IP-CIDR,127.0.0.0/8,DIRECT                                           #匹配数据目标IP(直连)
 
   # 6) 国内直连
+  - RULE-SET,perdirect_domain,DIRECT
   - RULE-SET,cn_domain,DIRECT
   - RULE-SET,cn_ip,DIRECT,no-resolve
   - GEOIP,CN,DIRECT,no-resolve  
@@ -131,4 +134,11 @@ rule-providers:
   netflix_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
   google_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
   GoogleCNProxy_ip: {type: http, interval: 86400, behavior: classical, format: text, url: "https://ghfast.top/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+
+  # 自用收集域名——个人收集
+  perdirect_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
+  perproxy_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
+  # 网络检测类域名——个人收集
+  network_check: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
+
   
