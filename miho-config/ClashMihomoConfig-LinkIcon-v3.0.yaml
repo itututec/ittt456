@@ -93,7 +93,7 @@ dns:
 # ──────────────── 机场订阅节点配置 ────────────────
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/omMhR4PosdBCG5BY?clash=1"     # 机场订阅链接
+    url: "https://checkhere.top/link/omMhdfasdfgasG5BY?clash=1"     # 机场订阅链接
     type: http
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"        # 不包含其他杂项节点
@@ -130,14 +130,14 @@ proxies:
  
  # ===  自建节点——通过VPS / NAT小鸡 部署
 # ----- 购买racknerd部署Proxy-US -----
-  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD-8443","server":"23.95.229.140","port":30003,"skip-cert-verify":true,"password":"b0a0362a-1816-4768-819c-123cda706cf0","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.229.140","port":30001,"password":"b0a0362a-1816-4768-819c-123cda706cf0","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.229.140","port":30002,"password":"b0a0362a-1816-4768-819c-123cda706cf0","uuid":"b0a0362a-1816-4768-819c-123cda706cf0","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD-8443","server":"23.95.229.140","port":30003,"skip-cert-verify":true,"password":"b0asdfasdf-1816-4768-819c-123adfcf0","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.229.140","port":30001,"password":"b0sddf-1816-4768-819c-123dfasdf6cf0","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.229.140","port":30002,"password":"b0adsfa-1816-4768-819c-123dfasdfcf0","uuid":"b0a0362a-1816-4768-819c-123cda706cf0","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
   
 # ----- vitebits小鸡: JP -----
-  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":19502,"skip-cert-verify":true,"password":"1083b991-2406-4a3b-ba58-f0c974f08b2f","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":19500,"password":"1083b991-2406-4a3b-ba58-f0c974f08b2f","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":19501,"password":"1083b991-2406-4a3b-ba58-f0c974f08b2f","uuid":"1083b991-2406-4a3b-ba58-f0c974f08b2f","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":19502,"skip-cert-verify":true,"password":"10sdfa1-2406-4a3b-ba58-f0c9ggdsee2f","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":19500,"password":"10dff1-2406-4a3b-ba58-f0c9frtegb2f","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":19501,"password":"1sdfas91-2406-4a3b-ba58-f0c97fdgfgf","uuid":"1083b991-2406-4a3b-ba58-f0c974f08b2f","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
 
 # ----- 独角鲸vps: hk-nat4 -----
 #  - {"type":"anytls","name":"🇭🇰 HK_nat4-anytls-pD","server":"165.99.42.228","port":56567,"skip-cert-verify":true,"password":"0119af93-4214-432a-861c-dd368bfb91b1","allowInsecure":"1"}
