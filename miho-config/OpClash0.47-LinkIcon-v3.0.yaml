@@ -197,6 +197,8 @@ proxy-groups:
   - {name: Games, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
   - {name: Networks, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
   - {name: PayPal, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
+
+# 兜底策略组
   - {name: 漏网之鱼, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
 
 # 链式代理（组）配置
@@ -218,8 +220,9 @@ proxy-groups:
   - {name: 手机175-ip115, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}
   - {name: OpenClaw-ip230, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Linux.jpg}
   
-# ↓↓↓全局策略组↓↓↓
+# 全局策略组
 #  - {name: GLOBAL, <<: *globalgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
+
 
 # ──────────────── 分流规则 ────────────────
 rules:
