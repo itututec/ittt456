@@ -190,7 +190,7 @@ proxy-groups:
   - {name: OneDrive, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/OneDrive.svg}
   - {name: Microsoft, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Microsoft.png}
   - {name: TikTok, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TikTok.png}
-  - {name: Telegram, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Telegram.png}
+  - {name: Telegram, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Telegram.svg}
   - {name: Facebook, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Facebook.png}
   - {name: NETFLIX, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Netflix.png}
   - {name: Games, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
