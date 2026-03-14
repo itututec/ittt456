@@ -1,11 +1,11 @@
 # ShellCrash-1.9.4版本 通用（链式代理）配置模板
-# 版本：v3.0-260311
+# 版本：v3.0-260314
 # 作者：ittt456
 # 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP，防止 DNS/WebRTC 泄漏；多分流规则，DNS防泄露
 # 提示：请务必将配置文件中【必改】部分按需修改为自己的真实信息方可使用—— #注释部分根据需要修改或删除或保留注释
 # 声明：仅作学习用，不得用于违法用途，不为使用后果负责
-# 新增 故障转移策略组
-# 注意：ShellCrash 不支持锚点数据引用——故无法直接使用 OpenClash 使用锚点数据格式的 配置模板
+# Nikki特别注意：使用Nikki插件之前，需要在 网络 -> DHCP/DNS -> DNS 重定向这一选项请关闭勾选，否则会冲突导致网络异常
+# 说明：该模板配置文件可供Mihomo内核的OpenClash/Nikki/ClashParty/ClashVerg/ShellCrash使用(给ShellCrash使用时需不能使用数据锚点进行引用)
 # 如何使用：在linux中启用ShellCrash前，务必保证安装了iptables或者保证系统能转发流量，然后将该配置文件放置在/tmp 文件夹下并改名为 config.yaml，再启动ShellCrash会自动捕捉到配置文件，根据其实导入并启动即可
 
 # ──────────────── 全局基础设置 ────────────────
@@ -112,10 +112,20 @@ proxy-providers:
 
 # ──────────────── 单个节点配置，可添加多个节点，每行一个 ────────────────
 proxies:
-# 讲英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以
+# 将英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以
  # - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
  # - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
-
+  
+  # === 落地节点-ISP住宅 SOCKS5 节点（一般需要单独购买SOCKS5节点，链式出口节点，需配合 关键字 dialer-proxy）===
+  - name: 落地SK5-US01                       # 自定义落地节点，用不上就整段注释掉或删除
+    type: socks5
+    server: 184.178.172.13                                   # 【必改】SOCKS5 的IP地址
+    port: 15311                                                       # 【必改】端口号
+#    username:                                                    # 【必改】用户名，没有就注释掉
+#    password:                                                     # 【必改】密码，没有就注释掉
+    udp: true
+    dialer-proxy: 华东中继                                #  dialer-proxy后跟的可以是 中继节点或节点组 的名称，表示该节点 落地SK5-US01  通过 中继节点(组) 华东中继 连通
+    
   # === 机场节点——可作为链式中继节点（【必改】需替换为真实节点信息）===
   #- {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
   #- {name: bpb02, server: 2.3.4.5, port: 443, type: trojan, password: pass456, sni: example.org, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path2, headers: {Host: example.org}}}
@@ -133,30 +143,20 @@ proxies:
 
 # ----- 独角鲸vps: hk-nat4 -----
 #  - {"type":"anytls","name":"🇭🇰 HK_nat4-anytls-pD","server":"165.99.42.228","port":56567,"skip-cert-verify":true,"password":"0119af93-4214-432a-861c-dd368bfb91b1","allowInsecure":"1"}
-  
-  # === 落地节点-ISP住宅 SOCKS5 节点（一般需要单独购买SOCKS5节点，链式出口节点，需配合 关键字 dialer-proxy）===
-  - name: 落地SK5-US01                       # 自定义落地节点，用不上就整段注释掉或删除
-    type: socks5
-    server: 184.178.172.13                                   # 【必改】SOCKS5 的IP地址
-    port: 15311                                                       # 【必改】端口号
-#    username:                                                    # 【必改】用户名，没有就注释掉
-#    password:                                                     # 【必改】密码，没有就注释掉
-    udp: true
-    dialer-proxy: 华东中继节点                        # 指定前置中继节点或节点组，如果能直连也可以不需要通过中继节点/组——注释掉或删除dialer-proxy即可
     
 # ──────────────── 策略组定义 ────────────────
-# 配置策略组 共用部分的数据锚点
-## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
+# 定义数据锚点——供策略组数据引用 
+## 数据引用：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
 ## 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
 # selectgroup: &selectgroup {type: select, include-all: true, proxies: [DIRECT, REJECT]}                # 建立名为 selectgroup 的数据锚点
 # autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}                # 建立名为 autogroup 的数据锚点
 # fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}                # 建立名为 fallbackgroup 的数据锚点
 # mediagroup: &mediagroup {type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}      # 建立名为 proxygroup 的策略组数据锚点
-# mixedgroup: &abcgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}     # 建立名为abcgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
-# globalgroup: &gbobalgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼]}     # 建立名为 globalgroup 的专用于Global的策略组数据锚点
+# mixedgroup: &abcgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}     # 建立名为mixedgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
+# globalgroup: &globalgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼]}     # 建立名为 globalgroup 的专用于Global的策略组数据锚点
 
 proxy-groups:
-# 按地区分类分组
+# 通用策略组分组
   - {name: 默认代理, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png}
   - {name: 手选节点, type: select, include-all: true, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Select.png}       # 全部节点但不包含其他杂项节点
   
@@ -198,6 +198,8 @@ proxy-groups:
   - {name: Games, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
   - {name: Networks, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
   - {name: PayPal, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
+
+# 兜底策略组
   - {name: 漏网之鱼, type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
 
 # 链式代理（组）配置
@@ -230,12 +232,12 @@ rules:
  # - DOMAIN-KEYWORD,turn,REJECT
  # - DOMAIN-KEYWORD,rtc,REJECT
 
-  # 2) 链式代理分流：一机一住宅IP（配合 DHCP 静态分配固定IP 使用，配置后 使得已定义好的 每台设备对应内部固定的IP和 连接外部唯一的落地住宅SK5 IP）；链代落地节点已另外设置好 dialer-proxy中继节点/组，这里只要引用即可
-  # - SRC-IP-CIDR,192.168.20.101/32,链代落地-住宅A    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅A)：发起IP需查阅设备实际分配到的IP，再来这里进行修改
-  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅B)：发起IP需查阅设备实际分配到的IP，再来这里进行修改
-  - SRC-IP-CIDR,192.168.2.236/32,手机139-ip236         # 手机Honor139-ip236 走策略组 [手机139-ip236]
-  - SRC-IP-CIDR,192.168.2.115/32,手机175-ip115           # 手机Realme175-ip115 走策略组 [手机175-ip115]
-  - SRC-IP-CIDR,192.168.2.230/32,OpenClaw-ip230           # OECT部署的OpenClaw-ip230 走策略组 [OpenClaw-ip230]
+  # 2) 链式代理分流：一机一住宅IP（配置后 指定IP的设备，走指定的 出口节点（组）
+ # - SRC-IP-CIDR,192.168.20.101/32,链代落地节点-住宅A    # 指定ip为192.168.20.101的设备的数据走向/落地到节点 链代落地节点-住宅A——落地住宅节点/ip通常需要通过中继节点(组)连通，如何定义上述已有说明
+ # - SRC-IP-CIDR,192.168.20.102/32,链代落地节点-住宅B 
+  - SRC-IP-CIDR,192.168.2.236/32,手机139-ip236         # 匹配数据发起IP也就是192.168.2.236这台设备 走 指定节点策略组（组）：手机139-ip236
+  - SRC-IP-CIDR,192.168.2.115/32,手机175-ip115         # 匹配数据发起IP也就是192.168.2.115这台设备 走 指定节点策略组（组）：手机175-ip115
+  - SRC-IP-CIDR,192.168.2.230/32,OpenClaw-ip230  
 
   # 3) BT 和 PT 等下载流量分流问题——下载机/NAS设备的全部流量将直连
   # - SRC-IP-CIDR,192.168.1.201/32,DIRECT
@@ -274,7 +276,7 @@ rules:
   - RULE-SET,cn_ip,DIRECT,no-resolve
   - GEOIP,CN,DIRECT,no-resolve  
  
-  # 7) 兜底策略组
+  # 7) 其他流量默认走代理
   - MATCH,漏网之鱼 
 
 # 规则集定义
