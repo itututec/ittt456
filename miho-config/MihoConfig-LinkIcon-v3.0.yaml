@@ -110,7 +110,7 @@ proxy-providers:
 
 # ──────────────── 单个节点添加 ────────────────
 proxies:
-# 讲英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以
+# 将英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以
  # - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
  # - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
   
@@ -215,9 +215,10 @@ proxy-groups:
   #     - bpb02
 
 # 一机一 IP 专用策略组 
-  - {name: 手机139-ip236, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
-  - {name: 手机175-ip115, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}
-  - {name: OpenClaw-ip230, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Linux.jpg}
+#  - {name: 手机139-ip236, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
+  - {name: 手机139-ip236, <<: *mixedgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
+  - {name: 手机175-ip115, <<: *mixedgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}
+  - {name: OpenClaw-ip230, <<: *mixedgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Linux.jpg}
   
 # 全局策略组
 #  - {name: GLOBAL, <<: *globalgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
