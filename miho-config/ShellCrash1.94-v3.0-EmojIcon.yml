@@ -95,7 +95,7 @@ dns:
 # ──────────────── 机场订阅节点配置 ────────────────
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/omMhR4PosdBCG5BY?clash=1"     # 机场订阅链接
+    url: "https://checkhere.top/link/omMdfsdfsdfdfBY?clash=1"     # 机场订阅链接
     type: http
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"        # 不包含其他杂项节点
@@ -122,14 +122,14 @@ proxies:
  
  # ===  自建节点——通过VPS / NAT小鸡 部署
 # ----- 购买racknerd部署Proxy-US -----
-  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD-8443","server":"23.95.229.140","port":30003,"skip-cert-verify":true,"password":"bsdfnsga-1816-4768-819c-123cda706cf0","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.229.140","port":30001,"password":"bsdfnsga-1816-4768-819c-123cda706cf0","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.229.140","port":30002,"password":"bsdfnsga-1816-4768-819c-123cda706cf0","uuid":"bsdfnsga-1816-4768-819c-123cda706cf0","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD-8443","server":"23.95.229.140","port":30003,"skip-cert-verify":true,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.229.140","port":30001,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.229.140","port":30002,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","uuid":"bsdfnsga-1816-4768-819c-123cda706cf0","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
   
 # ----- vitebits小鸡: JP -----
-  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":19502,"skip-cert-verify":true,"password":"bf98789f-2406-4a3b-ba58-f0c974f08b2f","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":19500,"password":"bf98789f-2406-4a3b-ba58-f0c974f08b2f","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":19501,"password":"bf98789f-2406-4a3b-ba58-f0c974f08b2f","uuid":"bf98789f-2406-4a3b-ba58-f0c974f08b2f","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":19502,"skip-cert-verify":true,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":19500,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":19501,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","uuid":"bf98789f-2406-4a3b-ba58-f0c974f08b2f","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
 
 # ----- 独角鲸vps: hk-nat4 -----
 #  - {"type":"anytls","name":"🇭🇰 HK_nat4-anytls-pD","server":"165.99.42.228","port":56567,"skip-cert-verify":true,"password":"0119af93-4214-432a-861c-dd368bfb91b1","allowInsecure":"1"}
@@ -247,8 +247,7 @@ rules:
   # 3) BT 和 PT 等下载流量分流问题——下载机/NAS设备的全部流量将直连
   # - SRC-IP-CIDR,192.168.1.201/32,DIRECT
 
-  # 4) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好
- 
+  # 4) 常见跨境平台强制走代理策略组——策略组已在proxy-groups中定义好
   - RULE-SET,network_check, 🚀 默认代理  
   - RULE-SET,perproxy_domain,🚀 默认代理
 
