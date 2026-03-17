@@ -95,7 +95,7 @@ dns:
 # ──────────────── 机场订阅节点配置 ────────────────
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/omMdfsdfsdfdfBY?clash=1"     # 机场订阅链接
+    url: "https://checkhere.top/link/******************?clash=1"     # 机场订阅链接
     type: http
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"        # 不包含其他杂项节点
@@ -113,8 +113,8 @@ proxy-providers:
 # ──────────────── 单个节点配置，可添加多个节点，每行一个 ────────────────
 proxies:
 # 将英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以
-  - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
-  - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
+#  - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
+#  - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
 
   # === 机场节点——可作为链式中继节点（【必改】需替换为真实节点信息）===
   #- {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
@@ -122,14 +122,14 @@ proxies:
  
  # ===  自建节点——通过VPS / NAT小鸡 部署
 # ----- 购买racknerd部署Proxy-US -----
-  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD-8443","server":"23.95.229.140","port":30003,"skip-cert-verify":true,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.229.140","port":30001,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.229.140","port":30002,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","uuid":"bsdfnsga-1816-4768-819c-123cda706cf0","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD-8443","server":"23.95.229.140","port":30003,"skip-cert-verify":true,"password":"******************","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.229.140","port":30001,"password":"*******************","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.229.140","port":30002,"password":"********************","uuid":"b0a0362a-1816-4768-819c-123cda706cf0","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
   
 # ----- vitebits小鸡: JP -----
-  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":19502,"skip-cert-verify":true,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":19500,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":19501,"password":"bdgsfdgas-1816-4768-819c-e345rtgsfghf0","uuid":"bf98789f-2406-4a3b-ba58-f0c974f08b2f","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":19502,"skip-cert-verify":true,"******************","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":19500,"password":"*****************","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":19501,"password":"************f","uuid":"1083b991-2406-4a3b-ba58-f0c974f08b2f","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
 
 # ----- 独角鲸vps: hk-nat4 -----
 #  - {"type":"anytls","name":"🇭🇰 HK_nat4-anytls-pD","server":"165.99.42.228","port":56567,"skip-cert-verify":true,"password":"0119af93-4214-432a-861c-dd368bfb91b1","allowInsecure":"1"}
@@ -151,14 +151,14 @@ proxies:
 selectgroup: &selectgroup {type: select, include-all: true}                # 建立名为 selectgroup 的数据锚点
 autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}                # 建立名为 autogroup 的数据锚点
 fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}                # 建立名为 fallbackgroup 的数据锚点
-mediagroup: &mediagroup {type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}      # 建立名为 proxygroup 的策略组数据锚点
-abcgroup: &abcgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}     # 建立名为abcgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
-gbobalgroup: &gbobalgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝, 📹 YouTube, 🔍 Google, 🤖 AIGC, 👨🏿‍💻 GitHub, 🎀 Reddit, 💾 OneDrive, 🪟 Microsoft, 🎵 TikTok, 📲 Telegram, 🎭 Facebook, 🎥 NETFLIX, 🌐 网络测试, 💵 PayPal, 🐟 漏网之鱼]}     # 建立名为 globalgroup 的专用于Global的策略组数据锚点
+mediagroup: &mediagroup {type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}      # 建立名为 proxygroup 的策略组数据锚点
+abcgroup: &abcgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}     # 建立名为abcgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
+gbobalgroup: &gbobalgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 📹 YouTube, 🔍 Google, 🤖 AIGC, 👨🏿‍💻 GitHub, 🎀 Reddit, 💾 OneDrive, 🪟 Microsoft, 🎵 TikTok, 📲 Telegram, 🎭 Facebook, 🎥 NETFLIX, 🌐 网络测试, 💵 PayPal, 🐟 漏网之鱼, DIRECT, REJECT]}     # 建立名为 globalgroup 的专用于Global的策略组数据锚点
 # --------------------------------------------------------------------------
 proxy-groups:
 # 通用策略组分类
-  - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 👌 手选节点, type: select, include-all: true}       # 全部节点但不包含其他杂项节点
+  - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 👌 手选节点, type: select, include-all: true, proxies: [DIRECT, REJECT]}       # 全部节点但不包含其他杂项节点
   
   - {name: 🎯 落地节点, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP"}       # 只包含链式代理落地/SOCKS5节点
   - {name: ➕ 自建节点, type: select, include-all: true, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
@@ -184,23 +184,23 @@ proxy-groups:
   - {name: 🔁 狮城自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$"}
   - {name: 🔁 美国自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$"}
 
-  - {name: 📹 YouTube, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🔍 Google, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🤖 AIGC, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🎀 Reddit, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 💾 OneDrive, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🪟 Microsoft, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🎵 TikTok, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 📲 Telegram, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🎭 Facebook, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🎥 NETFLIX, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🎮 Games, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 🌐 网络测试, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
-  - {name: 💵 PayPal, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
+  - {name: 📹 YouTube, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🔍 Google, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🤖 AIGC, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🎀 Reddit, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 💾 OneDrive, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🪟 Microsoft, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🎵 TikTok, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 📲 Telegram, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🎭 Facebook, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🎥 NETFLIX, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🎮 Games, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 🌐 网络测试, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+  - {name: 💵 PayPal, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
 
 # 兜底策略组
-  - {name: 🐟 漏网之鱼, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
 
 
 # 链式代理（组）配置
@@ -218,15 +218,15 @@ proxy-groups:
   #     - bpb02
 
 # 一机一 IP 专用策略组 
-#  - {name: 🖥️ OpenClaw-ip230, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝]}
+#  - {name: 🖥️ OpenClaw-ip230, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
 
-  - {name: 📳 手机139-ip236, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动]}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
-  - {name: 📳 手机175-ip115, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动]}
+  - {name: 📳 手机139-ip236, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
+  - {name: 📳 手机175-ip115, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
 
-  - {name: 🦞️ OpenCalw-ip239, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动]}
+  - {name: 🦞️ OpenCalw-ip239, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
   
 # ↓↓↓全局策略组↓↓↓
-#  - {name: GLOBAL, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连, 拒绝, 📹 YouTube, 🔍 Google, 🤖 AIGC,  👨🏿‍💻 GitHub, 🎀 Reddit, 💾 OneDrive, 🪟 Microsoft, 🎵 TikTok, 📲 Telegram, 🎭 Facebook, 🎥 NETFLIX, 🌐 网络测试, 💵 PayPal, 🐟 漏网之鱼]}
+#  - {name: GLOBAL, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 📹 YouTube, 🔍 Google, 🤖 AIGC,  👨🏿‍💻 GitHub, 🎀 Reddit, 💾 OneDrive, 🪟 Microsoft, 🎵 TikTok, 📲 Telegram, 🎭 Facebook, 🎥 NETFLIX, 🌐 网络测试, 💵 PayPal, 🐟 漏网之鱼, DIRECT, REJECT]}
 
 # ──────────────── 分流规则 ────────────────
 rules:
@@ -254,7 +254,7 @@ rules:
   - RULE-SET,ai_domain,🤖 AIGC
   - RULE-SET,onedrive_domain,💾 OneDrive
   - RULE-SET,microsoft_domain,🪟 Microsoft
-  - RULE-SET,apple_domain,直连
+  - RULE-SET,apple_domain,DIRECT
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
   - RULE-SET,reddit_domain,🎀 Reddit  
   - RULE-SET,tiktok_domain,🎵 TikTok
@@ -271,15 +271,15 @@ rules:
   - RULE-SET,geolocation-!cn, 🚀 默认代理
 
    # 5) 本地直连
-  - RULE-SET,private_domain,直连
-  - RULE-SET,private_ip,直连,no-resolve
-  - IP-CIDR,127.0.0.0/8,直连                                           #匹配数据目标IP(直连)
+  - RULE-SET,private_domain,DIRECT
+  - RULE-SET,private_ip,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT                                           #匹配数据目标IP(直连)
 
   # 6) 国内直连
-  - RULE-SET,perdirect_domain,直连
-  - RULE-SET,cn_domain,直连
-  - RULE-SET,cn_ip,直连,no-resolve
-  - GEOIP,CN,直连,no-resolve  
+  - RULE-SET,perdirect_domain,DIRECT
+  - RULE-SET,cn_domain,DIRECT
+  - RULE-SET,cn_ip,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT,no-resolve  
  
   # 7) 其他流量默认走代理
   - MATCH,🐟 漏网之鱼 
