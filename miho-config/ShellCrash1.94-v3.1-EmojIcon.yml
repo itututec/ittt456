@@ -180,6 +180,7 @@ dns:
 #   class: &class {type: http, interval: 86400, behavior: classical, format: text}      # 建立名为 clashh 的数据锚点
 ############### 锚点设置 end ###############
 
+
 ############### 策略组配置 start ###############
 proxy-groups:
 # 通用策略组分类
