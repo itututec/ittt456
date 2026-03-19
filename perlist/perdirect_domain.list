@@ -3,7 +3,7 @@
 # 直连补充列表
 
 # 域名后缀匹配——重要搜集域名
-# DOMAIN-SUFFIX,keke1.app
+DOMAIN-SUFFIX,tututec.eu.org
 
 # 域名后缀匹配——国内公共域名
 DOMAIN-SUFFIX,gitea.com
