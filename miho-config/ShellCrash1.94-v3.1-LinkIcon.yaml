@@ -153,9 +153,9 @@ dns:
   direct-nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
-  # fallback:      # 后备域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为 n 
-  #   - tls://dns.google
-  #   - https://1.0.0.1/dns-query
+#  fallback:      # 后备域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为 n 
+#    - tls://dns.google
+#    - https://1.0.0.1/dns-query
 ############### 全局基础配置 end ###############
 
 ############### 锚点设置 start ###############
@@ -221,7 +221,7 @@ proxy-groups:
   - {name: NETFLIX, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Netflix.png}
   - {name: Games, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
   - {name: PayPal, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
-#  - {name: Networks, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
+#  - {name: 网络测试, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
 
 # 兜底策略组
   - {name: 漏网之鱼, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
@@ -278,6 +278,7 @@ rules:
   # - IP-CIDR,127.0.0.0/8,DIRECT      # 匹配数据目标IP(直连)
 
   # 4) 常见跨境平台强制走代理策略组——策略组已在rpoxy-groups中定义好 
+    # - RULE-SET,network_check,网络测试
   - RULE-SET,perproxy_domain,默认代理
 
   - RULE-SET,ai_domain,AIGC
