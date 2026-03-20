@@ -166,18 +166,18 @@ dns:
 # > 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
 
 # > 策略组 锚点：
-#   selectgroup: &selectgroup {type: select, include-all: true}       # 建立名为 selectgroup 的数据锚点
-#   autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}      # 建立名为 autogroup 的数据锚点
-#   fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}      # 建立名为 fallbackgroup 的数据锚点
-#   mediagroup: &mediagroup {type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}      # 建立名为 proxygroup 的策略组数据锚点
-#   mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}      # 建立名为mixedgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
-#   globalgroup: &globalgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 📹 YouTube, 🔍 Google, 🤖 AIGC, 👨🏿‍💻 GitHub, 🎀 Reddit, 💾 OneDrive, 🪟 Microsoft, 🎵 TikTok, 📲 Telegram, 🎭 Facebook, 🎥 NETFLIX, 🌐 网络测试, 💵 PayPal, 🐟 漏网之鱼, DIRECT, REJECT]}      # 建立名为 globalgroup 的专用于Global的策略组数据锚点
+#   selectgroup: &selectgroup {type: select, include-all: true}
+#   autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}
+#   fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}
+#   mediagroup: &mediagroup {type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+#   mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
+#   globalgroup: &globalgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 📹 YouTube, 🔍 Google, 🤖 AIGC, 👨🏿‍💻 GitHub, 🎀 Reddit, 💾 OneDrive, 🪟 Microsoft, 🎵 TikTok, 📲 Telegram, 🎭 Facebook, 🎥 NETFLIX, 🌐 网络测试, 💵 PayPal, 🐟 漏网之鱼, DIRECT, REJECT]}
 
 # > 规则集 锚点：
 # rule-anchor:
-#   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}                # 建立名为 ip 的数据锚点
-#   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}        # 建立名为 domain 的数据锚点
-#   class: &class {type: http, interval: 86400, behavior: classical, format: text}      # 建立名为 clashh 的数据锚点
+#   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
+#   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
+#   class: &class {type: http, interval: 86400, behavior: classical, format: text}
 ############### 锚点设置 end ###############
 
 
