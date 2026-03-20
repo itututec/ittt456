@@ -9,7 +9,7 @@
 # ──────────────── 机场订阅配置 ────────────────
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/omMhR4PosdBCG5BY?clash=1"     # 机场订阅链接
+    url: "https://checkhere.top/link/********************"     # 机场订阅链接
     type: http
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"        # 不包含其他杂项节点
@@ -46,15 +46,15 @@ proxies:
 # - {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
 # - {name: bpb02, server: 2.3.4.5, port: 443, type: trojan, password: pass456, sni: example.org, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path2, headers: {Host: example.org}}}
 # ----- 购买racknerd部署Proxy-US -----
-  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD-8443","server":"23.95.229.140","port":30003,"skip-cert-verify":true,"password":"b0a0362a-1816-4768-819c-123cda706cf0","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.229.140","port":30001,"password":"b0a0362a-1816-4768-819c-123cda706cf0","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.229.140","port":30002,"password":"b0a0362a-1816-4768-819c-123cda706cf0","uuid":"b0a0362a-1816-4768-819c-123cda706cf0","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇺🇲 US_RN-anytls-pD-8443","server":"23.95.229.140","port":30003,"skip-cert-verify":true,"password":"********************","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇺🇲 US_RN-hy2-pD","server":"23.95.229.140","port":30001,"password":"********************","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇺🇲 US_RN-tuic-pD","server":"23.95.229.140","port":30002,"password":"********************","uuid":"b0a0362a-1816-4768-819c-123cda706cf0","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
 # ----- vitebits小鸡: JP -----
-  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":19502,"skip-cert-verify":true,"password":"1083b991-2406-4a3b-ba58-f0c974f08b2f","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":19500,"password":"1083b991-2406-4a3b-ba58-f0c974f08b2f","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":19501,"password":"1083b991-2406-4a3b-ba58-f0c974f08b2f","uuid":"1083b991-2406-4a3b-ba58-f0c974f08b2f","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":19502,"skip-cert-verify":true,"password":"********************","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":19500,"password":"********************","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":19501,"password":"********************","uuid":"1083b991-2406-4a3b-ba58-f0c974f08b2f","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
 # ----- 独角鲸vps: hk-nat4 -----
-#  - {"type":"anytls","name":"🇭🇰 HK_nat4-anytls-pD","server":"165.99.42.228","port":56567,"skip-cert-verify":true,"password":"0119af93-4214-432a-861c-dd368bfb91b1","allowInsecure":"1"}
+#  - {"type":"anytls","name":"🇭🇰 HK_nat4-anytls-pD","server":"165.99.42.228","port":56567,"skip-cert-verify":true,"password":"********************","allowInsecure":"1"}
 # ----- 落地节点-ISP住宅 SOCKS5 节点 -----
   - name: 💧 链代落地-住宅A     # 自定义落地节点，用不上就整段注释掉或删除
     type: socks5
@@ -220,27 +220,27 @@ proxy-groups:
   - {name: Facebook, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Facebook.png}
   - {name: NETFLIX, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Netflix.png}
   - {name: Games, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
-  - {name: Networks, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
   - {name: PayPal, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
+#  - {name: Networks, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
 
 # 兜底策略组
   - {name: 漏网之鱼, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
 
 # 链式代理（组）配置
 # 1、使用 dialer-proxy 链式代理(推荐dialer-proxy实现链式代理，不推荐relay链式代理——有很多缺陷)
-# >1.1 需在前面的 proxies节点配置文件下，额外定义关键字 dialer-proxy 并指向下面策略组中定义好的 中继节点或中继节点组 的名称，表示该节点（即落地节点）通过 中继节点(组) 路由连通（参考行号135-143）；
+# > 1.1 需在前面的 proxies节点配置文件下，额外定义关键字 dialer-proxy 并指向下面策略组中定义好的 中继节点或中继节点组 的名称，表示该节点（即落地节点）通过 中继节点(组) 路由连通（参考行号135-143）；
 # 2、中继节点组：辅助链式代理进行使用(实现经由中继节点(组) →→→ 落地/住宅出口)
-# >2.1 中继节点/组 定义方式1：设置 包含多个 节点策略组，比如这里的 华东中继 策略组包含 日本故转、台湾故转、 日本自动、台湾自动、日本节点、台湾节点 等多个策略组
+# > 2.1 中继节点/组 定义方式1：设置 包含多个 节点策略组，比如这里的 华东中继 策略组包含 日本故转、台湾故转、 日本自动、台湾自动、日本节点、台湾节点 等多个策略组
   - {name: 华东中继, type: select, proxies: [日本故转, 台湾故转, 日本自动, 台湾自动, 日本节点, 台湾节点], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
   - {name: 华南中继, type: select, proxies: [香港故转, 狮城故转, 香港自动, 狮城自动, 香港节点, 狮城节点], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
 # >2.2 中继节点/组 定义方式2：设置 包含多个节点，比如这里的华东中继 策略组包含节点 bpb01、bpb02
-  # - name: 华东中继
-  #   type: select
-  #   proxies:     # 上述proxies中已经定义好的节点，可添加多个节点，每行一个
-  #     - bpb01
-  #     - bpb02
+#  - name: 华东中继
+#    type: select
+#    proxies:     # 上述proxies中已经定义好的节点，可添加多个节点，每行一个
+#      - bpb01
+#      - bpb02
 
-# 一机一 IP 专用策略组 
+# 一机一 IP 策略组 
   - {name: 手机139-ip236, type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
   - {name: 手机175-ip115, type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}
   - {name: OpenClaw-ip230, type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|🇭|台|Taiwan|TW|🇹|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|🇸|🇯|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Linux.jpg}
@@ -263,10 +263,10 @@ rules:
 
   # 2) 链式代理分流：一机一住宅IP（配合 DHCP 静态分配固定IP 使用，配置后 使得已定义好的 每台设备对应内部固定的IP和 连接外部唯一的落地住宅SK5 IP）；链代落地节点已另外设置好 dialer-proxy中继节点/组，这里只要引用即可
   # - SRC-IP-CIDR,192.168.1.201/32,DIRECT      # 通过一机一IP来指定作为 BT和PT 的设备在下载时流量将直连全部
-  # - SRC-IP-CIDR,192.168.20.101/32,链代落地节点-住宅A    # 指定ip为192.168.20.101的设备的数据走向/落地到节点 链代落地节点-住宅A——落地住宅节点/ip通常需要通过中继节点(组)连通，如何定义上述已有说明
+  # - SRC-IP-CIDR,192.168.20.101/32,链代落地节点-住宅A    # 指定ip为192.168.20.101的设备的数据 走向/落地 到节点名为 链代落地节点-住宅A——该落地住宅节点/ip通常需要通过中继节点(组)连通，如何定义上述已有说明
   # - SRC-IP-CIDR,192.168.20.102/32,链代落地节点-住宅B 
   - SRC-IP-CIDR,192.168.2.236/32,手机139-ip236         # 匹配数据发起IP也就是192.168.2.236这台设备 走 指定节点策略组（组）：手机139-ip236
-  - SRC-IP-CIDR,192.168.2.115/32,手机175-ip115         # 匹配数据发起IP也就是192.168.2.115这台设备 走 指定节点策略组（组）：手机175-ip115
+  - SRC-IP-CIDR,192.168.2.115/32,手机175-ip115
   - SRC-IP-CIDR,192.168.2.230/32,OpenClaw-ip230  
   - SRC-IP-CIDR,192.168.2.231/32,OpenClaw-ip231
   - SRC-IP-CIDR,192.168.2.232/32,PicoClaw-ip232 
