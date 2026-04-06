@@ -19,12 +19,12 @@ proxy-providers:
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
-    proxy: DIRECT
-    #override:
-      #dialer-proxy: 🇭🇰 香港节点     # 可以填中继节点或节点组
-    #payload:     # 以下是落地节点——通常是购买的专用的SOCKS5节点
-      #- {"name":"香港落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
-      #- {"name":"美国落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
+    # proxy: DIRECT
+    # override:
+      # dialer-proxy: 🇭🇰 香港节点     # 可以填中继节点或节点组
+    # payload:     # 以下是落地节点——通常是购买的专用的SOCKS5节点
+      # - {"name":"香港落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
+      # - {"name":"美国落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
 
   Airport2:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
     url: "https://xsus.sbfys.cn/api/v1/client/subscribe?token=****************************"     # 机场订阅链接
