@@ -146,11 +146,11 @@ proxies:
 # 定义数据锚点——供策略组数据引用 
 ## 数据引用：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
 ## 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
-selectgroup: &selectgroup {type: select, include-all: true, proxies: [DIRECT, REJECT]}                # 建立名为 selectgroup 的数据锚点
+selectgroup: &selectgroup {type: select, include-all: true, proxies: [DIRECT]}                # 建立名为 selectgroup 的数据锚点
 autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}                # 建立名为 autogroup 的数据锚点
 fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}                # 建立名为 fallbackgroup 的数据锚点
-mediagroup: &mediagroup {type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT]}      # 建立名为 proxygroup 的策略组数据锚点
-mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT]}     # 建立名为mixedgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
+mediagroup: &mediagroup {type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT]}      # 建立名为 proxygroup 的策略组数据锚点
+mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT]}     # 建立名为mixedgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
 globalgroup: &globalgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼]}     # 建立名为 globalgroup 的专用于Global的策略组数据锚点
 # --------------------------------------------------------------------------
 proxy-groups:
