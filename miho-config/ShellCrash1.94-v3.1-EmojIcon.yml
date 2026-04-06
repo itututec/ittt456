@@ -184,8 +184,8 @@ dns:
 ############### 策略组配置 start ###############
 proxy-groups:
 # 通用策略组分类
-  - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT, REJECT]}
-  - {name: 👌 手选节点, type: select, include-all: true, proxies: [DIRECT, REJECT]}       # 全部节点但不包含其他杂项节点
+  - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, DIRECT]}
+  - {name: 👌 手选节点, type: select, include-all: true, proxies: [DIRECT]}       # 全部节点但不包含其他杂项节点
   
   - {name: 🎯 落地节点, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP"}       # 只包含链式代理落地/SOCKS5节点
   - {name: ➕ 自建节点, type: select, include-all: true, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
