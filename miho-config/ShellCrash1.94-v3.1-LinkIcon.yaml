@@ -181,7 +181,7 @@ dns:
 ############### 策略组配置 start ###############
 proxy-groups:
 # 通用策略组分组
-  - {name: 默认代理, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT, REJECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png}
+  - {name: 默认代理, type: select, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 香港故转, 台湾故转, 日本故转, 狮城故转, 美国故转, 自建自动, 香港自动, 台湾自动, 日本自动, 狮城自动, 美国自动, DIRECT], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png}
   - {name: 手选节点, type: select, include-all: true, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Select.png}      # 全部节点但不包含其他杂项节点
   
   - {name: 落地节点, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Dest_2m.png}       # 只包含链式代理落地/SOCKS5节点
