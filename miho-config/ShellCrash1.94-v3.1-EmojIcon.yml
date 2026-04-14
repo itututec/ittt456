@@ -310,7 +310,6 @@ rules:
   # 6) 国内直连
   - RULE-SET,cn_domain,DIRECT
   - RULE-SET,cn_ip,DIRECT,no-resolve
-  - GEOIP,CN,DIRECT,no-resolve  
  
   # 7) 其他流量默认走代理
   - MATCH,🐟 漏网之鱼 
