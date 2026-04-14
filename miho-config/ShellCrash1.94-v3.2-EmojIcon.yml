@@ -68,6 +68,8 @@ log-level: warning          # 日志级别
 tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
 unified-delay: true         # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差
 
+find-process-mode: strict   # 进程匹配模式，always开启-强制匹配所有进程；strict默认-由Clash判断是否开启；off不匹配-推荐路由器上使用
+
 global-client-fingerprint: chrome      # 全局客户端指纹，模拟 Chrome 浏览器
 keep-alive-idle: 600                   # 连接空闲多久后发送 Keep-Alive
 keep-alive-interval: 15                # Keep-Alive 间隔时间
