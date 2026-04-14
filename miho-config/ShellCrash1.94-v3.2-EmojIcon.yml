@@ -157,8 +157,7 @@ dns:
     - 'https://dns11.quad9.net/dns-query#ecs=211.137.58.0/24'
     # 不确定宽带运营商的默认DNS时，可以使用如下所示-直接指定国内公开DNS服务器
     # - 223.5.5.5
-    # - 119.29.29.29
-    
+    # - 119.29.29.29  
   proxy-server-nameserver:     # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置
     - quic://dns.alidns.com:853
     - https://doh.pub/dns-query
