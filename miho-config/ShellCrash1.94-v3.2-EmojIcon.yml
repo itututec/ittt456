@@ -6,6 +6,7 @@
 # Nikki特别注意：使用Nikki插件之前，需要在 网络 -> DHCP/DNS -> DNS 重定向这一选项请关闭勾选，否则会冲突导致网络异常
 # 说明：该模板配置文件可供Mihomo内核的OpenClash/Nikki/ClashParty/ClashVerg/ShellCrash使用(给ShellCrash使用时不能使用数据锚点)
 # 如何使用：在linux中启用ShellCrash前，务必保证安装了iptables或者保证系统能转发流量，然后将该配置文件放置在/tmp 文件夹下并改名为 config.yaml，再启动ShellCrash会自动捕捉到配置文件，根据其实导入并启动即可
+# 新功能：针对ShellCrash在DNS防污方面做了微调和优化
 
 ############### 订阅或节点配置 start ###############
 # ──────────────── 机场订阅配置 ────────────────
