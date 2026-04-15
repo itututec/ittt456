@@ -20,7 +20,7 @@ proxy-providers:
       enable: true     # 启用健康检查
       url: https://www.gstatic.com/generate_204      # 检查节点是否可用的测试网址
       interval: 300    # 健康检查的间隔，单位秒
-    proxy: DIRECT      # 获取订阅时，访问订阅链接使用代理或直连，这里是直连DIRECT
+    proxy: DIRECT      # 拉取订阅时，通过代理或直连，一般直连DIRECT，如果是代理则填写代理节点的名称
     # override:
       # dialer-proxy: 🇭🇰 香港节点     # 可以填中继节点或节点组
     # payload:         # 以下是落地节点——通常是购买的专用的SOCKS5节点
