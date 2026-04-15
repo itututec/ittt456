@@ -13,19 +13,18 @@
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
     url: "https://checkhere.top/link/********************"     # 机场订阅链接
-    type: http
+    type: http         # 订阅类型为 http，意味着这个链接返回的是 HTTP 格式的代理列表。
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"        # 不包含其他杂项节点
     health-check:      
       enable: true     # 启用健康检查
       url: https://www.gstatic.com/generate_204      # 检查节点是否可用的测试网址
       interval: 300    # 健康检查的间隔，单位秒
-    proxy: DIRECT      # 如果订阅节点暂时不可用或健康检查失败，流量直接走本地，不经过代理
+    proxy: DIRECT      # 获取订阅时，访问订阅链接使用代理或直连，这里是直连DIRECT
     # override:
       # dialer-proxy: 🇭🇰 香港节点     # 可以填中继节点或节点组
-    # payload:     # 以下是落地节点——通常是购买的专用的SOCKS5节点
+    # payload:         # 以下是落地节点——通常是购买的专用的SOCKS5节点
       # - {"name":"香港落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
-      # - {"name":"美国落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
 
 # ──────────────── 节点配置，可添加多个节点，每行一个 ────────────────
 proxies:
