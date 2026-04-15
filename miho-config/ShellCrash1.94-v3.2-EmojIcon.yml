@@ -1,12 +1,11 @@
-# ShellCrash-1.9+版本 通用（链式代理）配置模板
+# Mihomo内核v1.9+版本 通用（链式代理）配置模板 —— OpenClash/Nikki/ClashParty/ClashVerg/ShellCrash使用(ShellCrash使用时默认不能使用数据锚点)
 # 版本：v3.2-260415
 # 作者：ittt456
-# 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP，防止 DNS/WebRTC 泄漏；多分流规则，DNS防泄露
-# 声明：仅作学习用，不得用于违法用途，不为使用后果负责
+# 声明：仅作学习交流用，不得用于违法用途，不为使用后果负责
+# 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP + 防止 DNS/WebRTC 泄漏 + 多分流规则 + DNS防泄露 + Listeners入站多端口
 # Nikki特别注意：使用Nikki插件之前，需要在 网络 -> DHCP/DNS -> DNS 重定向这一选项请关闭勾选，否则会冲突导致网络异常
-# 说明：该模板配置文件可供Mihomo内核的OpenClash/Nikki/ClashParty/ClashVerg/ShellCrash使用(给ShellCrash使用时不能使用数据锚点)
-# 如何使用：在linux中启用ShellCrash前，务必保证安装了iptables或者保证系统能转发流量，然后将该配置文件放置在/tmp 文件夹下并改名为 config.yaml，再启动ShellCrash会自动捕捉到配置文件，根据其实导入并启动即可
-# 新功能：针对ShellCrash在DNS防污方面做了微调和优化 / GEODATA引用 / Listeners入站多端口
+# 使用说明：在linux中启用ShellCrash前，务必保证安装了iptables或者保证系统能转发流量，然后将该配置文件放置在/tmp 文件夹下并改名为 config.yaml，再启动ShellCrash会自动捕捉到配置文件，根据其实导入并启动即可
+# 新功能：针对ShellCrash在DNS防污方面做了优化 / GEODATA引用 / Listeners入站多端口
 
 ############### 订阅或节点配置 start ###############
 # ──────────────── 机场订阅配置 ────────────────
