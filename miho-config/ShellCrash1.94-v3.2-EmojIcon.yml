@@ -5,6 +5,7 @@
 # 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP + 防止 DNS/WebRTC 泄漏 + 多分流规则 + DNS防泄露 + Listeners入站多端口
 # Nikki特别注意：使用Nikki插件之前，需要在 网络 -> DHCP/DNS -> DNS 重定向这一选项请关闭勾选，否则会冲突导致网络异常
 # 使用说明：在linux中启用ShellCrash前，务必保证安装了iptables或者保证系统能转发流量，然后将该配置文件放置在/tmp 文件夹下并改名为 config.yaml，再启动ShellCrash会自动捕捉到配置文件，根据其实导入并启动即可
+# 防DNS露的前提：如涉及到IPv6,前提是务必设置好路由器系统的IPv6相关配置才不会漏；或者只启用IPv4彻底关闭IPv6，包括本配置中将IPv6设置为false,这样才不会漏
 # 新功能：针对ShellCrash在DNS防污方面做了优化 / GEODATA引用 / Listeners入站多端口
 
 ############### 订阅或节点配置 start ###############
