@@ -98,7 +98,7 @@ profile:
 # 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
 # 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
 # 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
-# 仅当proxy-server-nameserver非空时可以开启此选项, 强烈不建议和prefer-h3一起使用
+# 仅当proxy-server-nameserver有配置时可以开启此选项, 强烈不建议和prefer-h3一起使用
 # 此外，这三者配置中的dns服务器如果出现域名会采用default-nameserver配置项解析，也请确保正确配置default-nameserver
 respect-rules: true
 
