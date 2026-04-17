@@ -362,10 +362,10 @@ rules:
   # - DOMAIN-KEYWORD,rtc,REJECT
 # -----------------------------------------------------------------------------------------------------------------
   # > 链式代理分流：一机一住宅IP（配合 DHCP 静态分配固定IP 使用，配置后 使得已定义好的 每台设备对应内部固定的IP和 连接外部唯一的落地住宅SK5 IP）；链代落地节点已另外设置好 dialer-proxy中继节点/组，这里只要引用即可
-  # - SRC-IP-CIDR,192.168.1.201/32,DIRECT               # 匹配来源IP规则——通过一机一IP来指定作为 BT和PT 的设备在下载时流量将直连全部
-  # - SRC-IP-CIDR,192.168.20.101/32,💧 链代落地-住宅A    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅A)：发起IP需查阅设备实际分配到的IP，再来这里进行修改
-  # - SRC-IP-CIDR,192.168.2.228/32,🖥️ OpenClaw-ip228    # OECT部署的OpenClaw-ip228 走策略组 [OpenClaw-ip228]
-  - SRC-IP-CIDR,192.168.2.236/32,📳 手机139-ip236        # 手机139-ip236 走策略组 [手机139-ip236]
+  # - SRC-IP-CIDR,192.168.1.201/32,DIRECT               # 来源IP为192.168.2.236的BT下载机 走 直连(DIRECT) —— 可指定BT和PT的设备（通过IP确定）在下载时流量直连全部，避免误走代理浪费流量
+  # - SRC-IP-CIDR,192.168.20.101/32,💧 链代落地-住宅A    # 
+  # - SRC-IP-CIDR,192.168.2.228/32,🖥️ OpenClaw-ip228    # OECT部署的OpenClaw-ip228（来源IP为192.168.2.228的Linux服务器） 走 策略组 [🖥️ OpenClaw-ip228]
+  - SRC-IP-CIDR,192.168.2.236/32,📳 手机139-ip236       # 来源IP为192.168.2.236的手机 走 策略组 [📳 手机139-ip236]
   - SRC-IP-CIDR,192.168.2.115/32,📳 手机175-ip115
   - SRC-IP-CIDR,192.168.2.230/32,🦞️ OpenCalw-ip230
   - SRC-IP-CIDR,192.168.2.231/32,🦞️ OpenCalw-ip231
@@ -374,7 +374,6 @@ rules:
   # 可以通过GEOSITE调用，这样就不需要额外定义对应的rule-providers
   # 也可以通过RULE-SET调用，这样就需要额外定义对应的rule-providers——看后面的配置内容
   # - RULE-SET,network_check,🌐 网络测试
-  - RULE-SET,perproxy_domain,🚀 默认代理      # 自定义或自收集的 走 🚀 默认代理 的域名
 # -----------------------------------------------------------------------------------------------------------------  
   - GEOSITE,category-ads-all,REJECT
   - GEOSITE,category-ai-!cn,🤖 AIGC
@@ -393,7 +392,7 @@ rules:
   - GEOSITE,telegram,📲 Telegram
   - GEOSITE,youtube,📹 YouTube
   - GEOSITE,google,🔍 Google
-  - GEOSITE,google-cn,🔍 Google      # Google CN 不走代理会导致香港等地区节点Play Store异常
+  - GEOSITE,google-cn,🔍 Google
   - GEOSITE,geolocation-!cn, 🚀 默认代理
 
   - GEOIP,netflix,🎥 NETFLIX,no-resolve
@@ -407,10 +406,10 @@ rules:
   - GEOSITE,geolocation-cn,DIRECT
   - GEOSITE,private,DIRECT
 
-  - GEOIP,CN,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT,no-resolve            # 地理位置为 CN 的 走 直连(DIRECT)
   - GEOIP,private,DIRECT,no-resolve
 
-  - RULE-SET,perdirect_domain,DIRECT      # 自定义或自收集的 走 直连(DIRECT)的域名
+  - RULE-SET,perdirect_domain,DIRECT      # 自定义或自收集的规则集perproxy_domain 走 直连(DIRECT)
   # - IP-CIDR,127.0.0.0/8,DIRECT          # 匹配目的IP规则
 # -----------------------------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------------------------------------------------------
