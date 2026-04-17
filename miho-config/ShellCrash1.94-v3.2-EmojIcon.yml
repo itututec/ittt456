@@ -66,7 +66,7 @@ mode: rule                  # 使用规则模式分流
 log-level: warning          # 日志级别
 tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
 unified-delay: true         # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差
-geodata-mode: true          # 
+geodata-mode: true          # 使用geoip.dat数据库(默认：false使用mmdb数据库)
 find-process-mode: strict   # 进程匹配模式，always开启-强制匹配所有进程；strict默认-由Clash判断是否开启；off不匹配-推荐路由器上使用
 
 global-client-fingerprint: chrome      # 全局客户端指纹，模拟 Chrome 浏览器
@@ -114,7 +114,7 @@ sniffer:
       ports: [443, 8443]
   skip-domain:      # 需要跳过嗅探的域名。主要解决部分站点sni字段非域名，导致嗅探结果异常的问题，如米家设备
     - "Mijia Cloud"
-    - "+.push.apple.com"
+    - "+.apple.com"
 
 # tun模式  
 tun:
@@ -136,15 +136,15 @@ hosts:
 
 # > DNS各项设置官方说明： https://merlinkodo.github.io/Clash-Rev-Doc/config/dns/#nameserver-policy
 dns:
-  enable: true                      #启用DNS解析功能
-  ipv6: true
+  enable: true                      # 启用DNS解析功能
+  ipv6: true                        # 当为false时，停止解析hostanmes为ip6地址
   listen: 0.0.0.0:1053              # 开启DNS服务器监听
-  use-hosts: true                   # 启用hosts文件的使用：系统会使用本地 hosts 文件来解析域名，hosts文件包含静态的IP地址和域名的映射关系，优先于DNS查询
+  use-hosts: true                   # 启用hosts文件的使用：系统会使用本地hosts文件来解析域名，hosts文件包含静态的IP地址和域名的映射关系，优先于DNS查询
   enhanced-mode: fake-ip            # 模式切换 redir-host / fake-ip
   fake-ip-range: 28.0.0.0/8         # fake-ip 池设置 
   fake-ip-range6: fc00::/16
   fake-ip-filter-mode: blacklist    # 默认blacklist，匹配成功不返回fake-ip；可改为whitelist，即只有匹配成功才返回fake-ip
-  fake-ip-filter:                   # fake-ip过滤规则：不使用fake-ip的域名——即使用real-ip
+  fake-ip-filter:                   # fake-ip过滤规则：不使用fake-ip的域名——即列表中的域名返回real-ip
     - rule-set:fakeipfilter_domain
     - GEOSITE:cn
   # -----------------------------------------------------------------------------------------------------------------  
@@ -171,10 +171,10 @@ dns:
     # - 119.29.29.29
     # - tls://dot.pub
     # - https://dns.alidns.com/dns-query
-  proxy-server-nameserver:           # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置，非必要
+  proxy-server-nameserver:           # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则用nameserver-policy、nameserver和fallback解析，非必要
     - quic://dns.alidns.com:853
     - https://doh.pub/dns-query
-  direct-nameserver:                 # 专用于直连direct出口域名解析的DNS服务器，非必要项，如不填则遵循nameserver-policy、nameserver和fallback的配置，非必要
+  direct-nameserver:                 # 专用于直连direct出口域名解析的DNS服务器，非必要项，如不填则用nameserver-policy、nameserver和fallback的解析，非必要
     - quic://dns.alidns.com:853
     - tls://dns.google
     - https://doh.pub/dns-query
@@ -184,13 +184,17 @@ dns:
 #    - https://1.0.0.1/dns-query
 #    - https://doh.dns.sb/dns-query
 #  fallback-filter:                  # 备用DNS服务器的过滤规则，决定哪些DNS查询可以使用备用 DNS，非必要
-#    geoip: true                     # DNS查询会根据发起请求的IP地址的地理位置来决定是否使用备用DNS,如查询来自特定区域的IP地址，会优先使用备用DNS服务器(fallback)
-#    geoip-code: cn
-#    geosite:                        # 属于gfw标记内的域名，会使用备用 DNS（fallback）
+#    geoip: true                     # 不匹配为geoip规则的使用fallback返回结果
+#    geoip-code: cn                  # geoip匹配区域设定
+#    geosite:                        # 指定geosite的gfw类的域名，会使用备用 DNS（fallback）
 #      - gfw
-#    ipcidr:                         # 只有符合这些IP地址段的 DNS 查询，才会使用备用 DNS（fallback）
+#    ipcidr:                         # 列表中的ip段使用fallback返回解析结果
 #      - 240.0.0.0/4
 #      - 0.0.0.0/32
+#    domain:                         # 列表中的域名使用fallback返回解析结果
+#      - '+.google.com'
+#      - '+.facebook.com'
+#      - '+.youtube.com'
 ############### 全局基础配置 end ###############
 
 
