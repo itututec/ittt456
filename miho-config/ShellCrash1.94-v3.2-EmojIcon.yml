@@ -134,18 +134,19 @@ hosts:
 
 # > DNS各项设置官方说明 https://merlinkodo.github.io/Clash-Rev-Doc/config/dns/#nameserver-policy
 dns:
-  enable: true   
+  enable: true                      #启用DNS解析功能
   ipv6: true
-  listen: 0.0.0.0:1053      # 开启 DNS 服务器监听
-  enhanced-mode: fake-ip      # 模式切换 redir-host / fake-ip
-  fake-ip-range: 28.0.0.0/8      # fake-ip 池设置 
+  listen: 0.0.0.0:1053              # 开启DNS服务器监听
+  use-hosts: true                   # 启用hosts文件的使用：系统会使用本地 hosts 文件来解析域名，hosts文件包含静态的IP地址和域名的映射关系，优先于DNS查询
+  enhanced-mode: fake-ip            # 模式切换 redir-host / fake-ip
+  fake-ip-range: 28.0.0.0/8         # fake-ip 池设置 
   fake-ip-range6: fc00::/16
-  fake-ip-filter-mode: blacklist      # 默认blacklist，匹配成功不返回fake-ip；可改为whitelist，即只有匹配成功才返回fake-ip
-  fake-ip-filter:      # 配置不使用 fake-ip 的域名
+  fake-ip-filter-mode: blacklist    # 默认blacklist，匹配成功不返回fake-ip；可改为whitelist，即只有匹配成功才返回fake-ip
+  fake-ip-filter:                   # 配置不使用 fake-ip 的域名
     - rule-set:fakeipfilter_domain
     - GEOSITE:cn
     
-  nameserver-policy:      # 配置查询指定域名使用的DNS服务器，可使用 geosite, 优先于 nameserver/fallback 查询
+  nameserver-policy:                # 配置查询指定域名使用的DNS服务器，可使用 geosite, 优先于 nameserver/fallback 查询
     # '+.internal.crop.com': '10.0.0.1'
     'GEOSITE:geolocation-!cn': [tls://8.8.4.4, https://1.0.0.1/dns-query]
     "GEOSITE:cn,private,apple":
@@ -154,26 +155,34 @@ dns:
     "GEOSITE:!cn,!private": 
       - "tls://dns.google"
       - "tls://cloudflare-dns.com"
-  default-nameserver:       # 用于解析nameserver/fallback及其他DNS服务器,必须为ip(可带加密dns)
+  default-nameserver:                # 用于解析nameserver/fallback及其他DNS服务器,必须为ip(可带加密dns)
     - https://223.5.5.5/dns-query
     - 119.29.29.29
     - 114.114.114.114
-  nameserver:      # 默认的域名解析服务器，如不配置fallback/proxy-server-nameserver, 则所有域名都由这里的nameserver解析
+  nameserver:                        # 默认的域名解析服务器——主DNS服务器，使用DOH协议，如不配置fallback/proxy-server-nameserver, 则所有域名都由这里的nameserver解析
     # 推荐将 `ecs` 设置为当前宽带运营商分配的默认DNS的IP段，ECS是DNS协议的一个扩展，允许DNS服务器根据客户端所在的子网（IP 地址段）返回更精确的解析结果
     - 'https://dns.google/dns-query#ecs=211.137.64.0/24'
     - 'https://dns11.quad9.net/dns-query#ecs=211.137.58.0/24'
     # 不确定宽带运营商的默认DNS时，可以使用如下所示-直接指定国内公开DNS服务器
     # - 223.5.5.5
     # - 119.29.29.29
-  proxy-server-nameserver:     # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置
+  proxy-server-nameserver:           # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置
     - quic://dns.alidns.com:853
     - https://doh.pub/dns-query
-  direct-nameserver:      # 专用于直连direct出口域名解析的DNS服务器，非必要项，如不填则遵循nameserver-policy、nameserver和fallback的配置
+  direct-nameserver:                 # 专用于直连direct出口域名解析的DNS服务器，非必要项，如不填则遵循nameserver-policy、nameserver和fallback的配置
     - quic://dns.alidns.com:853
     - https://doh.pub/dns-query
-#  fallback:      # 后备域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为 n 
+#  fallback:                         # 备用域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为cn 
 #    - tls://dns.google
 #    - https://1.0.0.1/dns-query
+#    - https://doh.dns.sb/dns-query
+#  fallback-filter:                  # 备用DNS服务器的过滤规则，决定哪些 DNS 查询可以使用备用 DNS
+#    geoip: true                     # DNS 查询会根据发起请求的 IP 地址的地理位置来决定是否使用备用DNS,如查询来自特定区域的IP地址，会优先使用备用DNS服务器(fallback)。
+#    ipcidr:                         # 只有符合这些IP地址段的 DNS 查询，才会使用备用 DNS（fallback）
+#      - 240.0.0.0/4
+#      - 0.0.0.0/32
+
+
 ############### 全局基础配置 end ###############
 
 ############### 多入站端口设置 start ###############
@@ -181,7 +190,7 @@ listeners:
 # ----- 示例 -----
 #   - name: tw            # 自定义名称
 #     type: mixed
-#     port: 12992        # 自定义端口
+#     port: 12992         # 自定义端口
 #     proxy: 台湾         # 填写配置文件中已有的 节点名称 或 策略组名称
 # 针对自定义节点
   - name: mixed2001
