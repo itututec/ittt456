@@ -28,11 +28,11 @@ proxy-providers:
 
 # ──────────────── 节点配置，可添加多个节点，每行一个 ────────────────
 proxies:
-# >>> 将英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以 <<<
+# > 将英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以 <<<
 #  - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
 #  - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
  
-# >>> 自定义节点——通过VPS / NAT小鸡 部署 或 购买的 SK5 落地节点
+# > 自定义节点——通过VPS / NAT小鸡 部署 或 购买的 SK5 落地节点
 # ----- 示例节点 -----
 # - {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
 # ----- 购买racknerd部署Proxy-US -----
@@ -56,8 +56,8 @@ proxies:
 
 
 ############### 全局基础配置 start ###############
-port: 7890                  # HTTP 代理端口，默认 7890
-socks-port: 7891            # SOCKS5 代理端口，默认 7891
+port: 7890                  # HTTP 代理端口，默认7890
+socks-port: 7891            # SOCKS5 代理端口，默认7891
 mixed-port: 7892
 # redir-port: 7893
 # tproxy-port: 7894
@@ -66,7 +66,7 @@ mode: rule                  # 使用规则模式分流
 log-level: warning          # 日志级别
 tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
 unified-delay: true         # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差
-
+geodata-mode: true          # 
 find-process-mode: strict   # 进程匹配模式，always开启-强制匹配所有进程；strict默认-由Clash判断是否开启；off不匹配-推荐路由器上使用
 
 global-client-fingerprint: chrome      # 全局客户端指纹，模拟 Chrome 浏览器
@@ -76,6 +76,7 @@ profile:
   store-selected: true         # 是否保存策略组的选择结果
   store-fake-ip: true          # 是否保存Fake-IP缓存
 
+# > Geo 数据库下载
 # geodata-mode: false            # 禁用地理数据模式
 # geodata-loader: standard       # 使用“标准”方式加载地理数据，有快速加载、标准加载、延迟加载等供选择
 # geo-auto-update: true          # 自动更新地理数据
@@ -86,8 +87,8 @@ profile:
 #   mmdb: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
 #   asn: "https://cdn.jsdelivr.net/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
 
-# 为防止使用插件朋友遇到面板问题，我注释掉了此模块。
-# external-controller: :9090        # 外部控制面板端口
+# > UI管理面板，有Metacubexd、Zashboard等多个面板可选，更换对应的ui-url即可
+# external-controller: :9090        # 外部访问/控制面板端口
 # secret: ""
 # external-ui: ui
 # external-ui-name: zashboard
