@@ -205,7 +205,7 @@ listeners:
 #     type: mixed
 #     port: 12992         # 自定义端口
 #     proxy: 台湾         # 填写配置文件中已有的 节点名称 或 策略组名称
-# 针对自定义节点
+# > 针对自部署节点
   - name: mixed2001
     type: mixed
     port: 2001
@@ -231,7 +231,7 @@ listeners:
     port: 4003
     proxy: 🇺🇲 US_DediRock-tuic-pD
 
-# 针对策略组
+# > 针对策略组
   - name: mixed55510
     type: mixed
     port: 55510
@@ -362,19 +362,13 @@ rules:
   # - DOMAIN-KEYWORD,rtc,REJECT
 # -----------------------------------------------------------------------------------------------------------------
   # > 链式代理分流：一机一住宅IP（配合 DHCP 静态分配固定IP 使用，配置后 使得已定义好的 每台设备对应内部固定的IP和 连接外部唯一的落地住宅SK5 IP）；链代落地节点已另外设置好 dialer-proxy中继节点/组，这里只要引用即可
-  # - SRC-IP-CIDR,192.168.1.201/32,DIRECT      # 通过一机一IP来指定作为 BT和PT 的设备在下载时流量将直连全部
+  # - SRC-IP-CIDR,192.168.1.201/32,DIRECT               # 匹配来源IP规则——通过一机一IP来指定作为 BT和PT 的设备在下载时流量将直连全部
   # - SRC-IP-CIDR,192.168.20.101/32,💧 链代落地-住宅A    # 匹配数据发起IP(走对应的 落地SK5节点：链代落地-住宅A)：发起IP需查阅设备实际分配到的IP，再来这里进行修改
-  # - SRC-IP-CIDR,192.168.2.228/32,🖥️ OpenClaw-ip228           # OECT部署的OpenClaw-ip228 走策略组 [OpenClaw-ip228]
-  - SRC-IP-CIDR,192.168.2.236/32,📳 手机139-ip236               # 手机139-ip236 走策略组 [手机139-ip236]
+  # - SRC-IP-CIDR,192.168.2.228/32,🖥️ OpenClaw-ip228    # OECT部署的OpenClaw-ip228 走策略组 [OpenClaw-ip228]
+  - SRC-IP-CIDR,192.168.2.236/32,📳 手机139-ip236        # 手机139-ip236 走策略组 [手机139-ip236]
   - SRC-IP-CIDR,192.168.2.115/32,📳 手机175-ip115
   - SRC-IP-CIDR,192.168.2.230/32,🦞️ OpenCalw-ip230
   - SRC-IP-CIDR,192.168.2.231/32,🦞️ OpenCalw-ip231
-# -----------------------------------------------------------------------------------------------------------------
-  # > 本地直连
-  - GEOSITE,private,DIRECT
-  - GEOIP,private,DIRECT,no-resolve
-  - RULE-SET,perdirect_domain,DIRECT      # 自定义或自收集的 走 直连(DIRECT)的域名
-  # - IP-CIDR,127.0.0.0/8,DIRECT      # 匹配数据目标IP(直连)
 # -----------------------------------------------------------------------------------------------------------------
   # > 常见跨境平台强制走代理策略组——策略组已在proxy-groups中定义好
   # 可以通过GEOSITE调用，这样就不需要额外定义对应的rule-providers
@@ -382,6 +376,7 @@ rules:
   # - RULE-SET,network_check,🌐 网络测试
   - RULE-SET,perproxy_domain,🚀 默认代理      # 自定义或自收集的 走 🚀 默认代理 的域名
 # -----------------------------------------------------------------------------------------------------------------  
+  - GEOSITE,category-ads-all,REJECT
   - GEOSITE,category-ai-!cn,🤖 AIGC
   - GEOSITE,onedrive,💾 OneDrive
   - GEOSITE,microsoft,🪟 Microsoft
@@ -390,53 +385,63 @@ rules:
   - GEOSITE,reddit,🎀 Reddit  
   - GEOSITE,tiktok,🎵 TikTok
   - GEOSITE,facebook,🎭 Facebook
-# -----------------------------------------------------------------------------------------------------------------
+
   - GEOSITE,ea,🎮 Games
   - GEOSITE,steam@cn,DIRECT
   - GEOSITE,steam,🎮 Games
   - GEOSITE,netflix,🎥 NETFLIX
-  - GEOIP,netflix,🎥 NETFLIX,no-resolve
   - GEOSITE,telegram,📲 Telegram
-  - GEOIP,telegram,📲 Telegram,no-resolve
   - GEOSITE,youtube,📹 YouTube
   - GEOSITE,google,🔍 Google
   - GEOSITE,google-cn,🔍 Google      # Google CN 不走代理会导致香港等地区节点Play Store异常
-  - GEOIP,google_ip,🔍 Google,no-resolve
-  - RULE-SET,GoogleCNProxy_ip,🚀 默认代理,no-resolve   
   - GEOSITE,geolocation-!cn, 🚀 默认代理
+
+  - GEOIP,netflix,🎥 NETFLIX,no-resolve
+  - GEOIP,telegram,📲 Telegram,no-resolve
+  - GEOIP,google_ip,🔍 Google,no-resolve
 # -----------------------------------------------------------------------------------------------------------------
-  # > 国内直连
+  - RULE-SET,GoogleCNProxy_ip,🚀 默认代理,no-resolve
+# -----------------------------------------------------------------------------------------------------------------
+  # > 国内/本地直连
   - GEOSITE,CN,DIRECT
-  - GEOIP,CN,DIRECT,no-resolve  
+  - GEOSITE,geolocation-cn,DIRECT
+  - GEOSITE,private,DIRECT
+
+  - GEOIP,CN,DIRECT,no-resolve
+  - GEOIP,private,DIRECT,no-resolve
+
+  - RULE-SET,perdirect_domain,DIRECT      # 自定义或自收集的 走 直连(DIRECT)的域名
+  # - IP-CIDR,127.0.0.0/8,DIRECT          # 匹配目的IP规则
 # -----------------------------------------------------------------------------------------------------------------
-  # > 其他流量默认走代理
+# -----------------------------------------------------------------------------------------------------------------
+  # > 兜底
   - MATCH,🐟 漏网之鱼 
 
-# 规则集定义
+# > 规则集定义：
 # > type：可选http/file/inline；  behavior：可选domain/ipcidr/classical；  format：可选yaml/mrs/text(包括list/ini等文本文件)
 # > 以下规则集url中的引用列表 优先采用.mrs格式：二进制格式文件更小，但不能直接查阅，其次推荐.list格式——可直接打开查阅
 # > GEOSITE/GEOIP官方链接：https://github.com/MetaCubeX/meta-rules-dat/tree/meta/geo-lite
 # -----------------------------------------------------------------------------------------------------------------  
 rule-providers:          # 简化后格式——引用锚点数据，简单明了
-# 常用本地域名 private_domain/private_ip
+# > 常用本地域名 private_domain/private_ip
 # -----------------------------------------------------------------------------------------------------------------  
 # fakeip:blacklist过滤域名
   fakeipfilter_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/wwqgtxx/clash-rules/release/fakeip-filter.mrs"}
 # -----------------------------------------------------------------------------------------------------------------  
-# 常用国外网站域名 youtube/google/github/telegram/facebook/netflix/paypal/onedrive/microsoft/apple/tiktok/reddit/speedtest
-# AIGC类域名 copilot/claude/bard/openai/perplexity
-# 游戏类域名  
+# > 常用国外网站域名 youtube/google/github/telegram/facebook/netflix/paypal/onedrive/microsoft/apple/tiktok/reddit/speedtest
+# > AIGC类域名 copilot/claude/bard/openai/perplexity
+# > 游戏类域名  
 # -----------------------------------------------------------------------------------------------------------------  
-# CN相关域名 gfw/geolocation-!cn/cn
+# > CN 相关域名 gfw/geolocation-!cn/cn
   gfw_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.orghttps://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
 # -----------------------------------------------------------------------------------------------------------------  
-# 常用国外网站IP cn/apple/telegram/netflix/google
+# > 常用国外网站IP cn/apple/telegram/netflix/google
   GoogleCNProxy_ip: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
 # -----------------------------------------------------------------------------------------------------------------  
-# 自用收集域名——个人收集
+# > 自收集域名——个人收集
   perdirect_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
   perproxy_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
-# 网络检测类域名——个人收集
+# > 网络检测类域名——个人收集
   network_check: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
 
   ############### 分流规则 end ###############
