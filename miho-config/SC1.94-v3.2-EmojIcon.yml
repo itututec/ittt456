@@ -203,10 +203,16 @@ dns:
 ############### 多入站端口设置 start ###############
 listeners:
 # ----- 示例 -----
-#   - name: tw            # 自定义名称
+#   - name: mixed-台湾               # 自定义名称
 #     type: mixed
-#     port: 12992         # 自定义端口
-#     proxy: 台湾         # 填写配置文件中已有的 节点名称 或 策略组名称
+#     port: 12992            # 自定义端口
+#     proxy: 🇹🇼 台湾         # 填写配置文件中已有的 节点名称 或 策略组名称，表示该入站流量经 台湾节点(组)处理
+#     listen: 0.0.0.0        # 默认监听 0.0.0.0
+#     rule: sub-rule-name1   # 默认使用 rules，如果未找到 sub-rule 则直接使用 rules
+#     udp: false             # 默认 true
+#     users:                 # 如果不填写users项，则遵从全局authentication设置，如果填写会忽略全局设置, 如想跳过该入站的验证可填写 users: []
+#       - username: aaa
+#       - password: aaa
 # > 针对自部署节点
   - name: mixed2001
     type: mixed
@@ -249,11 +255,11 @@ listeners:
   - name:  mixed55540
     type: mixed
     port: 55540
-    proxy: 🔯 日本故转
+    proxy: 🔯 狮城 故转
   - name:  mixed55550
     type: mixed
     port: 5550
-    proxy: 🔯 台日本故转
+    proxy: 🔯 美国故转
 ############### 多入站端口设置 end ###############
 
 
