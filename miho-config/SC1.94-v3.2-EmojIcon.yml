@@ -142,7 +142,7 @@ dns:
   listen: 0.0.0.0:1053              # 开启DNS服务器监听
   use-hosts: true                   # 启用hosts文件的使用：系统会使用本地hosts文件来解析域名，hosts文件包含静态的IP地址和域名的映射关系，优先于DNS查询
   enhanced-mode: fake-ip            # 模式切换 redir-host / fake-ip
-  fake-ip-range: 28.0.0.0/8         # fake-ip 池设置 
+  fake-ip-range: 198.18.0.1/16         # fake-ip 池设置 
   fake-ip-range6: fc00::/16
   fake-ip-filter-mode: blacklist    # 默认blacklist，匹配成功不返回fake-ip；可改为whitelist，即只有匹配成功才返回fake-ip
   fake-ip-filter:                   # fake-ip过滤规则：不使用fake-ip的域名——即列表中的域名返回real-ip
