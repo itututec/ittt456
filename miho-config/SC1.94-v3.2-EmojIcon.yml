@@ -62,6 +62,7 @@ mixed-port: 7892
 # redir-port: 7893
 # tproxy-port: 7894
 allow-lan: true             # 是否允许局域网设备连接
+bind-address: "*"           # 绑定所有 IP 地址，默认会绑定到 127.0.0.1（本地回环地址），而 * 表示允许从任何网络接口连接
 mode: rule                  # 使用规则模式分流
 log-level: warning          # 日志级别
 tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
