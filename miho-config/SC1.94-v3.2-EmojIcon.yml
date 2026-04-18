@@ -383,7 +383,7 @@ rules:
   # 也可以通过RULE-SET调用，这样就需要额外定义对应的rule-providers——看后面的配置内容
   # - RULE-SET,network_check,🌐 网络测试
 # -----------------------------------------------------------------------------------------------------------------  
-  - GEOSITE,category-ads-all,REJECT
+  # - GEOSITE,category-ads-all,REJECT
   - GEOSITE,category-ai-!cn,🤖 AIGC
   - GEOSITE,onedrive,💾 OneDrive
   - GEOSITE,microsoft,🪟 Microsoft
