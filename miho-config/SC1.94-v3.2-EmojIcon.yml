@@ -396,7 +396,7 @@ rules:
   - RULE-SET,reddit_domain,🎀 Reddit  
   - RULE-SET,tiktok_domain,🎵 TikTok
   - RULE-SET,facebook_domain,🎭 Facebook
-  - RULE-SET,paypal_domain,💶 PayPal
+  - RULE-SET,paypal_domain,💵 PayPal
   - RULE-SET,steam-cn,DIRECT
   - RULE-SET,steam,🎮 Games
   - RULE-SET,EA,🎮 Games
