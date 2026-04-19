@@ -298,8 +298,8 @@ rules:
   - RULE-SET,telegram_ip,Telegram,no-resolve
   - RULE-SET,youtube_domain,YouTube
   - RULE-SET,google_domain,Google
-  - RULE-SET,google_ip, Google,no-resolve
-  - RULE-SET,GoogleCNProxy_ip,默认代理,no-resolve   
+  - RULE-SET,google_ip,Google,no-resolve
+  - RULE-SET,GoogleCNProxy_ip,Google,no-resolve   
   - RULE-SET,geolocation-!cn, 默认代理
 
   # 5) 国内直连
