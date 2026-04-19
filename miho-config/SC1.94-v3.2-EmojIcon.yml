@@ -417,12 +417,17 @@ rules:
   - RULE-SET,cn_domain,DIRECT
   - RULE-SET,geolocation-cn,DIRECT
   - RULE-SET,private_domain,DIRECT
+  - RULE-SET,perdirect_domain,DIRECT      # 自定义或自收集的规则集perproxy_domain 走 直连(DIRECT)
 
   - RULE-SET,cn_ip,DIRECT,no-resolve
   - RULE-SET,private,DIRECT,no-resolve
 
-  - RULE-SET,perdirect_domain,DIRECT      # 自定义或自收集的规则集perproxy_domain 走 直连(DIRECT)
-  # - IP-CIDR,127.0.0.0/8,DIRECT          # 匹配目的IP规则
+  # > 绕过局域网地址
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
 # -----------------------------------------------------------------------------------------------------------------
   # > 兜底
   - MATCH,🐟 漏网之鱼 
