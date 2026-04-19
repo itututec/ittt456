@@ -72,7 +72,9 @@ proxies:
 ############### 全局基础配置 start ###############
 port: 7890                  # HTTP 代理端口，默认 7890
 socks-port: 7891            # SOCKS5 代理端口，默认 7891
+mixed-port: 7892            # 混合端口，默认7892，同时支持 HTTP(S) 和 SOCKS5 协议
 allow-lan: true             # 是否允许局域网设备连接
+bind-address: "*"           # 绑定所有 IP 地址，默认会绑定到 127.0.0.1（本地回环地址），而 * 表示允许从任何网络接口连接
 mode: rule                  # 使用规则模式分流
 log-level: warning          # 日志级别
 tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
@@ -160,6 +162,67 @@ dns:
 #    - https://1.0.0.1/dns-query
 ############### 全局基础配置 end ###############
 
+############### 多入站端口设置 start ###############
+listeners:
+# ----- 示例 -----
+#   - name: mixed-台湾               # 自定义名称
+#     type: mixed
+#     port: 12992            # 自定义端口
+#     proxy: 🇹🇼 台湾         # 填写配置文件中已有的 节点名称 或 策略组名称，表示该入站流量经 台湾节点(组)处理
+#     listen: 0.0.0.0        # 默认监听 0.0.0.0
+#     rule: sub-rule-name1   # 默认使用 rules，如果未找到 sub-rule 则直接使用 rules
+#     udp: false             # 默认 true
+#     users:                 # 如果不填写users项，则遵从全局authentication设置，如果填写会忽略全局设置, 如想跳过该入站的验证可填写 users: []
+#       - username: aaa
+#       - password: aaa
+# > 针对自部署节点
+  - name: mixed2001
+    type: mixed
+    port: 2001
+    proxy: 🇯🇵 JP_vitebits-anytls-pD
+  - name: mixed2002
+    type: mixed
+    port: 2002
+    proxy: 🇯🇵 JP_vitebits-hy2-pD
+  - name: mixed2003
+    type: mixed
+    port: 2003
+    proxy: 🇯🇵 JP_vitebits-hy2-pD
+  - name: mixed4001
+    type: mixed
+    port: 4001
+    proxy: 🇺🇲 US_DediRock-anytls-pD
+  - name: mixed4002
+    type: mixed
+    port: 4002
+    proxy: 🇺🇲 US_DediRock-hy2-pD
+  - name: mixed4003
+    type: mixed
+    port: 4003
+    proxy: 🇺🇲 US_DediRock-tuic-pD
+
+# > 针对策略组
+  - name: mixed55510
+    type: mixed
+    port: 55510
+    proxy: 🔯 香港故转
+  - name:  mixed55520
+    type: mixed
+    port: 55520
+    proxy: 🔯 台湾故转
+  - name:  mixed55530
+    type: mixed
+    port: 55530
+    proxy: 🔯 日本故转
+  - name:  mixed55540
+    type: mixed
+    port: 55540
+    proxy: 🔯 狮城故转
+  - name:  mixed55550
+    type: mixed
+    port: 5550
+    proxy: 🔯 美国故转
+############### 多入站端口设置 end ###############
 
 ############### 锚点设置 start ###############
 # > 锚点是为了后续的数据引用，从而简化版面，避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
