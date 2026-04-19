@@ -385,8 +385,8 @@ rules:
   # 也可以通过RULE-SET调用，这样就需要额外定义对应的rule-providers——看后面的配置内容
   # - RULE-SET,network_check,🌐 网络测试
 # -----------------------------------------------------------------------------------------------------------------  
-  # - RULE-SET,category-ads-all,REJECT             # 广告拦截
-  - RULE-SET,category-scholar-!cn,🚀 默认代理      # 国外学术相关网站走代理
+  # - RULE-SET,category-ads-all,REJECT               # 广告拦截
+  # - RULE-SET,category-scholar-!cn,🚀 默认代理      # 国外学术相关网站走代理
   - RULE-SET,ai_domain,🤖 AIGC
   - RULE-SET,onedrive_domain,💾 OneDrive
   - RULE-SET,microsoft_domain,🪟 Microsoft
