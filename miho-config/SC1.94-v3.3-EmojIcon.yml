@@ -140,7 +140,7 @@ dns:
   fake-ip-filter-mode: blacklist      # 默认blacklist，匹配成功不返回fake-ip；可改为whitelist，即只有匹配成功才返回fake-ip
   fake-ip-filter:      # 配置不使用 fake-ip 的域名
     - rule-set:fakeipfilter_domain
-    # - GEOSITE:cn
+    - rule-set:cn_domain      # 等效于 - geosite:cn
   nameserver-policy:
     # +.internal.crop.com: 10.0.0.1
     www.baidu.com: 114.114.114.114
