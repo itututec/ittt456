@@ -1,0 +1,481 @@
+# Mihomo v1.9+版本 通用（链式代理）配置模板
+# 版本：v3.3-260420
+# 作者：ittt456
+# 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP，防止 DNS/WebRTC 泄漏；多分流规则，DNS防泄露
+# 声明：仅作学习用，不得用于违法用途，不为使用后果负责
+# Nikki特别注意：使用Nikki插件之前，需要在 网络 -> DHCP/DNS -> DNS 重定向这一选项请关闭勾选，否则会冲突导致网络异常
+# 说明：该模板配置文件可供Mihomo内核的OpenClash/Nikki/ClashParty/ClashVerg/ShellCrash使用(给ShellCrash使用时不能使用数据锚点)
+# 如何使用：在linux中启用ShellCrash前，务必保证安装了iptables或者保证系统能转发流量，然后将该配置文件放置在/tmp 文件夹下并改名为 config.yaml，再启动ShellCrash会自动捕捉到配置文件，根据其实导入并启动即可
+# 新功能：针对ShellCrash在DNS防污方面做了微调和优化 / GEODATA引用 / Listeners入站多端口
+
+############### 订阅或节点配置 start ###############
+# ──────────────── 机场订阅配置 ────────────────
+proxy-providers:  
+  69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
+    url: "https://checkhere.top/link/omMhR4PosdBCG5BY?clash=1"     # 机场订阅链接
+    type: http
+    interval: 43200
+    filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"        # 不包含其他杂项节点
+    health-check:      
+      enable: true     # 启用健康检查
+      url: https://www.gstatic.com/generate_204      # 检查节点是否可用的测试网址
+      interval: 300    # 健康检查的间隔，单位秒
+    proxy: 直连      # 如果订阅节点暂时不可用或健康检查失败，流量直接走本地，不经过代理
+    # override:
+      # dialer-proxy: 🇭🇰 香港节点     # 可以填中继节点或节点组
+    # payload:     # 以下是落地节点——通常是购买的专用的SOCKS5节点
+      # - {"name":"香港落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
+      # - {"name":"美国落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
+
+# ──────────────── 节点配置，可添加多个节点，每行一个 ────────────────
+proxies:
+# >>> 将英文版本的direct/reject转化为中文版，实际可以不需要，直接在策略组立马用英文的就可以 <<<
+  - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
+#  - {name: 拒绝, type: reject}     # 选用——非必须，可用 直连 节点，替换策略组中的 REJECT或reject
+ 
+# >>> 自定义节点——通过VPS / NAT小鸡 部署 或 购买的 SK5 落地节点
+# ----- 示例节点 -----
+# - {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
+# ----- RN 部署 Proxy-US -----
+# ----- vitebits-JP-大阪 -----
+  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":64633,"skip-cert-verify":true,"password":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":29802,"password":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":50531,"password":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","uuid":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+# -----独角鲸 US-DediRock -----
+  - {"type":"anytls","name":"🇺🇲 US_DediRock-anytls-pD","server":"198.46.182.189","port":37934,"skip-cert-verify":true,"password":"a5a45239-e193-458c-9a34-98b25e3fd099","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇺🇲 US_DediRock-hy2-pD","server":"198.46.182.189","port":61442,"password":"a5a45239-e193-458c-9a34-98b25e3fd099","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇺🇲 US_DediRock-tuic-pD","server":"198.46.182.189","port":60976,"password":"a5a45239-e193-458c-9a34-98b25e3fd099","uuid":"a5a45239-e193-458c-9a34-98b25e3fd099","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+# ----- 落地节点-ISP住宅 SOCKS5 节点 -----
+  - name: 💧 链代落地-住宅A     # 自定义落地节点，用不上就整段注释掉或删除
+    type: socks5
+    server: 184.178.172.13      # 【必改】SOCKS5 的IP地址
+    port: 15311      # 【必改】端口号
+#    username:      # 【必改】用户名，没有就注释掉
+#    password:      # 【必改】密码，没有就注释掉
+    udp: true
+    dialer-proxy: ♠️ 华东中继      # 指定前置中继节点或节点组，如果能直连也可以不需要通过中继节点/组——注释掉或删除dialer-proxy即可
+############### 订阅或节点配置 end ###############
+
+############### 全局基础配置 start ###############
+port: 7890                  # HTTP 代理端口，默认 7890
+socks-port: 7891            # SOCKS5 代理端口，默认 7891
+mixed-port: 7892            # 混合端口，默认7892，同时支持 HTTP(S) 和 SOCKS5 协议
+allow-lan: true             # 是否允许局域网设备连接
+bind-address: "*"           # 绑定所有 IP 地址，默认会绑定到 127.0.0.1（本地回环地址），而 * 表示允许从任何网络接口连接
+mode: rule                  # 使用规则模式分流
+log-level: warning          # 日志级别
+tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
+unified-delay: true         # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差
+# find-process-mode: strict   # 进程匹配模式，always-开启:强制匹配所有进程；strict-默认:由Clash判断是否开启；off-不匹配进程:推荐路由器上使用
+
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 15
+profile:
+  store-selected: true
+  store-fake-ip: true
+# geodata-mode: false         # 使用geoip.dat数据库(默认：false使用mmdb数据库)
+
+# > geodata 数据库配置
+# geodata-mode: false            # 禁用geodata数据模式
+# geodata-loader: standard       # 使用“标准”方式加载geodata数据，有快速加载、标准加载、延迟加载等供选择
+# geo-auto-update: true          # 是否自动更新 geodata
+# geo-update-interval: 72        # 更新间隔为 72 小时
+# geox-url:                      # Geo数据库下载地址,源地址 https://github.com/MetaCubeX/meta-rules-dat
+#   geoip: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+#   geosite: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+#   mmdb: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+#   asn: "https://cdn.jsdelivr.net/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+
+# > WEB UI管理面板，有Metacubexd、Zashboard等多个面板可选，更换对应的ui-url即可
+# > 配置 WEB UI 目录，使用 http://{{external-controller}}/ui 访问
+# external-controller: :9090            # 外部访问/控制面板端口
+# secret: ""                            # 访问密钥
+# external-ui: /path/to/ui/folder/      # WEB UI面板的文件存放目录
+# external-ui-name: zashboard
+# external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"   # 目前支持下载zip,tgz格式的压缩包
+
+# 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
+# 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
+# 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
+# 仅当proxy-server-nameserver非空时可以开启此选项, 强烈不建议和prefer-h3一起使用
+# 此外，这三者配置中的dns服务器如果出现域名会采用default-nameserver配置项解析，也请确保正确配置default-nameserver
+respect-rules: true
+
+# 嗅探（fakeip下其实可以不用嗅探）
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true     # 是否使用嗅探结果作为实际访问，默认为 true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:      # 需要跳过嗅探的域名。主要解决部分站点sni字段非域名，导致嗅探结果异常的问题，如米家设备
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+
+# 入站  
+tun:
+  enable: true      # 是否启用 tun 模式来路由全局流量
+  stack: mixed      # tun 模式堆栈,可用值system/gvisor/mixed/lwip,如无使用问题,建议使用 system 栈;MacOS 用户推荐 gvisor栈
+  dns-hijack: ["any:53", "tcp://any:53"]      # dns劫持,一般设置为 any:53 即可, 即劫持所有 53 端口的 udp 流量
+#   device: nikki      # 使用Nikki时，混入全部不修改的情况，开启接口指定为nikki
+# ↓↓↓使用仅内核自行修改下面三项为true——一般情况下不用修改
+  #device: utun0      # 指定 tun 网卡名称,MacOS 设备只能使用 utun 开头的网卡名
+  auto-route: false      # 自动设置全局路由,可以自动将全局流量路由进入 tun 网卡
+  auto-redirect: false
+  auto-detect-interface: false      # 自动选择流量出口接口,多出口网卡同时连接的设备建议手动指定出口网卡
+
+# > DNS各项设置官方说明 https://merlinkodo.github.io/Clash-Rev-Doc/config/dns/#nameserver-policy
+dns:
+  enable: true   
+  ipv6: true
+  listen: 0.0.0.0:1053      # 开启 DNS 服务器监听
+  enhanced-mode: fake-ip      # 模式切换 redir-host / fake-ip
+  fake-ip-range: 28.0.0.0/8      # fake-ip 池设置
+  fake-ip-range6: fc00::/16
+  fake-ip-filter-mode: blacklist      # 默认blacklist，匹配成功不返回fake-ip；可改为whitelist，即只有匹配成功才返回fake-ip
+  fake-ip-filter:      # 配置不使用 fake-ip 的域名
+    - rule-set:fakeipfilter_domain
+    # - GEOSITE:cn
+  nameserver-policy:
+    # +.internal.crop.com: 10.0.0.1
+    www.baidu.com: 114.114.114.114
+    geosite:geolocation-!cn:
+      - tls://8.8.4.4
+      - https://1.0.0.1/dns-query
+    geosite:cn,private,apple: 
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
+    rule-set:google_domain: 8.8.8.8
+    rule-set:youtube_domain: 8.8.8.8
+
+  default-nameserver:
+    - https://223.5.5.5/dns-query
+  nameserver:      # 默认的域名解析服务器，如不配置fallback/proxy-server-nameserver, 则所有域名都由这里的nameserver解析
+    # 推荐将 `ecs` 设置为当前宽带运营商分配的默认DNS的IP段，ECS是DNS协议的一个扩展，允许DNS服务器根据客户端所在的子网（IP 地址段）返回更精确的解析结果
+    - https://dns.google/dns-query#ecs=211.137.64.0/24
+    - https://dns11.quad9.net/dns-query#ecs=211.137.58.0/24
+    # 不确定宽带运营商的默认DNS时，可以使用如下所示-直接指定国内公开DNS服务器
+    # - 223.5.5.5
+    # - 119.29.29.29
+    # - tls://dot.pub
+    # - https://dns.alidns.com/dns-query
+  proxy-server-nameserver:     # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  direct-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+# -----------------------------------------------------------------------------------------------------------------  
+#  fallback:                         # 备用域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为cn，非必要
+#    - tls://dns.google
+#    - https://1.0.0.1/dns-query
+#    - https://doh.dns.sb/dns-query
+#  fallback-filter:                  # 备用DNS服务器的过滤规则，决定哪些DNS查询可以使用备用 DNS，非必要
+#    geoip: true                     # 不匹配为geoip规则的使用fallback返回结果
+#    geoip-code: cn                  # geoip匹配区域设定
+#    geosite:                        # 指定geosite的gfw类的域名，会使用备用 DNS（fallback）
+#      - gfw
+#    ipcidr:                         # 列表中的ip段使用fallback返回解析结果
+#      - 240.0.0.0/4
+#      - 0.0.0.0/32
+#    domain:                         # 列表中的域名使用fallback返回解析结果
+#      - '+.google.com'
+#      - '+.facebook.com'
+#      - '+.youtube.com'
+############### 全局基础配置 end ###############
+
+############### 多入站端口设置 start ###############
+listeners:
+# ----- 示例 -----
+#   - name: mixed-台湾               # 自定义名称
+#     type: mixed
+#     port: 12992            # 自定义端口
+#     proxy: 🇹🇼 台湾         # 填写配置文件中已有的 节点名称 或 策略组名称，表示该入站流量经 台湾节点(组)处理
+#     listen: 0.0.0.0        # 默认监听 0.0.0.0
+#     rule: sub-rule-name1   # 默认使用 rules，如果未找到zidin sub-rule 则直接使用 rules
+#     udp: false             # 默认 true
+#     users:                 # 如果不填写users项，则遵从全局authentication设置，如果填写会忽略全局设置, 如想跳过该入站的验证可填写 users: []
+#       - username: aaa
+#       - password: aaa
+# > 针对自部署节点
+  - name: mixed2001
+    type: mixed
+    port: 2001
+    proxy: 🇯🇵 JP_vitebits-anytls-pD
+  - name: mixed2002
+    type: mixed
+    port: 2002
+    proxy: 🇯🇵 JP_vitebits-hy2-pD
+  - name: mixed2003
+    type: mixed
+    port: 2003
+    proxy: 🇯🇵 JP_vitebits-hy2-pD
+  - name: mixed4001
+    type: mixed
+    port: 4001
+    proxy: 🇺🇲 US_DediRock-anytls-pD
+  - name: mixed4002
+    type: mixed
+    port: 4002
+    proxy: 🇺🇲 US_DediRock-hy2-pD
+  - name: mixed4003
+    type: mixed
+    port: 4003
+    proxy: 🇺🇲 US_DediRock-tuic-pD
+
+# > 针对策略组
+  - name: mixed55510
+    type: mixed
+    port: 55510
+    proxy: 🔯 香港故转
+  - name:  mixed55520
+    type: mixed
+    port: 55520
+    proxy: 🔯 台湾故转
+  - name:  mixed55530
+    type: mixed
+    port: 55530
+    proxy: 🔯 日本故转
+  - name:  mixed55540
+    type: mixed
+    port: 55540
+    proxy: 🔯 狮城故转
+  - name:  mixed55550
+    type: mixed
+    port: 5550
+    proxy: 🔯 美国故转
+############### 多入站端口设置 end ###############
+
+############### 锚点设置 start ###############
+# > 锚点是为了后续的数据引用，从而简化版面，避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
+# > 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
+
+# > 策略组 锚点：
+#   selectgroup: &selectgroup {type: select, include-all: true}
+#   autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}
+#   fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}
+#   mediagroup: &mediagroup {type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+#   mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+#   globalgroup: &globalgroup {type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 📹 YouTube, 🔍 Google, 🤖 AIGC, 👨🏿‍💻 GitHub, 🎀 Reddit, 💾 OneDrive, 🪟 Microsoft, 🎵 TikTok, 📲 Telegram, 🎭 Facebook, 🎥 NETFLIX, 🌐 网络测试, 💵 PayPal, 🐟 漏网之鱼, 直连]}
+
+# > 规则集 锚点：
+# rule-anchor:
+#   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
+#   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
+#   class: &class {type: http, interval: 86400, behavior: classical, format: text}
+############### 锚点设置 end ###############
+
+
+############### 策略组配置 start ###############
+proxy-groups:
+# 通用策略组分类
+  - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 👌 手选节点, type: select, include-all: true}       # 全部节点但不包含其他杂项节点
+  
+  - {name: 🎯 落地节点, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP"}       # 只包含链式代理落地/SOCKS5节点
+  - {name: ➕ 自建节点, type: select, include-all: true, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$"}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+     
+  - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|HK|Hong|Hongkong|HK|🇭🇰"}
+  - {name: 🇹🇼 台湾节点, type: select, include-all: true, filter: "(?i)台|Taiwan|TW|🇹🇼"}
+  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|尼日)).)*$"}     # 包含节点名称中含有“日”字但不含“尼日”相关的节点
+  - {name: 🇸🇬 狮城节点, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore|🇸🇬"}
+  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|US|unitedstates|united states|America|🇺🇲"}
+  - {name: ♾️ 其他节点, type: select, include-all: true, filter: "^((?!(剩余|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).)*$"}        # 排除所列出地区的节点
+
+  - {name: 🔯 自建故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$"}          # 只包含自定义节点(命名务必含pD)
+  - {name: 🔯 香港故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}
+  - {name: 🔯 台湾故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(台|TW|Taiwan|TW|🇹🇼))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$"}
+  - {name: 🔯 日本故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$"}
+  - {name: 🔯 狮城故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$"}
+  - {name: 🔯 美国故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$"}
+ 
+  - {name: 🔁 自建自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$"}          # 只包含自定义节点(命名务必含pD)
+  - {name: 🔁 香港自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}
+  - {name: 🔁 台湾自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(台|TW|Taiwan|TW|🇹🇼))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$"}
+  - {name: 🔁 日本自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$"}
+  - {name: 🔁 狮城自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$"}
+  - {name: 🔁 美国自动, type: url-test, include-all: true, interval: 300, tolerance: 20, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$"}
+
+  - {name: 📹 YouTube, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🔍 Google, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🤖 AIGC, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 👨🏿‍💻 GitHub, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🎀 Reddit, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🍎 Apple, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 💾 OneDrive, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🪟 Microsoft, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🎵 TikTok, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 📲 Telegram, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🎭 Facebook, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🎥 NETFLIX, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🎮 Games, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 💵 PayPal, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+
+# 兜底策略组
+  - {name: 🐟 漏网之鱼, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+
+# 链式代理（组）配置
+# > 1、使用 dialer-proxy 链式代理(推荐dialer-proxy实现链式代理，不推荐relay链式代理——有很多缺陷)
+# > 1.1 需在前面的 proxies节点配置文件下，额外定义关键字 dialer-proxy 并指向下面策略组中定义好的 中继节点或中继节点组 的名称，表示该节点（即落地节点）通过 中继节点(组) 路由连通（参考行号135-143）；
+# > 2、中继节点组：辅助链式代理进行使用(实现经由中继节点(组) →→→ 落地/住宅出口)
+# > 2.1 中继节点/组 定义方式1：设置 包含多个 节点策略组，比如这里的 华东中继 策略组包含 日本故转、台湾故转、 日本自动、台湾自动、日本节点、台湾节点 等多个策略组
+  - {name: ♠️ 华东中继, type: select, proxies: [🔯 日本故转, 🔯 台湾故转, 🔁 日本自动, 🔁 台湾自动, 🇯🇵 日本节点, 🇹🇼 台湾节点]}
+  - {name: ♠️ 华南中继, type: select, proxies: [🔯 香港故转, 🔯 狮城故转, 🔁 香港自动, 🔁 狮城自动, 🇭🇰 香港节点, 🇸🇬 狮城节点]}
+# > 2.2 中继节点/组 定义方式2：设置 包含多个节点，比如这里的华东中继 策略组包含节点 bpb01、bpb02
+#  - name: ♠️ 华东中继
+#    type: select
+#    proxies:     # 上述proxies中已经定义好的节点，可添加多个节点，每行一个
+#      - bpb01
+#      - bpb02
+
+# 一机一 IP 专用策略组 
+#  - {name: 🖥️ OpenClaw-ip228, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+
+  - {name: 📳 手机139-ip236, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
+  - {name: 📳 手机175-ip115, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+
+#  - {name: 🦞️ OpenCalw-ip129, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🦞️ OpenCalw-ip230, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+  - {name: 🦞️ OpenCalw-ip231, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 直连]}
+
+# ↓↓↓全局策略组↓↓↓
+#  - {name: GLOBAL, type: select, include-all: true, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 日本故转, 🔯 狮城故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 日本自动, 🔁 狮城自动, 🔁 美国自动, 📹 YouTube, 🔍 Google, 🤖 AIGC,  👨🏿‍💻 GitHub, 🎀 Reddit, 💾 OneDrive, 🪟 Microsoft, 🎵 TikTok, 📲 Telegram, 🎭 Facebook, 🎥 NETFLIX, 🌐 网络测试, 💵 PayPal, 🐟 漏网之鱼, 直连]}
+
+############### 策略组配置 end ###############
+
+
+############### 分流规则 start ###############
+rules:
+  # > 防 WebRTC 泄漏（拦截 STUN）——如设置后经常出现问题，可注释掉不启用
+  # - DOMAIN-SUFFIX,stun.l.google.com,REJECT
+  # - DOMAIN-KEYWORD,stun,REJECT
+  # - DOMAIN-KEYWORD,turn,REJECT
+  # - DOMAIN-KEYWORD,rtc,REJECT
+# -----------------------------------------------------------------------------------------------------------------
+  # > 一机一住宅IP走指定策略组流量——链代落地节点(比如这里的 💧 链代落地-住宅A)需单独设置
+  # - SRC-IP-CIDR,192.168.1.201/32,DIRECT               # 来源IP为192.168.2.236的BT下载机 走 直连(DIRECT) —— 可指定BT和PT的设备（通过IP确定）在下载时流量走直连
+  # - SRC-IP-CIDR,192.168.20.101/32,💧 链代落地-住宅A   # 来源IP为192.168.2.101的设备流量 走 💧 链代落地-住宅A 节点
+  # - SRC-IP-CIDR,192.168.2.228/32,🖥️ OpenClaw-ip228    # OECT部署的OpenClaw-ip228（来源IP为192.168.2.228的Linux服务器）流量 走 策略组 [🖥️ OpenClaw-ip228]
+  - SRC-IP-CIDR,192.168.2.236/32,📳 手机139-ip236       # 来源IP为192.168.2.236的手机流量 走 策略组 [📳 手机139-ip236]
+  - SRC-IP-CIDR,192.168.2.115/32,📳 手机175-ip115
+  - SRC-IP-CIDR,192.168.2.230/32,🦞️ OpenCalw-ip230
+  - SRC-IP-CIDR,192.168.2.231/32,🦞️ OpenCalw-ip231
+
+# -----------------------------------------------------------------------------------------------------------------
+  # > 常见跨境平台强制走代理策略组——策略组已在proxy-groups中定义好
+  # - RULE-SET,category-ads-all,REJECT               # 广告拦截
+  # - RULE-SET,category-scholar-!cn,🚀 默认代理      # 国外学术相关网站走代理
+  - RULE-SET,ai_domain,🤖 AIGC
+  - RULE-SET,apple_domain,🍎 Apple
+  - RULE-SET,apple_domain-cn,🍎 Apple
+  - RULE-SET,onedrive_domain,💾 OneDrive
+  - RULE-SET,microsoft_domain,🪟 Microsoft
+  - RULE-SET,github_domain,👨🏿‍💻 GitHub
+  - RULE-SET,reddit_domain,🎀 Reddit  
+  - RULE-SET,tiktok_domain,🎵 TikTok
+  - RULE-SET,facebook_domain,🎭 Facebook
+  - RULE-SET,paypal_domain,💵 PayPal  
+  - RULE-SET,EA,🎮 Games
+  - RULE-SET,steam,🎮 Games
+  - RULE-SET,steam-cn,🎮 Games
+  - RULE-SET,netflix_domain,🎥 NETFLIX
+  - RULE-SET,telegram_domain,📲 Telegram
+  - RULE-SET,youtube_domain,📹 YouTube
+  - RULE-SET,google_domain,🔍 Google
+  - RULE-SET,google_domain-cn,🔍 Google
+  - RULE-SET,gfw_domain, 🚀 默认代理
+  - RULE-SET,geolocation-!cn, 🚀 默认代理
+  - RULE-SET,perproxy_domain,🚀 默认代理      # 自定义或自收集的 走 🚀 默认代理 的域名
+
+  - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
+  - RULE-SET,telegram_ip,📲 Telegram,no-resolve
+  - RULE-SET,google_ip,🔍 Google,no-resolve
+  - RULE-SET,google_ip-cn,🔍 Google,no-resolve
+# -----------------------------------------------------------------------------------------------------------------
+  # > 国内/本地直连
+  - RULE-SET,cn_domain,直连
+  - RULE-SET,private_domain,直连
+  - RULE-SET,perdirect_domain,直连      # 自定义或自收集的 走 直连(DIRECT)的域名
+
+  - RULE-SET,cn_ip,直连,no-resolve
+  - RULE-SET,private_ip,直连,no-resolve
+
+  ## >> 绕过局域网地址
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+# -----------------------------------------------------------------------------------------------------------------
+  # > 兜底策略组
+  - MATCH,🐟 漏网之鱼 
+
+# > 规则集定义：
+# > type：可选http/file/inline；  behavior：可选domain/ipcidr/classical；  format：可选yaml/mrs/text(包括list/ini等文本文件)
+# > 以下规则集url中的引用列表 优先采用.mrs格式：二进制格式文件更小，但不能直接查阅，其次推荐.list格式——可直接打开查阅
+# > GEOSITE/GEOIP官方链接：https://github.com/MetaCubeX/meta-rules-dat/tree/meta/geo-lite
+# ----------------------------------------------------------------------------------------------------------------- 
+rule-providers:          # 简化后格式——引用锚点数据，简单明了
+# 常用本地域名 private_domain/private_ip
+  private_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
+  private_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
+
+# fakeip:blacklist过滤域名
+  fakeipfilter_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/wwqgtxx/clash-rules/release/fakeip-filter.mrs"}
+
+# 常用国外网站域名
+  youtube_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
+  google_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
+  google_domain-cn: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-cn.list"}
+  github_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
+  telegram_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  facebook_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"}
+  netflix_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
+  paypal_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
+  onedrive_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
+  microsoft_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
+  apple_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
+  apple_domain-cn: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
+  tiktok_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
+  reddit_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs"}
+  speedtest_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
+  
+# AIGC类域名
+  ai_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
+  copilot: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"}
+  claude: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"}
+  bard: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml"}
+  openai: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"}
+  metaai: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/liandu2024/clash/main/list/MetaAi.list"}
+  perplexity: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/github.com/metacubex/meta-rules-dat/raw/meta/geo/geosite/perplexity.yaml"}
+
+# 游戏类域名  
+  EA: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml"}
+  steam: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs"}
+  steam-cn: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam@cn.mrs"}
+
+# CN相关域名
+  gfw_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
+  geolocation-!cn: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
+  cn_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"} 
+
+# 常用国外网站IP
+  cn_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
+  apple_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
+  telegram_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
+  netflix_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
+  google_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
+  google_ip-cn: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+  
+# 自用收集域名——个人收集
+  perdirect_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
+  perproxy_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
+# 网络检测类域名——个人收集
+  network_check: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
+
+  ############### 分流规则 end ###############
