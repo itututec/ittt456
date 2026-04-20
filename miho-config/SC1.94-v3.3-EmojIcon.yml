@@ -12,7 +12,7 @@
 # ──────────────── 机场订阅配置 ────────────────
 proxy-providers:  
   69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/omMhR4PosdBCG5BY?clash=1"     # 机场订阅链接
+    url: "https://checkhere.top/link/omMh**************BY?clash=1"     # 机场订阅链接
     type: http
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"        # 不包含其他杂项节点
@@ -38,13 +38,13 @@ proxies:
 # - {name: bpb01, server: 1.2.3.4, port: 443, type: trojan, password: pass123, sni: example.com, skip-cert-verify: false, network: ws, ws-opts: {path: /demo_path, headers: {Host: example.com}}}
 # ----- RN 部署 Proxy-US -----
 # ----- vitebits-JP-大阪 -----
-  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":64633,"skip-cert-verify":true,"password":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":29802,"password":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":50531,"password":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","uuid":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇯🇵 JP_vitebits-anytls-pD","server":"141.147.156.175","port":64633,"skip-cert-verify":true,"password":"6******0-971b-4d9d-ac45-2f******8f95","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇯🇵 JP_vitebits-hy2-pD","server":"141.147.156.175","port":29802,"password":"password":"6******0-971b-4d9d-ac45-2f******8f95","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇯🇵 JP_vitebits-tuic-pD","server":"141.147.156.175","port":50531,"password":"password":"6******0-971b-4d9d-ac45-2f******8f95","uuid":"625b36e0-971b-4d9d-ac45-2f2bfba68f95","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
 # -----独角鲸 US-DediRock -----
-  - {"type":"anytls","name":"🇺🇲 US_DediRock-anytls-pD","server":"198.46.182.189","port":37934,"skip-cert-verify":true,"password":"a5a45239-e193-458c-9a34-98b25e3fd099","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇺🇲 US_DediRock-hy2-pD","server":"198.46.182.189","port":61442,"password":"a5a45239-e193-458c-9a34-98b25e3fd099","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
-  - {"type":"tuic","name":"🇺🇲 US_DediRock-tuic-pD","server":"198.46.182.189","port":60976,"password":"a5a45239-e193-458c-9a34-98b25e3fd099","uuid":"a5a45239-e193-458c-9a34-98b25e3fd099","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
+  - {"type":"anytls","name":"🇺🇲 US_DediRock-anytls-pD","server":"198.46.182.189","port":37934,"skip-cert-verify":true,"password":"password":"6******0-971b-4d9d-ac45-2f******8f95","allowInsecure":"1"}
+  - {"type":"hysteria2","name":"🇺🇲 US_DediRock-hy2-pD","server":"198.46.182.189","port":61442,"password":"password":"6******0-971b-4d9d-ac45-2f******8f95","sni":"www.bing.com","skip-cert-verify":true,"tfo":false}
+  - {"type":"tuic","name":"🇺🇲 US_DediRock-tuic-pD","server":"198.46.182.189","port":60976,"password":"password":"6******0-971b-4d9d-ac45-2f******8f95","uuid":"a5a45239-e193-458c-9a34-98b25e3fd099","congestion-controller":"bbr","udp-relay-mode":"native","alpn":["h3"],"sni":"www.bing.com","skip-cert-verify":true,"allowInsecure":"1","version":5}
 # ----- 落地节点-ISP住宅 SOCKS5 节点 -----
   - name: 💧 链代落地-住宅A     # 自定义落地节点，用不上就整段注释掉或删除
     type: socks5
