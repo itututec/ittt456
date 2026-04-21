@@ -375,7 +375,7 @@ rules:
   # - RULE-SET,category-scholar-!cn,🚀 默认代理     # 国外学术相关网站走代理
   - RULE-SET,category-ads-all,REJECT                # 广告拦截
   - DOMAIN-KEYWORD,google,🔍 Google                 # 匹配域名关键字(交由 🔍 Google 策略组)
-  - DOMAIN-KEYWORD,youtube,📹 YouTube                 # 匹配域名关键字(交由 🔍 Google 策略组)
+  - DOMAIN-KEYWORD,youtube,📹 YouTube                # 匹配域名关键字(交由 📹 YouTube 策略组)
   - DOMAIN-SUFFIX,google.com,🔍 Google              # 匹配域名后缀(交由 🔍 Google 策略组)
   - RULE-SET,ai_domain,🤖 AIGC
   - RULE-SET,telegram_domain,📲 Telegram
