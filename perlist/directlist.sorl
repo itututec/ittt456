@@ -34,14 +34,14 @@
 *.catmak.name
 
 ; 影视域名-以前是直连——现在需要代理连接
- *.keke1.app
- *.keke2.app
- *.keke3.app
- *.keke4.app
- *.keke5.app
- *.kkys01.com
- *.kkys02.com
- *.kkys03.com
+; *.keke1.app
+; *.keke2.app
+; *.keke3.app
+; *.keke4.app
+; *.keke5.app
+; *.kkys01.com
+; *.kkys02.com
+; *.kkys03.com
 ; *.ncat21.com
 ; *.ncat22.com
 ; *.ncat23.com
