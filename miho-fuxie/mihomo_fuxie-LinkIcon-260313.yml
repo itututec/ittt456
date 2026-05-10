@@ -1,0 +1,214 @@
+# 时间：20260313
+# 经测试，启用GLOBAL策略组后，显示时策略组顺序就会错乱，并与配置文件的顺序不一样，建议注释掉GlOBAL策略组使用
+
+# ──────────────── 策略组定义 ────────────────
+# 配置策略组 共用部分的数据锚点
+## 数据引用——避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
+## 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
+selectgroup: &selectgroup {type: select, include-all: true, proxies: [DIRECT, REJECT]}                # 建立名为 selectgroup 的数据锚点
+autogroup: &autogroup {type: url-test, include-all: true, interval: 300, tolerance: 20}                # 建立名为 autogroup 的数据锚点
+fallbackgroup: &fallbackgroup {type: fallback, include-all: true, tolerance: 20, interval: 300}                # 建立名为 fallbackgroup 的数据锚点
+mediagroup: &mediagroup {type: select, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}      # 建立名为 proxygroup 的策略组数据锚点
+mixedgroup: &mixedgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点, 香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转,  自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, DIRECT, REJECT]}     # 建立名为abcgroup的、包含节点和策略组混合的的 综合性的策略组数据锚点
+globalgroup: &globalgroup {type: select, include-all: true, proxies: [手选节点, 落地节点, 自建节点,  香港节点, 台湾节点, 日本节点, 狮城节点, 美国节点, 其他节点, 自建自动, 美国自动, 台湾自动, 香港自动, 日本自动, 狮城自动, 自建故转, 美国故转, 台湾故转, 香港故转, 日本故转, 狮城故转, YouTube, Google, AIGC,  GitHub, Reddit, OneDrive, Microsoft, TikTok, Telegram, Facebook, NETFLIX, Networks, PayPal, 漏网之鱼]}     # 建立名为 globalgroup 的专用于Global的策略组数据锚点
+# --------------------------------------------------------------------------
+proxy-groups:
+# 按地区分类分组
+  - {name: 默认代理, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Proxy.png}
+  - {name: 手选节点, <<: *selectgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Select.png}       # 全部节点但不包含其他杂项节点
+  
+  - {name: 落地节点, <<: *selectgroup, filter: "(?i)链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Dest_2m.png}       # 只包含链式代理落地/SOCKS5节点
+  - {name: 自建节点, <<: *selectgroup, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+     
+  - {name: 香港节点, <<: *selectgroup, filter: "(?i)港|HK|Hong|Hongkong|HK|🇭🇰", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Hong_Kong.png}
+  - {name: 台湾节点, <<: *selectgroup, filter: "(?i)台|Taiwan|TW|🇹🇼", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Taiwan.png}
+  - {name: 日本节点, <<: *selectgroup, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|尼日)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Japan.png }     # 包含节点名称中含有“日”字相关的节点，同时不包含尼日利亚相关的节点
+  - {name: 狮城节点, <<: *selectgroup, filter: "(?i)新加坡|坡|狮城|SG|Singapore|🇸🇬", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Singapore.png}
+  - {name: 美国节点, <<: *selectgroup, filter: "(?i)美|US|unitedstates|united states|America|🇺🇲", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/United_States.png}
+  - {name: 其他节点, <<: *selectgroup, filter: "^((?!(剩余|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Star.png}        # 排除所列出地区的节点
+
+  - {name: 自建故转, <<: *fallbackgroup, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+  - {name: 香港故转, <<: *fallbackgroup, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png}
+  - {name: 台湾故转, <<: *fallbackgroup, filter: "(?=.*(台|TW|Taiwan|TW|🇹🇼))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png}
+  - {name: 日本故转, <<: *fallbackgroup, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png}
+  - {name: 狮城故转, <<: *fallbackgroup, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png}
+  - {name: 美国故转, <<: *fallbackgroup, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png}
+ 
+  - {name: 自建自动, <<: *autogroup, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Static.png}          # 只包含自定义节点(自定义节点命名很关键)，且不包含落地/SOCKS5节点 和 其他杂项节点
+  - {name: 香港自动, <<: *autogroup, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/HK_1.png}
+  - {name: 台湾自动, <<: *autogroup, filter: "(?=.*(台|TW|Taiwan|TW|🇹🇼))^((?!(港|日|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TW_1.png}
+  - {name: 日本自动, <<: *autogroup, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|港|台|韩|新|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/JP_1.png}
+  - {name: 狮城自动, <<: *autogroup, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore|🇸🇬))^((?!(港|台|韩|日|美|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/SG_1.png}
+  - {name: 美国自动, <<: *autogroup, filter: "(?=.*(美|US|States|America|🇺🇲))^((?!(港|台|日|韩|新|SK5|SOCKS5)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/US_1.png}
+
+  - {name: YouTube, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/YouTube.png}
+  - {name: Google, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Google_Search.png}
+  - {name: AIGC, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Bot.png}
+  - {name: GitHub, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/GitHub.png}
+  - {name: Reddit, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Reddit.svg}
+  - {name: OneDrive, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/OneDrive.svg}
+  - {name: Microsoft, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Microsoft.png}
+  - {name: TikTok, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/TikTok.png}
+  - {name: Telegram, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Telegram.png}
+  - {name: Facebook, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Facebook.png}
+  - {name: NETFLIX, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Netflix.png}
+  - {name: Games, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Game.png}
+  - {name: Networks, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Speedtest.png}
+  - {name: PayPal, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/PayPal.png}
+  - {name: 漏网之鱼, <<: *mediagroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/fish.svg}
+
+## 链式代理（组）配置
+# -------------------- dialer-proxy 链式代理（推荐，但设置略微复杂） -------------------- ##
+## a 基于关键字dialer-proxy的链式代理做法（推荐用法）；
+# 1.1 需要在前端的订阅配置文件（不是这里的覆写配置文件）中的proxies下的节点中额外定义关键字dialer-proxy指向中继节点或中继节点组，表示通过中继节点路由连接到落地节点；
+# 前端案例格式参考（可以是单个节点，也可以是策略组）:
+  # - name: 链代落地-住宅A              # 落地节点——表示该节点通过中继节点（组）连接到
+  #   type: socks5
+  #   server: 184.178.172.13           # 【必改】SOCKS5 的IP地址
+  #   port: 15311                      # 【必改】端口号
+  #   username:                        # 【必改】用户名，没有就注释掉
+  #   password:                        # 【必改】密码，没有就注释掉
+  #   udp: true
+  #   dialer-proxy: 华东中继            # 应用已经定义的 中继节点或节点组 名称
+
+# -------------------- relay 链式代理（不推荐，但设置简单） -------------------- ##
+# b 基于关键字relay的链式代理做法——不推荐，有很多缺点(如udp异常/grpc延迟过高等)——官方已有新方法即dialer-proxy，但relay依然可用；
+# 1.1 只需在本覆写模板配置文件中定义好type为relay的链式代理节点组，不需要在前端订阅配置文件proxies下添加定义关键字dialer-proxy信息。
+# 案例格式参考：
+#  - {name: 华东中继, type: relay, proxies: [中继节点(组)名称, 落地节点(组)名称]}                              #范例基本书写格式，表示通过 中继节点(组)→→→落地节点(组)
+# 👉👉👉↓↓↓以下四行是实际范例书写格式和注释说明↓↓↓
+#  - {name: 链代落地-住宅A, type: select, include-all: true, filter: "(?i)链|链式代理|SK5|http|SOCKS5"}       #范例落地节点组，一般是目的地住宅SOCKS5节点，无法直连，所以要借助中继路由过去连接
+#  - {name: 华东中继, type: select, proxies: [日本故转, 台湾故转, 日本自动, 台湾自动, 日本节点, 台湾节点]}       #范例华东中继组
+#  - {name: 华南中继, type: select, proxies: [香港故转, 狮城故转, 香港自动, 狮城自动, 香港节点, 狮城节点]}       #范例华南中继组
+#  - {name: relay链代, type: relay, proxies: [华东中继, 链代落地-住宅A]}            #relay链式代理，表示通过 华东中继→→→链代落地-住宅A
+  # relay特别说明(参考https://clash-meta.gitbook.io/clash.meta-wiki-older/function/proxygroups/relay 和 https://merlinkodo.github.io/Clash-Rev-Doc/config/proxy-groups/relay/)：
+   # 1 relay支持传输UDP，前提是代理链的头尾节点都要支持 UDP over TCP。目前支持 udp 的协议有 vmess/vless/trojan/ss/ssr/tuic/hy，不支持udp协议的是不能使用relay实现链式代理的；
+   # 2 添加type为relay的代理组，且该代理组的节点顺序是，打底/中继节点(组)名称在前，落地socks5节点(组)名称在后(落地节点必须支持udp协议，设置建议打开udp为true)；
+   # 3 为保证设置好的 relay链式代理 可以在clash内核的UI界面中被选择到，需要在Proxy Groups中的 手动选择组里面包含有上面定义好的 relay链式代理 名称，否则虽然定义了该链式代理，但无法在UI中选择也是白搭。
+
+# -------------------- 中继节点组 -------------------- ##
+# c 中继节点组——辅助链式代理进行使用，可以根据需要定义，也可直接使用上述现成的策略组作为中继节点组
+# 华东中继组（包括 台湾/日本/美洲 等节点）→→→落地是去向 东亚/美洲 的住宅SK5节点
+  - {name: 华东中继, type: select, proxies: [日本故转, 台湾故转, 日本自动, 台湾自动, 日本节点, 台湾节点], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
+# 华南中继组（包括 香港/新加坡/欧洲 等节点）→→→落地是去向 东南亚(越南/印尼/马来西亚/新加坡)/欧洲 的住宅SK5节点
+  - {name: 华南中继, type: select, proxies: [香港故转, 狮城故转, 香港自动, 狮城自动, 香港节点, 狮城节点], icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/BosLife_1.png}
+
+# 一机一 IP 专用策略组 
+  - {name: 手机139-ip236, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
+  - {name: 手机175-ip115, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Phone.png}
+  - {name: OpenClaw-ip230, <<: *mixedgroup, filter: "(?=.*((?i)港|HK|Hong|Hongkong|HK|台|Taiwan|TW|日|JP|Japan|新加坡|坡|狮城|SG|Singapore|美|US|unitedstates|united states|America|🇺|链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP|🇲pD|))^((?!(尼日利亚|尼日|动态)).)*$", icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Linux.jpg}
+    
+# ↓↓↓全局策略组↓↓↓
+#  - {name: GLOBAL, <<: *globalgroup, icon: https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/main/Icons/Global.png}
+
+# ──────────────── 分流规则 ────────────────
+rules:
+# 1) 防 WebRTC 泄漏（拦截 STUN）——如设置后经常出现问题，可注释掉不启用
+ # - DOMAIN-SUFFIX,stun.l.google.com,REJECT
+ # - DOMAIN-KEYWORD,stun,REJECT
+ # - DOMAIN-KEYWORD,turn,REJECT
+ # - DOMAIN-KEYWORD,rtc,REJECT
+
+# 2) 链式代理分流：一机一住宅IP（配置后 使得已定义好固定的IP的设备，走指定的 出口节点（组）——出口节点（组）可以是落地住宅SK5或指定节点（组））
+# 如果出口节点（组）因为网络原因不能直接联通，则需要链式代理通过中继节点（组）连接，即添加 dialer-proxy中继节点/组设置好，这里只要引用即可。比如下面的链式代理节点(组) 落地-住宅A 已经在上面做好了dialer-proxy设置
+  # - SRC-IP-CIDR,192.168.20.101/32,链代落地-住宅A    # 匹配数据发起IP也就是192.168.20.101(走对应的 落地SK5节点（组）：链代落地-住宅A)：所谓 设备的发起IP 需查阅该设备被路由器DHCP分配到的IP或在路由器中自定义的IP，再来这里进行修改匹配
+  # - SRC-IP-CIDR,192.168.20.102/32,链代落地-住宅B 
+  - SRC-IP-CIDR,192.168.2.236/32,手机139-ip236         # 匹配数据发起IP也就是192.168.2.236这台设备 走 指定节点策略组（组）：手机139-ip236
+  - SRC-IP-CIDR,192.168.2.115/32,手机175-ip115         # 匹配数据发起IP也就是192.168.2.115这台设备 走 指定节点策略组（组）：手机175-ip115
+  - SRC-IP-CIDR,192.168.2.230/32,OpenClaw-ip230  
+
+# 3) BT 和 PT 等下载流量分流问题——下载机/NAS设备的全部流量将直连
+  # - SRC-IP-CIDR,192.168.1.201/32,DIRECT
+
+  - RULE-SET,private_domain,DIRECT
+  - RULE-SET,private_ip,DIRECT,no-resolve
+  
+  - RULE-SET,ai_domain,AIGC
+  - RULE-SET,onedrive_domain,OneDrive
+  - RULE-SET,microsoft_domain,Microsoft
+  - RULE-SET,apple_domain,DIRECT
+  - RULE-SET,github_domain,GitHub
+  - RULE-SET,reddit_domain,Reddit  
+  - RULE-SET,tiktok_domain,TikTok
+  - RULE-SET,facebook_domain,Facebook
+  
+  - RULE-SET,netflix_domain,NETFLIX
+  - RULE-SET,netflix_ip,NETFLIX,no-resolve
+  - RULE-SET,telegram_domain,Telegram
+  - RULE-SET,telegram_ip,Telegram,no-resolve
+  - RULE-SET,youtube_domain,YouTube
+  - RULE-SET,google_domain,Google
+  - RULE-SET,google_ip, Google,no-resolve
+  - RULE-SET,GoogleCNProxy_ip,默认代理,no-resolve   
+  - RULE-SET,geolocation-!cn, 默认代理
+
+   # 5) 本地直连
+  - RULE-SET,private_domain,DIRECT
+  - RULE-SET,private_ip,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT                                           #匹配数据目标IP(直连)
+
+  # 6) 国内直连
+  - RULE-SET,perdirect_domain,DIRECT
+  - RULE-SET,cn_domain,DIRECT
+  - RULE-SET,cn_ip,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT,no-resolve  
+ 
+  # 7) 兜底
+  - MATCH,漏网之鱼 
+
+# 规则集定义
+rule-anchor:
+  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}                # 建立名为 ip 的数据锚点
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}        # 建立名为 domain 的数据锚点
+  class: &class {type: http, interval: 86400, behavior: classical, format: text}      # 建立名为 clashh 的数据锚点
+rule-providers: 
+  # 常用本地域名 / ip
+  private_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
+  private_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
+
+  # 常用国外网站域名
+  youtube_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
+  google_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
+  github_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
+  telegram_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  facebook_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"}
+  netflix_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
+  paypal_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
+  onedrive_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
+  microsoft_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
+  apple_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
+  tiktok_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
+  reddit_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs"}
+  speedtest_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
+  # AIGC类域名
+  ai_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
+  copilot: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"}
+  claude: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"}
+  bard: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml"}
+  openai: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"}
+  metaai: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/MetaAi.list"}
+  perplexity: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/perplexity.yaml"}
+  # 游戏类域名  
+  EA: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml"}
+  steam: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.yaml"}
+  
+  # CN相关域名
+  gfw_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.orghttps://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
+  geolocation-!cn: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.orghttps://hub.gitmirror.com/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
+  cn_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"} 
+
+  # 常用国外网站IP
+  cn_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
+  apple_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"}
+  telegram_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
+  netflix_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
+  google_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
+  GoogleCNProxy_ip: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleCNProxyIP.list"}
+
+  # 自用收集域名——个人收集
+  perdirect_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perdirect_domain.list"}
+  perproxy_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
+  # 网络检测类域名——个人收集
+  network_check: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/https://raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
+
+

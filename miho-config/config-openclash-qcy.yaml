@@ -5,7 +5,7 @@
 # 机场订阅
 proxy-providers:
   Airport1:     #机场名称，需自定义修改
-    url: "http://192.168.10.42:3001/CKg2abstVnOeRpm1aB4G/download/DOG?target=ClashMeta"     #机场订阅链接
+    url: "http://192.168.10.42:3001/********************4G/download/DOG?target=ClashMeta"     #机场订阅链接
     type: http
     interval: 86400
     health-check:

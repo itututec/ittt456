@@ -10,6 +10,8 @@ DOMAIN-SUFFIX,browserleaks.com
 DOMAIN-KEYWORD,1e100
 
 # 国外DNS
+DOMAIN-SUFFIX,yandex.com
+
 DOMAIN-SUFFIX,dns.google
 DOMAIN-SUFFIX,1dot1dot1dot1.cloudflare-dns.com
 DOMAIN-SUFFIX,dot.sb

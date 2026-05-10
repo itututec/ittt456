@@ -24,23 +24,30 @@
 ; cn 域名-直连
 *.cn
 
-;自定义域名-直连
-*.surveymonkey.club
+; 自定义域名-直连
+; 聚水潭电商分销
+*.scm121.com
+*.ttdahuo.com
+; 沉浸式翻译
+*.immersivetranslate.com
+; Github加速
+*.catmak.name
 
 ; 影视域名-以前是直连——现在需要代理连接
- *.keke1.app
- *.keke2.app
- *.keke3.app
- *.keke4.app
- *.keke5.app
- *.kkys01.com
- *.kkys02.com
- *.kkys03.com
+; *.keke1.app
+; *.keke2.app
+; *.keke3.app
+; *.keke4.app
+; *.keke5.app
+; *.kkys01.com
+; *.kkys02.com
+; *.kkys03.com
 ; *.ncat21.com
 ; *.ncat22.com
 ; *.ncat23.com
 
 ; 公共域名-直连
+*.baidu.com
 ;*.cloudflare.com
 *.gitea.com
 *.deepseek.com
@@ -53,6 +60,12 @@
 ; 其他域名-直连
 *.mozilla.org
 *.dynv6.net
+
+
+
+
+
+
 
 
 
