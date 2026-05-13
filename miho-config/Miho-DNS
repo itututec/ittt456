@@ -1,0 +1,30 @@
+# Mihomo
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  prefer-h3: true
+  ipv6: true
+  ipv6-timeout: 50
+  use-system-hosts: true
+  use-hosts: true
+  default-nameserver:
+    - https://223.5.5.5/dns-query#DIRECT
+  proxy-server-nameserver:
+    - https://doh.apad.pro/dns-query#DIRECT
+  nameserver-policy:
+    "geosite:tld-cn,private,cn":
+      - https://dns.alidns.com/dns-query#DIRECT
+      - https://doh.pub/dns-query#DIRECT
+    "geosite:tld-!cn,gfw,geolocation-!cn":
+      - https://9.9.9.9/dns-query#DIRECT
+      - https://doh.apad.pro/dns-query#DIRECT
+      - http://dns.google/dns-query#节点选择
+      - https://cloudflare-dns.com/dns-query#节点选择
+  nameserver:
+    - https://dns.alidns.com/dns-query#DIRECT
+    - https://doh.pub/dns-query#DIRECT
+  fallback:
+    - https://9.9.9.9/dns-query#DIRECT
+    - https://doh.apad.pro/dns-query#DIRECT
+    - http://dns.google/dns-query#节点选择
+    - https://cloudflare-dns.com/dns-query#节点选择
