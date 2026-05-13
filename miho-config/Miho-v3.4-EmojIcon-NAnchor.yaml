@@ -397,7 +397,7 @@ rules:
   - RULE-SET,cn_domain,直连
   - RULE-SET,private_domain,直连
   - RULE-SET,perdirect_domain,直连                  # 自定义或自收集的 走 直连(DIRECT)的域名
-  # > google-cn的部分域名直接
+  # > google-cn的部分域名直连
   - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,直连
   - DOMAIN-SUFFIX,googleapis,直连
   - DOMAIN,clientservices.googleapis.com,直连
