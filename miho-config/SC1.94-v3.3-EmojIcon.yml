@@ -165,29 +165,29 @@ dns:
     # - 119.29.29.29
     # - tls://dot.pub
     # - https://dns.alidns.com/dns-query
-  proxy-server-nameserver:     # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置
+  proxy-server-nameserver:     # 专门用于节点域名解析的DNS服务器，非必要项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
-  direct-nameserver:
+  direct-nameserver:      # 专门用于direct出口域名解析的DNS服务器，非必要项，如果不填则遵循nameserver-policy、nameserver和fallback的配置
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
-# -----------------------------------------------------------------------------------------------------------------  
-#  fallback:                         # 备用域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为cn，非必要
-#    - tls://dns.google
-#    - https://1.0.0.1/dns-query
-#    - https://doh.dns.sb/dns-query
-#  fallback-filter:                  # 备用DNS服务器的过滤规则，决定哪些DNS查询可以使用备用 DNS，非必要
-#    geoip: true                     # 不匹配为geoip规则的使用fallback返回结果
-#    geoip-code: cn                  # geoip匹配区域设定
-#    geosite:                        # 指定geosite的gfw类的域名，会使用备用 DNS（fallback）
-#      - gfw
-#    ipcidr:                         # 列表中的ip段使用fallback返回解析结果
-#      - 240.0.0.0/4
-#      - 0.0.0.0/32
-#    domain:                         # 列表中的域名使用fallback返回解析结果
-#      - '+.google.com'
-#      - '+.facebook.com'
-#      - '+.youtube.com'
+    
+  # fallback:                         # 备用域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为cn，非必要
+  #   - https://1.0.0.1/dns-query#🔯 香港故转
+  #   - https://doh.opendns.com/dns-query#🔯 香港故转
+  # fallback-filter:                  # 备用DNS服务器的过滤规则，决定哪些DNS查询可以使用备用 DNS，非必要
+  #   geoip: true                     # 不匹配为geoip规则的使用fallback返回结果
+  #   geoip-code: cn                  # geoip匹配区域设定
+  #   geosite:                        # 指定geosite的gfw类的域名，会使用备用 DNS（fallback）
+  #     - gfw
+  #   ipcidr:                         # 列表中的ip段使用fallback返回解析结果
+  #     - 240.0.0.0/4
+  #     - 0.0.0.0/32
+  #   domain:                         # 列表中的域名使用fallback返回解析结果
+  #     - '+.google.com'
+  #     - '+.facebook.com'
+  #     - '+.youtube.com'
+  #     - '+.x.com'
 ############### 全局基础配置 end ###############
 
 ############### 多入站端口设置 start ###############
