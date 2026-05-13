@@ -25,7 +25,7 @@ proxy-providers:
       # - {"name":"美国落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}
 
   xsus:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://xsus.sbfys.cn/api/v1/client/subscribe?token=c12b18640a8d1fc48d51791398cb255b"     # 机场订阅链接
+    url: "https://xsus.sbfys.cn/api/v1/client/subscribe"     # 机场订阅链接
     type: http
     interval: 43200
     filter: "^((?!(Traffic|Expire|Premium|频道|订阅|剩余|到期|重置|服|邮箱|国内|永久|折|涨|云|时间)).)*$"        # 不包含其他杂项节点
