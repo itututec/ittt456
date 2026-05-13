@@ -153,8 +153,9 @@ dns:
     rule-set:google_domain: 8.8.8.8
     rule-set:youtube_domain: 8.8.8.8
 
-  default-nameserver:
+  default-nameserver:      # 用于解析 nameserver，fallback 以及其他 DNS 服务器配置的DNS 服务域名；必须为 ip, 可为加密 dns
     - https://223.5.5.5/dns-query
+    
   nameserver:      # 默认的域名解析服务器，如不配置fallback/proxy-server-nameserver, 则所有域名都由这里的nameserver解析
     # 推荐将 `ecs` 设置为当前宽带运营商分配的默认DNS的IP段，ECS是DNS协议的一个扩展，允许DNS服务器根据客户端所在的子网（IP 地址段）返回更精确的解析结果
     - https://dns.google/dns-query#ecs=211.137.64.0/24
