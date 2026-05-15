@@ -450,12 +450,6 @@ rule-providers:          # 简化后格式——引用锚点数据，简单明�
   
 # > AIGC类域名
   ai_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs" }
-  copilot: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"}
-  claude: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"}
-  bard: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BardAI/BardAI.yaml"}
-  openai: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"}
-  metaai: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/liandu2024/clash/main/list/MetaAi.list"}
-  perplexity: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/github.com/metacubex/meta-rules-dat/raw/meta/geo/geosite/perplexity.yaml"}
 
 # > 游戏类域名  
   EA: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml"}
