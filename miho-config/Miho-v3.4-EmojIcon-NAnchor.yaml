@@ -1,11 +1,10 @@
-# Miho v1.9+版本 通用（链式代理）配置模板
-# 版本：v3.4-260512
+# 版本：Miho v1.9+版本-260512
 # 作者：ittt456
 # 包含：机场订阅/单独节点添加 + 住宅 SOCKS5 链式代理 + 一机一IP，防止 DNS/WebRTC 泄漏；多分流规则，DNS防泄露
 # 声明：仅作学习用，不得用于违法用途，不为使用后果负责
 # Nikki特别注意：使用Nikki插件之前，需要在 网络 -> DHCP/DNS -> DNS 重定向这一选项请关闭勾选，否则会冲突导致网络异常
 # 说明：该模板配置文件可供Mihomo内核的OpenClash/Nikki/ClashParty/ClashVerg/ShellCrash使用(给ShellCrash使用时不能使用数据锚点)
-
+#
 ############### 订阅或节点配置 start ###############
 # ──────────────── 机场订阅配置 ────────────────
 proxy-providers:  
@@ -57,38 +56,8 @@ proxies:
     udp: true
     dialer-proxy: ♠️ 华东中继      # 指定前置中继节点或节点组，如果能直连也可以不需要通过中继节点/组——注释掉或删除dialer-proxy即可
 ############### 订阅或节点配置 end ###############
-
-############### 全局基础配置 start ###############
-port: 7890                  # HTTP 代理端口，默认 7890
-socks-port: 7891            # SOCKS5 代理端口，默认 7891
-mixed-port: 7892            # 混合端口，默认7892，同时支持 HTTP(S) 和 SOCKS5 协议
-allow-lan: true             # 是否允许局域网设备连接
-bind-address: "*"           # 绑定所有 IP 地址，默认会绑定到 127.0.0.1（本地回环地址），而 * 表示允许从任何网络接口连接
-mode: rule                  # 使用规则模式分流
-log-level: warning          # 日志级别
-tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
-unified-delay: true         # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差
-# find-process-mode: strict   # 进程匹配模式，always-开启:强制匹配所有进程；strict-默认:由Clash判断是否开启；off-不匹配进程:推荐路由器上使用
-
-global-client-fingerprint: chrome
-keep-alive-idle: 600
-keep-alive-interval: 15
-profile:
-  store-selected: true
-  store-fake-ip: true
-# geodata-mode: false         # 使用geoip.dat数据库(默认：false使用mmdb数据库)
-
-# > geodata 数据库配置
-# geodata-mode: false            # 禁用geodata数据模式
-# geodata-loader: standard       # 使用“标准”方式加载geodata数据，有快速加载、标准加载、延迟加载等供选择
-# geo-auto-update: true          # 是否自动更新 geodata
-# geo-update-interval: 72        # 更新间隔为 72 小时
-# geox-url:                      # Geo数据库下载地址,源地址 https://github.com/MetaCubeX/meta-rules-dat
-#   geoip: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-#   geosite: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
-#   mmdb: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
-#   asn: "https://cdn.jsdelivr.net/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
-
+#
+# =============================== WEB UI管理面板配置 start ===============================
 # > WEB UI管理面板，有Metacubexd、Zashboard等多个面板可选，更换对应的ui-url即可
 # > 配置 WEB UI 目录，使用 http://{{external-controller}}/ui 访问
 # external-controller: :9090            # 外部访问/控制面板端口
@@ -96,15 +65,46 @@ profile:
 # external-ui: /path/to/ui/folder/      # WEB UI面板的文件存放目录
 # external-ui-name: zashboard
 # external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"   # 目前支持下载zip,tgz格式的压缩包
-
-# 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
-# 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
-# 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
-# 仅当proxy-server-nameserver非空时可以开启此选项, 强烈不建议和prefer-h3一起使用
-# 此外，这三者配置中的dns服务器如果出现域名会采用default-nameserver配置项解析，也请确保正确配置default-nameserver
-respect-rules: true
-
-# 嗅探（fakeip下其实可以不用嗅探）
+# =============================== WEB UI管理面板配置 end ===============================
+#
+# =============================== GEO数据库配置 start ===============================
+# > 该配置用于加载地理位置信息数据库，包括 IP 和域名的地理位置数据
+# > 在不同的规则配置中，可以使用地理信息进行更精确的流量路由
+# geodata-mode: false             # 使用geoip.dat数据库(默认：false使用mmdb数据库)
+# geodata-loader: standard       # 使用“标准”方式加载geodata数据，有快速加载、标准加载、延迟加载等供选择;memconservative'适用于较低内存加载
+# geo-auto-update: true          # 是否自动更新 geodata
+# geo-update-interval: 72        # 更新间隔为 72 小时
+# geox-url:                      # GEO数据库下载地址,源地址 https://github.com/MetaCubeX/meta-rules-dat
+#   geoip: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+#   geosite: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+#   mmdb: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+#   asn: "https://cdn.jsdelivr.net/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+# =============================== GEO数据库配置 end ===============================
+#
+# =============================== 全局基础配置 start ===============================
+port: 7890                  # HTTP 代理端口，默认 7890
+socks-port: 7891            # SOCKS5 代理端口，默认 7891
+redir-port: 7892            # 透明代理端口，用于 Linux 和 MacOS
+mixed-port: 7893            # HTTP(S) 和 SOCKS 代理混合端口
+allow-lan: true             # 是否允许局域网设备连接
+bind-address: "*"           # 绑定所有 IP 地址，默认会绑定到 127.0.0.1（本地回环地址），而 * 表示允许从任何网络接口连接
+ipv6: true
+mode: rule                  # 使用规则模式分流
+log-level: warning          # 日志级别
+tcp-concurrent: true        # 启用 TCP 并发连接，将会使用 dns 解析出的所有 IP 地址进行连接，使用第一个成功的连接
+unified-delay: true         # 开启统一延迟时，会计算 RTT，以消除连接握手等带来的不同类型节点的延迟差
+find-process-mode: strict   # 进程匹配模式，always-开启:强制匹配所有进程；strict-默认:由Clash判断是否开启；off-不匹配进程:推荐路由器上使用
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 15
+profile:
+  store-selected: true
+  store-fake-ip: true
+# =============================== 全局基础配置 end ===============================
+#
+# =============================== 流量嗅探配置 start ===============================
+# > 启用流量嗅探功能，用于监控和分析网络流量
+# > 嗅探（fakeip下可以不用嗅探）
 sniffer:
   enable: true
   sniff:
@@ -118,8 +118,12 @@ sniffer:
   skip-domain:      # 需要跳过嗅探的域名。主要解决部分站点sni字段非域名，导致嗅探结果异常的问题，如米家设备
     - "Mijia Cloud"
     - "+.push.apple.com"
-
-# 入站  
+    - "+.baidu.com"
+    - "+.bilibili.com"
+# =============================== 流量嗅探配置 end ===============================
+#
+# =============================== TUN配置 start ===============================
+# > 配置 TUN 模式，适用于透明代理和高效流量转发 
 tun:
   enable: true      # 是否启用 tun 模式来路由全局流量
   stack: mixed      # tun 模式堆栈,可用值system/gvisor/mixed/lwip,如无使用问题,建议使用 system 栈;MacOS 用户推荐 gvisor栈
@@ -130,76 +134,110 @@ tun:
   auto-route: false      # 自动设置全局路由,可以自动将全局流量路由进入 tun 网卡
   auto-redirect: false
   auto-detect-interface: false      # 自动选择流量出口接口,多出口网卡同时连接的设备建议手动指定出口网卡
-
+  mtu: 1492 # 减少 MTU 问题，如网页无法打开、测速慢
+  gso: true # 启用通用分段卸载（提升性能）
+  gso-max-size: 65536
+  udp-timeout: 300 # UDP 会话保持时间
+# =============================== TUN配置 start ===============================
+#
+# =============================== DNS 配置 start ===============================
+# > DNS 解析配置，决定了域名解析方式和缓存策略
 # > DNS各项设置官方说明 https://merlinkodo.github.io/Clash-Rev-Doc/config/dns/#nameserver-policy
 dns:
-  enable: true
-
-# ipv6:false表示不开启ipv6 解析——ipleak.net检测时IPv4是国外的，IPv6地址是空的，且没有DNS泄露/污染
-# ipv6:true表示开启ipv6解析，需同时在 Openwrt》插件设置》IPv6设置 中勾选 IPv6流量代理 和 允许 IPv6 类型 DNS 解析
-# 这样ipleak.net检测时IPv4和IPv6都是国外的，且没有DNS泄露/污染——否则ipleak.net检测时IPv6地址是本地公网IPv6，存在风险
-  ipv6: true
-
+  enable: true      # 启用 DNS 功能
   listen: 0.0.0.0:1053      # 开启 DNS 服务器监听
-  enhanced-mode: fake-ip      # 模式切换 redir-host / fake-ip
+  prefer-h3: false     # 如果DNS服务器支持DoH3会优先使用h3，提升性能
+  cache-algorithm: arc      # 使用性能更优的 ARC 缓存算法
+
+# > ipv6:false表示不开启ipv6 解析——ipleak.net检测时IPv4是国外的，IPv6地址是空的，且没有DNS泄露/污染
+# > ipv6:true表示开启ipv6解析，需同时在 Openwrt》插件设置》IPv6设置 中勾选 IPv6流量代理 和 允许 IPv6 类型 DNS 解析
+# > 这样ipleak.net检测时IPv4和IPv6都是国外的，且没有DNS泄露/污染——否则ipleak.net检测时IPv6地址是本地公网IPv6，存在风险
+  ipv6: true      # 开启ipv6解析
+ 
+# > 启用 Fake-IP 模式，这是强制劫持所有 DNS 请求的关键。
+  enhanced-mode: fake-ip      # 模式切换 redir-host/fake-ip，设置增强模式为fake-ip模式，提高解析速度和连接性能
   fake-ip-range: 28.0.0.0/8      # fake-ip 池设置
   fake-ip-range6: fc00::/16
+# > Fake-IP 过滤器：确保国内域名不被 Fake-IP 转换
   fake-ip-filter-mode: blacklist      # 默认blacklist，匹配成功不返回fake-ip；可改为whitelist，即只有匹配成功才返回fake-ip
   fake-ip-filter:      # 配置不使用 fake-ip 的域名
     - rule-set:fakeipfilter_domain
-    - rule-set:cn_domain      # 等效于 - geosite:cn
+    - rule-set:private_domain,cn_domain      # cn_domain等效于geosite:cn
+
+# > 配置后面的nameserver、fallback和nameserver-policy向dns服务器的连接过程是否遵守遵守rules规则
+# > 如果为false（默认值）则这三部分的dns服务器在未特别指定的情况下会直连
+# > 如果为true，将会按照rules的规则匹配链接方式（走代理或直连），如果有特别指定则任然以指定值为准
+# > 仅当proxy-server-nameserver非空时可以开启此选项, 强烈不建议和prefer-h3一起使用
+# > 此外，这三者配置中的dns服务器如果出现域名会采用default-nameserver配置项解析，也请确保正确配置default-nameserver
+  respect-rules: true
 
   nameserver-policy:      # 配置查询域名使用的 DNS 服务器
     # +.internal.crop.com: 10.0.0.1
     # www.baidu.com: 114.114.114.114
     geosite:geolocation-!cn:
-    - https://doh.opendns.com/dns-query      # OpenDNS
-    - https://8.8.8.8/dns-query#      # GoogleDNS
+      - https://doh.opendns.com/dns-query      # OpenDNS
+      - https://8.8.8.8/dns-query      # GoogleDNS
     geosite:cn,private,apple: 
       - https://doh.pub/dns-query#DIRECT      # TencentDNS
       - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
-    rule-set:google_domain: 8.8.8.8#🔯 香港故转      # GoogleDNS
-    rule-set:youtube_domain: 8.8.8.8#🔯 香港故转      # GoogleDNS
+    rule-set:google_domain: 8.8.8.8      # GoogleDNS
+    rule-set:youtube_domain: 8.8.8.8      # GoogleDNS
+    rule-set:twitter_domain: 208.67.222.222      # OpenDNS
+    rule-set:facebook_domain: 208.67.222.222      # OpenDNS
+    rule-set:tiktok_domain: 208.67.222.222      # OpenDNS
+    rule-set:ai_domain: 8.8.8.8      # GoogleDNS
 
+# > 要完全防止DNS泄露(可能导致节点问题-无法完美)，默认的default-nameserver务必是国外的服务器(推荐是加密的IP格式的DOH服务器)
+# > 且其他的如nameserver/proxy-server-nameserver/direct-nameserver不能是没加密的国内服务器(推荐国内加密的DOH服务器)
   default-nameserver:        # 用于解析nameserver/fallback 以及其他 DNS 服务器配置的DNS服务域名, 只能使用纯IP格式，可使用加密 DNS
-    # - 114.114.114.114#DIRECT
-    - https://8.8.8.8/dns-query#🔯 香港故转      # GoogleDNS
     - https://223.5.5.5/dns-query#DIRECT      # AliDNS
+    - https://1.12.12.12/dns-query      # TencentDNS
+    # - https://202.181.240.44/dns-query      # 香港和记环球电讯DNS
+    # - https://208.67.222.222/dns-query      # OpenDNS
+    # - https://8.8.8.8/dns-query      # GoogleDNS
   nameserver:      # 默认的域名解析服务器，如不配置fallback/proxy-server-nameserver, 则所有域名都由这里的nameserver解析
-    - 211.137.64.163      # 运营商DNS
-    - 211.137.58.20      # 运营商DNS
-    # 推荐将 `ecs` 设置为当前宽带运营商分配的默认DNS的IP段，ECS是DNS协议的一个扩展，允许DNS服务器根据客户端所在的子网（IP 地址段）返回更精确的解析结果
-    - https://dns.google/dns-query#ecs=211.137.64.0/24
-    - https://dns11.quad9.net/dns-query#ecs=211.137.58.0/24
-    # 不确定宽带运营商的默认DNS时，可以使用如下所示-直接指定国内公开DNS服务器
-    # - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
-    # - 119.29.29.29#DIRECT      # TencentDNS
+    # - 211.137.64.163      # 运营商DNS
+    # - 211.137.58.20      # 运营商DNS
+    # > 国内常用公开DNS服务器
+    # - 223.5.5.5      # AliDNS
+    # - 119.29.29.29      # TencentDNS
+    - https://dns.alidns.com/dns-query      # AliDNS
+    - https://doh.pub/dns-queryy      # TencentDNS
+    # > 国外常用公开DNS服务器
+    # - 208.67.222.222      # OpenDNS
+    # - 8.8.8.8      # GoogleDNS
+    # - https://doh.opendns.com/dns-query      # OpenDNS
+    # - https://8.8.8.8/dns-query      # GoogleDNS
+    # > 推荐将`ecs`设置为当前宽带运营商分配的默认DNS的IP段，ECS是DNS协议的一个扩展，允许DNS服务器根据客户端所在的子网(IP 地址段)返回更精确的解析结果
+    - https://doh.opendns.com/dns-query#ecs=211.137.58.0/24      # OpenDNS#ecs运营商DNS
+    - https://dns.google/dns-query#ecs=211.137.64.0/24      # GoogleDNS#ecs运营商DNS
   proxy-server-nameserver:     # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置
     - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
     - https://doh.pub/dns-query#DIRECT      # TencentDNS
-  direct-nameserver:
-    - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
-    - https://doh.pub/dns-query#DIRECT      # TencentDNS
+  # direct-nameserver:
+  #   - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
+  #   - https://doh.pub/dns-query#DIRECT      # TencentDNS
 
-  fallback:      # 备用域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为cn，非必要
-    - https://doh.opendns.com/dns-query      # OpenDNS
-    - https://8.8.8.8/dns-query#🔯 香港故转      # GoogleDNS
-  fallback-filter:      # 备用DNS服务器的过滤规则，决定哪些DNS查询可以使用备用 DNS，非必要
-    geoip: true      # 不匹配为geoip规则的使用fallback返回结果
-    geoip-code: cn      # geoip匹配区域设定
-    geosite:      # geosite库的gfw类的域名使用fallback返回解析结果
-      - gfw
-    ipcidr:      # 列表中的ip段使用fallback返回解析结果
-      - 240.0.0.0/4
-      - 0.0.0.0/32
-    domain:      # 列表中的域名使用fallback返回解析结果
-      - '+.google.com'
-      - '+.facebook.com'
-      - '+.youtube.com'
-      - '+.x.com'
-############### 全局基础配置 end ###############
-
-############### 多入站端口设置 start ###############
+  # fallback:      # 备用域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为cn，非必要
+  #   - https://202.181.240.44/dns-query      # 香港和记环球电讯DNS
+  #   - https://doh.opendns.com/dns-query      # OpenDNS
+  #   - https://8.8.8.8/dns-query      # GoogleDNS
+  # fallback-filter:      # 备用DNS服务器的过滤规则，决定哪些DNS查询可以使用备用 DNS，非必要
+  #   geoip: true      # 不匹配为geoip规则的使用fallback返回结果
+  #   geoip-code: cn      # geoip匹配区域设定
+  #   geosite:      # geosite库的gfw类的域名使用fallback返回解析结果
+  #     - gfw
+  #   ipcidr:      # 列表中的ip段使用fallback返回解析结果
+  #     - 240.0.0.0/4
+  #     - 0.0.0.0/32
+  #   domain:      # 列表中的域名使用fallback返回解析结果
+  #     - '+.google.com'
+  #     - '+.facebook.com'
+  #     - '+.youtube.com'
+  #     - '+.x.com'
+# =============================== DNS 配置 end ===============================
+#
+# =============================== 多入站端口设置 start ===============================
 listeners:
 # ----- 示例 -----
 #   - name: mixed-台湾               # 自定义名称
@@ -224,7 +262,7 @@ listeners:
   - name: mixed2003
     type: mixed
     port: 2003
-    proxy: 🇯🇵 JP_vitebits-hy2-pD
+    proxy: 🇯🇵 JP_vitebits-tuic-pD
 
 # > 针对策略组
   - name: mixed55510
@@ -245,11 +283,11 @@ listeners:
     proxy: 🔯 日本故转
   - name:  mixed55550
     type: mixed
-    port: 5550
+    port: 55550
     proxy: 🔯 美国故转
-############### 多入站端口设置 end ###############
-
-############### 锚点设置 start ###############
+# =============================== 多入站端口设置 end ===============================
+#
+# =============================== 锚点设置 start ===============================
 # > 锚点是为了后续的数据引用，从而简化版面，避免重复输入：& 锚点和 * 别名，可以用来引用，& 用来建立锚点，<<表示合并到当前数据，* 用来引用锚点——如合并时有重复的项，则不会去合并
 # > 官方文档：https://merlinkodo.github.io/Clash-Rev-Doc/config/#_8
 
@@ -264,10 +302,9 @@ listeners:
 #   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
 #   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
 #   class: &class {type: http, interval: 86400, behavior: classical, format: text}
-############### 锚点设置 end ###############
-
-
-############### 策略组配置 start ###############
+# =============================== 锚点设置 end ===============================
+#
+# =============================== 策略组配置 start ===============================
 proxy-groups:
 # 通用策略组分类
   - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, 直连]}
@@ -281,7 +318,7 @@ proxy-groups:
   - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?=.*(日|JP|Japan|🇯🇵))^((?!(尼日利亚|尼日)).)*$"}     # 包含前半部分所列地区的节点，但不包含后半部分所列地区的节点
   - {name: 🇸🇬 狮城节点, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore|🇸🇬"}
   - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|US|unitedstates|united states|America|🇺🇲"}
-  - {name: ♾️ 其他节点, type: select, include-all: true, filter: "(?=.*(尼日利亚|尼日))^((?!(剩余|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).)*$"}        # 包含前半部分所列地区的节点，但不包含后半部分所列地区的节点
+  - {name: ♾️ 其他节点, type: select, include-all: true, filter: "^((?!(剩余|链代|落地|SK|HTTP|SOCKS|住宅pD|free|免费|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).)*$"}        # 包含前半部分所列地区的节点，但不包含后半部分所列地区的节点
 
   - {name: 🔯 自建故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(free|Free|免费|pD))^((?!(链|链式代理|SK5|HTTP|SOCKS5|住宅|ISP)).)*$"}          # 只包含自定义节点(命名务必含pD)
   - {name: 🔯 香港故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|Hong|Hongkong|HK|🇭🇰))^((?!(台|日|韩|新|美|SK5|SOCKS5)).)*$"}
@@ -316,7 +353,7 @@ proxy-groups:
 # 兜底策略组
   - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 默认代理, 👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, 直连]}
 
-# 链式代理（组）配置
+# 链式代理策略组配置
 # > 1、使用 dialer-proxy 链式代理(推荐dialer-proxy实现链式代理，不推荐relay链式代理——有很多缺陷)
 # > 1.1 需在前面的 proxies节点配置文件下，额外定义关键字 dialer-proxy 并指向下面策略组中定义好的 中继节点或中继节点组 的名称，表示该节点（即落地节点）通过 中继节点(组) 路由连通（参考行号135-143）；
 # > 2、中继节点组：辅助链式代理进行使用(实现经由中继节点(组) →→→ 落地/住宅出口)
@@ -331,24 +368,23 @@ proxy-groups:
 #      - bpb02
 
 # > 一机一 IP 专用策略组 
-#  - {name: 🖥️ OpenClaw-ip228, type: select, include-all: true, proxies: [🚀 默认代理, 👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, 直连]}
-
   - {name: 📳 手机139-ip236, type: select, include-all: true, proxies: [🚀 默认代理, 👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, 直连]}          # 只包含前半部分列举的节点，且不包含 尼日利亚|尼日|动态 和 其他杂项节点
   - {name: 📳 手机175-ip115, type: select, include-all: true, proxies: [🚀 默认代理, 👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, 直连]}
 
   - {name: 🦞️ OpenCalw-ip230, type: select, include-all: true, proxies: [🚀 默认代理, 👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, 直连]}
   - {name: 🦞️ OpenCalw-ip231, type: select, include-all: true, proxies: [🚀 默认代理, 👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, ♾️ 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 自建自动, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, 直连]}
-############### 策略组配置 end ###############
-
-############### 分流规则 start ###############
+# =============================== 策略组配置 end ===============================
+#
+# =============================== 分流规则 start ===============================
 rules:
+  ## =============================== 防 WebRTC 泄漏 ===============================
   # > 防 WebRTC 泄漏（拦截 STUN）——如设置后经常出现问题，可注释掉不启用
   # - DOMAIN-SUFFIX,stun.l.google.com,REJECT
   # - DOMAIN-KEYWORD,stun,REJECT
   # - DOMAIN-KEYWORD,turn,REJECT
   # - DOMAIN-KEYWORD,rtc,REJECT
-# -----------------------------------------------------------------------------------------------------------------
-  # > 一机一住宅IP走指定代理节点或策略组流量(比如这里的 💧 链代落地-住宅A)，但需单独设置好
+  ## =============================== 一机一IP ===============================
+  # > 一机一IP 走指定代理节点或策略组流量(比如这里的 💧 链代落地-住宅A)
   # >> 每台设备（手机/电脑等）的IP是由路由器DHCP分配的，可去路由器中查询
   # - SRC-IP-CIDR,192.168.1.201/32,DIRECT               # 来源IP为192.168.2.236的BT下载机 走 直连(DIRECT) —— 可指定BT和PT的设备（通过IP确定）在下载时流量走直连
   # - SRC-IP-CIDR,192.168.20.101/32,💧 链代落地-住宅A   # 来源IP为192.168.2.101的设备流量 走 💧 链代落地-住宅A 节点
@@ -357,49 +393,19 @@ rules:
   - SRC-IP-CIDR,192.168.2.115/32,📳 手机175-ip115
   - SRC-IP-CIDR,192.168.2.230/32,🦞️ OpenCalw-ip230
   - SRC-IP-CIDR,192.168.2.231/32,🦞️ OpenCalw-ip231
-# -----------------------------------------------------------------------------------------------------------------
-  # 一WIFI一住宅IP 走指定代理节点或策略组流量(比如这里的 💧 链代落地-住宅B)，但需单独设置好
+  ## =============================== 一WIFI一IP ===============================
+  # 一WIFI一IP 走指定代理节点或策略组流量(比如这里的 💧 链代落地-住宅B)
   # >> 连接不同的WIFI走WIFI段指定的指定代理节点或策略组流量——不同WIFI在OpenWrt中定义的lan网段是不同的（避免冲突）——但需提前定义好多个WIFI的不同IP段信息、ESSID、密钥等
   # - SRC-IP-CIDR,192.168.10.1/24,💧 链代落地-住宅B        # 匹配连接到IP段为192.168.10.1/24的WIFI的设备(手机/电脑等)的流量走 落地节点(组)：💧 链代落地-住宅B,该WIFI的IP段在定义WIFI时就已确定，通过路由器中查询
-# -----------------------------------------------------------------------------------------------------------------
-  # > 常见跨境平台强制走代理策略组——策略组已在proxy-groups中定义好
-  - RULE-SET,category-scholar-!cn,🚀 默认代理     # 国外学术相关网站走代理
-  - RULE-SET,category-ads-all,REJECT                # 广告拦截
-  # - DOMAIN-KEYWORD,youtube,📹 YouTube               # 匹配域名关键字(交由 🔍 Google 策略组)
-  # - DOMAIN-SUFFIX,google.com,🔍 Google              # 匹配域名后缀(交由 🔍 Google 策略组)
-  - RULE-SET,ai_domain,🤖 AIGC
-  - RULE-SET,telegram_domain,📲 Telegram
-  - RULE-SET,youtube_domain,📹 YouTube
-  - RULE-SET,google_domain,🔍 Google
-  - RULE-SET,google_domain-cn,🔍 Google
-  - RULE-SET,twitter_domain,𝕏 Twitter
-  - RULE-SET,apple_domain,🍎 Apple
-  - RULE-SET,apple_domain-cn,🍎 Apple
-  - RULE-SET,onedrive_domain,💾 OneDrive
-  - RULE-SET,microsoft_domain,🪟 Microsoft
-  - RULE-SET,github_domain,👨🏿‍💻 GitHub
-  - RULE-SET,reddit_domain,🎀 Reddit  
-  - RULE-SET,tiktok_domain,🎵 TikTok
-  - RULE-SET,facebook_domain,🎭 Facebook
-  - RULE-SET,paypal_domain,💵 PayPal  
-  - RULE-SET,EA,🎮 Games
-  - RULE-SET,steam,🎮 Games
-  - RULE-SET,steam-cn,🎮 Games
-  - RULE-SET,netflix_domain,🎥 NETFLIX
-  - RULE-SET,gfw_domain,🚀 默认代理
-  - RULE-SET,geolocation-!cn,🚀 默认代理
-  - RULE-SET,perproxy_domain,🚀 默认代理      # 自定义或自收集的 走 🚀 默认代理 的域名
-
-  - RULE-SET,telegram_ip,📲 Telegram,no-resolve
-  - RULE-SET,google_ip,🔍 Google,no-resolve
-  - RULE-SET,google_ip-cn,🔍 Google,no-resolve
-  - RULE-SET,twitter_ip,𝕏 Twitter,no-resolve
-  - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
-# -----------------------------------------------------------------------------------------------------------------
-  # > 国内/本地域名直连
-  - RULE-SET,cn_domain,直连
+  ## =============================== 常用分流规则 ===============================
+  # > 私有域名和IP，如在本地访问路由器后台
   - RULE-SET,private_domain,直连
-  - RULE-SET,perdirect_domain,直连                  # 自定义或自收集的 走 直连(DIRECT)的域名
+  - RULE-SET,private_ip,直连,no-resolve
+  # > 常用国外域名分流
+  - RULE-SET,perproxy_domain,🚀 默认代理      # 自定义或自收集的 走 🚀 默认代理 的域名
+  - RULE-SET,scholar_domain-!cn,🚀 默认代理     # 国外学术相关网站走代理
+  - RULE-SET,ads_domain,REJECT                # 广告拦截
+  ## 
   # > google-cn的部分域名直连
   - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,直连
   - DOMAIN-SUFFIX,googleapis,直连
@@ -407,20 +413,51 @@ rules:
   - DOMAIN,update.googleapis.com,直连
   # - DOMAIN,translate.googleapis.com,DIRECT        # 让谷歌翻译能使用
   - DOMAIN,fonts.googleapis.com,直连
-# -----------------------------------------------------------------------------------------------------------------
-  # > 国内/本地IP直连
-  - RULE-SET,cn_ip,直连,no-resolve
-  - RULE-SET,private_ip,直连,no-resolve
-
+  ##
+  - RULE-SET,google_domain-cn,直连
+  # - DOMAIN-KEYWORD,youtube,📹 YouTube               # 匹配域名关键字(交由 🔍 Google 策略组)
+  # - DOMAIN-SUFFIX,google.com,🔍 Google              # 匹配域名后缀(交由 🔍 Google 策略组)
+  - RULE-SET,youtube_domain,📹 YouTube
+  - RULE-SET,google_domain,🔍 Google
+  - RULE-SET,github_domain,👨🏿‍💻 GitHub
+  - RULE-SET,onedrive_domain,💾 OneDrive
+  - RULE-SET,microsoft_domain,🪟 Microsoft
+  - RULE-SET,apple_domain-cn,直连
+  - RULE-SET,apple_domain,🍎 Apple
+  - RULE-SET,ai_domain,🤖 AIGC
+  - RULE-SET,telegram_domain,📲 Telegram
+  - RULE-SET,twitter_domain,𝕏 Twitter
+  - RULE-SET,tiktok_domain,🎵 TikTok
+  - RULE-SET,facebook_domain,🎭 Facebook
+  - RULE-SET,reddit_domain,🎀 Reddit  
+  - RULE-SET,netflix_domain,🎥 NETFLIX
+  - RULE-SET,paypal_domain,💵 PayPal  
+  - RULE-SET,steam-cn,直连
+  - RULE-SET,EA,🎮 Games
+  - RULE-SET,steam,🎮 Games
+  # > 国内/本地域名直连
+  - RULE-SET,perdirect_domain,直连                  # 自定义或自收集的 走 直连(DIRECT)的域名
+  - RULE-SET,cn_domain,直连
+  # > 国外域名兜底分流
+  - RULE-SET,gfw_domain,🚀 默认代理
+  - RULE-SET,geolocation-!cn,🚀 默认代理
+  # > 国外IP地址分流(IP地址分流放在域名分流规则后，减少匹配开销)
+  - RULE-SET,telegram_ip,📲 Telegram,no-resolve
+  - RULE-SET,twitter_ip,𝕏 Twitter,no-resolve
+  - RULE-SET,netflix_ip,🎥 NETFLIX,no-resolve
+  - RULE-SET,google_ip,🔍 Google,no-resolve
+  # > 国内IP地址分流直连
+  - RULE-SET,cn_ip,直连,no-resolve 
   # > 兜底策略组
   - MATCH,🐟 漏网之鱼 
-
-# > 规则集定义：
+# =============================== 分流规则 end ===============================
+#
+# =============================== 规则集Providers start ===============================
 # >> type：可选http/file/inline；  behavior：可选domain/ipcidr/classical；  format：可选yaml/mrs/text(包括list/ini等文本文件)
 # >> 以下规则集url中的引用列表 优先采用.mrs格式：二进制格式文件更小，但不能直接查阅，其次推荐.list格式——可直接打开查阅
 # >> GEOSITE/GEOIP官方链接：https://github.com/MetaCubeX/meta-rules-dat/tree/meta/geo-lite
 # ----------------------------------------------------------------------------------------------------------------- 
-rule-providers:          # 简化后格式——引用锚点数据，简单明了
+rule-providers:
 # > 常用本地域名 private_domain/private_ip
   private_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
   private_ip: {type: http, interval: 86400, behavior: ipcidr, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"}
@@ -429,8 +466,8 @@ rule-providers:          # 简化后格式——引用锚点数据，简单明�
   fakeipfilter_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://raw.githubusercontent.com/wwqgtxx/clash-rules/release/fakeip-filter.mrs"}
 
 # > 常用国外网站域名
-  category-scholar-!cn: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-scholar-!cn.mrs"}
-  category-ads-all: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs"}
+  scholar_domain-!cn: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-scholar-!cn.mrs"}
+  ads_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs"}
   youtube_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
   google_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
   google_domain-cn: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-cn.list"}
@@ -453,8 +490,8 @@ rule-providers:          # 简化后格式——引用锚点数据，简单明�
 
 # > 游戏类域名  
   EA: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml"}
-  steam: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs"}
-  steam-cn: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam@cn.mrs"}
+  steam: {type: http, interval: 86400, behavior: domain, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs"}
+  steam-cn: {type: http, interval: 86400, behavior: domain, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam@cn.mrs"}
 
 # > CN相关域名
   gfw_domain: {type: http, interval: 86400, behavior: domain, format: mrs, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
@@ -475,4 +512,5 @@ rule-providers:          # 简化后格式——引用锚点数据，简单明�
   perproxy_domain: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/itututec/ittt456/refs/heads/main/perlist/perproxy_domain.list"}
 # > 网络检测类域名——个人收集
   network_check: {type: http, interval: 86400, behavior: classical, format: text, url: "https://proxy.tututec.eu.org/raw.githubusercontent.com/itututec/ittt456/refs/heads/main/miho-config/network-check.list"}
-  ############### 分流规则 end ###############
+# =============================== 规则集Providers end ===============================
+#
