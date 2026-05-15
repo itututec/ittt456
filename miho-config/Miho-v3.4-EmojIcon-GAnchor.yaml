@@ -149,52 +149,54 @@ dns:
   fake-ip-filter:      # 配置不使用 fake-ip 的域名
     - rule-set:fakeipfilter_domain
     - rule-set:cn_domain      # 等效于 - geosite:cn
-  nameserver-policy:
+  nameserver-policy:      # 配置查询域名使用的 DNS 服务器
     # +.internal.crop.com: 10.0.0.1
-    www.baidu.com: 114.114.114.114
+    # www.baidu.com: 114.114.114.114
     geosite:geolocation-!cn:
-      - tls://8.8.4.4
-      - https://1.0.0.1/dns-query
+    - https://doh.opendns.com/dns-query      # OpenDNS
+    - https://8.8.8.8/dns-query#      # GoogleDNS
     geosite:cn,private,apple: 
-      - https://doh.pub/dns-query
-      - https://dns.alidns.com/dns-query
-    rule-set:google_domain: 8.8.8.8
-    rule-set:youtube_domain: 8.8.8.8
+      - https://doh.pub/dns-query#DIRECT      # TencentDNS
+      - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
+    rule-set:google_domain: 8.8.8.8#🔯 香港故转      # GoogleDNS
+    rule-set:youtube_domain: 8.8.8.8#🔯 香港故转      # GoogleDNS
 
-  default-nameserver:
-    - https://223.5.5.5/dns-query
+  default-nameserver:        # 用于解析nameserver/fallback 以及其他 DNS 服务器配置的DNS服务域名, 只能使用纯IP格式，可使用加密 DNS
+    # - 114.114.114.114#DIRECT
+    - https://8.8.8.8/dns-query#🔯 香港故转      # GoogleDNS
+    - https://223.5.5.5/dns-query#DIRECT      # AliDNS
   nameserver:      # 默认的域名解析服务器，如不配置fallback/proxy-server-nameserver, 则所有域名都由这里的nameserver解析
+    - 211.137.64.163      # 运营商DNS
+    - 211.137.58.20      # 运营商DNS
     # 推荐将 `ecs` 设置为当前宽带运营商分配的默认DNS的IP段，ECS是DNS协议的一个扩展，允许DNS服务器根据客户端所在的子网（IP 地址段）返回更精确的解析结果
     - https://dns.google/dns-query#ecs=211.137.64.0/24
     - https://dns11.quad9.net/dns-query#ecs=211.137.58.0/24
     # 不确定宽带运营商的默认DNS时，可以使用如下所示-直接指定国内公开DNS服务器
-    # - 223.5.5.5
-    # - 119.29.29.29
-    # - tls://dot.pub
-    # - https://dns.alidns.com/dns-query
+    # - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
+    # - 119.29.29.29#DIRECT      # TencentDNS
   proxy-server-nameserver:     # 代理节点域名解析服务器，仅用于解析代理节点的域名，如果不填则遵循nameserver-policy、nameserver和fallback的配置
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
+    - https://doh.pub/dns-query#DIRECT      # TencentDNS
   direct-nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query#DIRECT      # AliDNS
+    - https://doh.pub/dns-query#DIRECT      # TencentDNS
 
-  # fallback:                         # 备用域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为cn，非必要
-  #   - https://1.0.0.1/dns-query#🔯 香港故转
-  #   - https://doh.opendns.com/dns-query#🔯 香港故转
-  # fallback-filter:                  # 备用DNS服务器的过滤规则，决定哪些DNS查询可以使用备用 DNS，非必要
-  #   geoip: true                     # 不匹配为geoip规则的使用fallback返回结果
-  #   geoip-code: cn                  # geoip匹配区域设定
-  #   geosite:                        # 指定geosite的gfw类的域名，会使用备用 DNS（fallback）
-  #     - gfw
-  #   ipcidr:                         # 列表中的ip段使用fallback返回解析结果
-  #     - 240.0.0.0/4
-  #     - 0.0.0.0/32
-  #   domain:                         # 列表中的域名使用fallback返回解析结果
-  #     - '+.google.com'
-  #     - '+.facebook.com'
-  #     - '+.youtube.com'
-  #     - '+.x.com'
+  fallback:      # 备用域名解析服务器，一般情况下使用境外DNS, 保证结果可信；配置fallback后默认启用fallback-filter, geoip-code为cn，非必要
+    - https://doh.opendns.com/dns-query      # OpenDNS
+    - https://8.8.8.8/dns-query#🔯 香港故转      # GoogleDNS
+  fallback-filter:      # 备用DNS服务器的过滤规则，决定哪些DNS查询可以使用备用 DNS，非必要
+    geoip: true      # 不匹配为geoip规则的使用fallback返回结果
+    geoip-code: cn      # geoip匹配区域设定
+    geosite:      # geosite库的gfw类的域名使用fallback返回解析结果
+      - gfw
+    ipcidr:      # 列表中的ip段使用fallback返回解析结果
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+    domain:      # 列表中的域名使用fallback返回解析结果
+      - '+.google.com'
+      - '+.facebook.com'
+      - '+.youtube.com'
+      - '+.x.com'
 ############### 全局基础配置 end ###############
 
 ############### 多入站端口设置 start ###############
