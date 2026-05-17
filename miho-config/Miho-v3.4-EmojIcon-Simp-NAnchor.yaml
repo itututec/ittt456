@@ -178,7 +178,7 @@ dns:
 #
 # =============================== 多入站端口设置 start ===============================
 listeners:
-# > 针对自部署节点
+# >> ##### 🇯🇵 JP_vitebits #####
   - name: mixed2001
     type: mixed
     port: 2001
@@ -191,6 +191,19 @@ listeners:
     type: mixed
     port: 2003
     proxy: 🇯🇵 JP_vitebits-tuic-pD
+# >> ##### 🇯🇵 SG-RS_fuckip #####
+  - name: mixed3001
+    type: mixed
+    port: 3001
+    proxy: 🇸🇬 SG-RS-anytls-pD
+  - name: mixed3002
+    type: mixed
+    port: 3002
+    proxy: 🇸🇬 SG-RS-hy2-pD
+  - name: mixed3003
+    type: mixed
+    port: 3003
+    proxy: 🇸🇬 SG-RS-tuic-pD
 #
 # > 针对策略组
   - name: mixed55510
