@@ -13,14 +13,14 @@ DOMAIN-SUFFIX,yuque.com
 
 # 域名后缀匹配——常用影视域名
 DOMAIN-SUFFIX,xiaoheimi.cc
-DOMAIN-SUFFIX,keke1.app
-DOMAIN-SUFFIX,keke2.app
-DOMAIN-SUFFIX,keke3.app
-DOMAIN-SUFFIX,keke4.app
-DOMAIN-SUFFIX,keke5.app
-DOMAIN-SUFFIX,kkys01.com
-DOMAIN-SUFFIX,kkys02.com
-DOMAIN-SUFFIX,kkys03.com
+# DOMAIN-SUFFIX,keke1.app
+# DOMAIN-SUFFIX,keke2.app
+# DOMAIN-SUFFIX,keke3.app
+# DOMAIN-SUFFIX,keke4.app
+# DOMAIN-SUFFIX,keke5.app
+# DOMAIN-SUFFIX,kkys01.com
+# DOMAIN-SUFFIX,kkys02.com
+# DOMAIN-SUFFIX,kkys03.com
 
 # 域名后缀匹配——其他收集域名
 DOMAIN-SUFFIX,mozilla.org
