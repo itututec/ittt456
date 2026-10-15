@@ -1,5 +1,5 @@
 #
-# 当前所选版本为 OptE
+# 当前所选版本为 OptE-NMesh 覆写模板
 # DNS次级完美(特别推荐): 小众国内外域名、TCP/UDP、国内和国外都能兼顾，匹配域名规则列表中的DNS都不会有问题
 # DNS配置了配置了: respect-rules/default-nameserver/nameserver/proxy-server-nameserver/direct-nameserver/fallback等
 # rules务必配置: rule-set,cn_domain,DIRECT/rule-set,cn_ip,DIRECT，本地ip务必加no-resolve避免DNS泄露
@@ -278,7 +278,6 @@ proxy-groups:
 # 通用策略组分类
   - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🧩 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, DIRECT]}
   - {name: 👌 手选节点, type: select, include-all: true, exclude-filter: "(?i)2miho|直连"}       # 全部节点但不包含其他杂项节点
-  - {name: 🕸 异地组网, type: select, proxies: [🔵 ET2Miho, 🟠 ZT2Miho, DIRECT]}       # 家里网络切换为DIRECT,家外切换为 🔵 ET2Miho / 🟠 ZT2Miho等异地组网
 
   # - {name: 🛡️ 广告拦截, type: select, proxies: [REJECT-DROP, REJECT, DIRECT]}
   #
@@ -358,13 +357,6 @@ rules:
   # > 广告域名拦截
   # - GEOSITE,category-ads-all,🛡️ 广告拦截             # 广告拦截，走策略组[🛡️ 广告拦截](效果有限，建议用浏览器插件)
   - GEOSITE,category-ads-all,REJECT-DROP               # 广告拦截，走REJECT-DROP,相当于策略组[🛡️ 广告拦截]的REJECT-DROP选项(效果有限，建议用浏览器插件)
-  #
-  # 去往目标IP段的去向流量走指定策略组或节点(走easytier节点)
-  - IP-CIDR,10.10.10.0/24,🔵 ET2Miho,no-resolve           # 🔵 ET2Miho 是前面proxy中定义的easytier节点的代理名
-  - IP-CIDR,10.147.20.0/24,🟠 ZT2Miho,no-resolve         # 🟠 ZT2Miho  是前面proxy中定义的zerotier节点的代理名
-  - IP-CIDR,192.168.1.0/24,🕸 异地组网,no-resolve          # 凡是要去 网段192.168.1.0/24 的流量都走 et2miho (也就是走easytier)
-  - IP-CIDR,192.168.2.0/24,🕸 异地组网,no-resolve
-  - IP-CIDR,192.168.3.0/24,🕸 异地组网,no-resolve
   #
   # > 一机一IP的来源流量走指定策略中或节点
   # - SRC-IP-CIDR,192.168.2.236/32,📳 手机139-ip236    # 凡是来源IP为192.168.2.236的手机流量 走 策略组 [📳 手机139-ip236]

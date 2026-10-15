@@ -1,71 +1,10 @@
-#
-# 当前所选版本为 OptE
+#,
+# 当前所选版本为 OptE-WMesh 覆写模板
 # DNS次级完美(特别推荐): 小众国内外域名、TCP/UDP、国内和国外都能兼顾，匹配域名规则列表中的DNS都不会有问题
 # DNS配置了配置了: respect-rules/default-nameserver/nameserver/proxy-server-nameserver/direct-nameserver/fallback等
 # rules务必配置: rule-set,cn_domain,DIRECT/rule-set,cn_ip,DIRECT，本地ip务必加no-resolve避免DNS泄露
 # 需保障nameserver配置的国外DNS服务器解析正常
 # DNS检测结果: ip.skk.moe/dns-exit-lookup有CN ？？, ipleak.net、browserleaks.com/dns、dnsleaktest.org/dns-leak-test都没有CN
-#
-# =============================== 订阅或节点配置 star ===============================
-# ──────────────── 机场订阅配置，多个机场复制多个修改url即可 ────────────────
-proxy-providers:  
-  69yun:    # 机场名称，需自定义修改；可以定义多个机场（复制这一段代码修改url即可配置多个机场）
-    url: "https://checkhere.top/link/vwSOKRzDUSoK40fY?clash=1"     # 机场订阅链接
-    type: http
-    interval: 43200
-    filter: "^((?!(Traffic|Expire|Premium|频道|订阅|到期|重置|服|邮箱|国内|永久|折|涨|云|时间|软件|提示|活动)).)*$"        # 不包含其他杂项节点
-    health-check:      
-      enable: true                                   # 启用健康检查
-      url: https://www.gstatic.com/generate_204      # 检查节点是否可用的测试网址
-      interval: 300                                  # 健康检查的间隔，单位秒
-    proxy: DIRECT                                    # 如果订阅节点暂时不可用或健康检查失败，流量直接走本地，不经过代理
-    # override:
-      # dialer-proxy: 🇭🇰 香港节点                     # 可以填中继节点或节点组
-    # payload:                                       # 以下是落地节点——通常是购买的专用的SOCKS5节点
-      # - {"name":"🇭🇰 香港落地1", "type":"ss","server":"23.175.201.164","port":80,"cipher":"2022-blake3-aes-128-gcm","password":"UETm2mAIRiCaVJuIe1t0cA==","udp":true}      # 可添加多个节点，每行1个
-#
-# ──────────────── 节点配置，每行一个节点 ────────────────
-proxies:
-# > 将英文版本的direct/reject转化为中文版，按需选择
-#   - {name: 直连, type: direct}     # 选用——非必须，可用 直连 节点，替换策略组中的 DIRECT或direct
-#   - {name: 直连, type: select, proxies: [DIRECT,IPV4优先,IPV6优先,仅IPV4,仅IPV6]}      # 直连 方式更多选择
-#
-# ----- fuckipLightsail-JP -----
-  - {"name":"🇯🇵 JP-fuckipLightsail-vm-ws-pD","type":"vmess","server":"13.231.209.143","port":22720,"cipher":"auto","uuid":"90b965c8-578b-4502-9ba4-6912d5707219","alterId":0,"tls":false,"network":"ws","ws-opts":{"path":"/90b965c8-578b-4502-9ba4-6912d5707219-vm","headers":{"Host":"www.bing.com"}},"udp":true}
-  - {"type":"anytls","name":"🇯🇵 JP-fuckipLightsail-anytls-pD","server":"13.231.209.143","port":22717,"udp":true,"sni":"www.bing.com","skip-cert-verify":true,"packet-encoding":"xudp","password":"90b965c8-578b-4502-9ba4-6912d5707219","allowInsecure":"1"}
-  - {"type":"hysteria2","name":"🇯🇵 JP-fuckipLightsail-hy2-pD","server":"13.231.209.143","port":22719,"password":"90b965c8-578b-4502-9ba4-6912d5707219","sni":"www.bing.com","skip-cert-verify":false,"tfo":false,"udp":true,"fingerprint":"6cb1d7297c5ff19ead464ac72abba8b998eb5dfefd944f56330231ad2b164dd1"}
-  - {"type":"anytls","name":"🇯🇵 JP-fuckipLightsail-anyReality-pD","server":"13.231.209.143","port":22718,"udp":true,"sni":"apple.com","client-fingerprint":"chrome","skip-cert-verify":false,"packet-encoding":"xudp","reality-opts":{"public-key":"xhJBu406TodPaxCDvPlr41J3w9_mZJa7x3L-un1pIUg","short-id":"ca4313df"},"network":"tcp","password":"90b965c8-578b-4502-9ba4-6912d5707219","security":"reality","fp":"chrome","pbk":"xhJBu406TodPaxCDvPlr41J3w9_mZJa7x3L-un1pIUg","sid":"ca4313df","headerType":"none"}
-#
-# ----- vitebits-JP-大阪 -----
-  - {"name":"🇯🇵 JP-vitebits-vmws-argoip-pD1","type":"vmess","server":"172.67.159.240","port":443,"cipher":"auto","uuid":"e56a1b77-67e5-4fde-9a84-92b04257b296","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/e56a1b77-67e5-4fde-9a84-92b04257b296-vm","headers":{"Host":"vmvs-vb-jp.inf5688.eu.org"}},"client-fingerprint":"chrome","udp":true,"servername":"vmvs-vb-jp.inf5688.eu.org"}
-  - {"name":"🇯🇵 JP-vitebits-vmws-argoip-pD2","type":"vmess","server":"172.67.78.19","port":443,"cipher":"auto","uuid":"e56a1b77-67e5-4fde-9a84-92b04257b296","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/e56a1b77-67e5-4fde-9a84-92b04257b296-vm","headers":{"Host":"vmvs-vb-jp.inf5688.eu.org"}},"client-fingerprint":"chrome","udp":true,"servername":"vmvs-vb-jp.inf5688.eu.org"}
-  - {"name":"🇯🇵 JP-vitebits-vmws-argoip-pD3","type":"vmess","server":"172.67.167.16","port":443,"cipher":"auto","uuid":"e56a1b77-67e5-4fde-9a84-92b04257b296","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/e56a1b77-67e5-4fde-9a84-92b04257b296-vm","headers":{"Host":"vmvs-vb-jp.inf5688.eu.org"}},"client-fingerprint":"chrome","udp":true,"servername":"vmvs-vb-jp.inf5688.eu.org"}
-  - {"name":"🇯🇵 JP-vitebits-vmws-argoip-pD4","type":"vmess","server":"172.67.167.139","port":443,"cipher":"auto","uuid":"e56a1b77-67e5-4fde-9a84-92b04257b296","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/e56a1b77-67e5-4fde-9a84-92b04257b296-vm","headers":{"Host":"vmvs-vb-jp.inf5688.eu.org"}},"client-fingerprint":"chrome","udp":true,"servername":"vmvs-vb-jp.inf5688.eu.org"}
-  - {"name":"🇯🇵 JP-vitebits-vmws-argo443-pD1","type":"vmess","server":"japan.com","port":443,"cipher":"auto","uuid":"e56a1b77-67e5-4fde-9a84-92b04257b296","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/e56a1b77-67e5-4fde-9a84-92b04257b296-vm","headers":{"Host":"vmvs-vb-jp.inf5688.eu.org"}},"client-fingerprint":"chrome","udp":true,"servername":"vmvs-vb-jp.inf5688.eu.org"}
-  - {"name":"🇯🇵 JP-vitebits-vmws-argo443-pD2","type":"vmess","server":"www.wto.org","port":443,"cipher":"auto","uuid":"e56a1b77-67e5-4fde-9a84-92b04257b296","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/e56a1b77-67e5-4fde-9a84-92b04257b296-vm","headers":{"Host":"vmvs-vb-jp.inf5688.eu.org"}},"client-fingerprint":"chrome","udp":true,"servername":"vmvs-vb-jp.inf5688.eu.org"}
-  - {"name":"🇯🇵 JP-vitebits-vmws-argo80-pD1","type":"vmess","server":"www.wto.org","port":80,"cipher":"auto","uuid":"e56a1b77-67e5-4fde-9a84-92b04257b296","alterId":0,"tls":false,"network":"ws","ws-opts":{"path":"/e56a1b77-67e5-4fde-9a84-92b04257b296-vm","headers":{"Host":"vmvs-vb-jp.inf5688.eu.org"}},"udp":true}
-#
-# ----- RN-US -----
-  - {"name":"🇺🇲 US_RN-vmvs-argoip-pD1","type":"vmess","server":"172.67.174.109","port":443,"cipher":"auto","uuid":"922dc298-e2df-4039-84f8-d97e8d857fa8","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/922dc298-e2df-4039-84f8-d97e8d857fa8-vm","headers":{"Host":"vmvs-rn-us.inf5688.eu.org"}},"client-fingerprint":"chrome","servername":"vmvs-rn-us.inf5688.eu.org"}
-  - {"name":"🇺🇲 US_RN-vmvs-argoip-pD2","type":"vmess","server":"172.67.71.6","port":443,"cipher":"auto","uuid":"922dc298-e2df-4039-84f8-d97e8d857fa8","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/922dc298-e2df-4039-84f8-d97e8d857fa8-vm","headers":{"Host":"vmvs-rn-us.inf5688.eu.org"}},"client-fingerprint":"chrome","servername":"vmvs-rn-us.inf5688.eu.org"}
-  - {"name":"🇺🇲 US_RN-vmvs-argoip-pD3","type":"vmess","server":"172.64.67.193","port":443,"cipher":"auto","uuid":"922dc298-e2df-4039-84f8-d97e8d857fa8","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/922dc298-e2df-4039-84f8-d97e8d857fa8-vm","headers":{"Host":"vmvs-rn-us.inf5688.eu.org"}},"client-fingerprint":"chrome","servername":"vmvs-rn-us.inf5688.eu.org"}
-  - {"name":"🇺🇲 US_RN-vmvs-argoip-pD4","type":"vmess","server":"172.67.167.139","port":443,"cipher":"auto","uuid":"922dc298-e2df-4039-84f8-d97e8d857fa8","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/922dc298-e2df-4039-84f8-d97e8d857fa8-vm","headers":{"Host":"vmvs-rn-us.inf5688.eu.org"}},"client-fingerprint":"chrome","servername":"vmvs-rn-us.inf5688.eu.org"}
-  - {"name":"🇺🇲 US_RN-vmvs-argo443-pD1","type":"vmess","server":"japan.com","port":443,"cipher":"auto","uuid":"922dc298-e2df-4039-84f8-d97e8d857fa8","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/922dc298-e2df-4039-84f8-d97e8d857fa8-vm","headers":{"Host":"vmvs-rn-us.inf5688.eu.org"}},"client-fingerprint":"chrome","servername":"vmvs-rn-us.inf5688.eu.org"}
-  - {"name":"🇺🇲 US_RN-vmvs-argo443-pD2","type":"vmess","server":"www.wto.org","port":443,"cipher":"auto","uuid":"922dc298-e2df-4039-84f8-d97e8d857fa8","alterId":0,"tls":true,"network":"ws","ws-opts":{"path":"/922dc298-e2df-4039-84f8-d97e8d857fa8-vm","headers":{"Host":"vmvs-rn-us.inf5688.eu.org"}},"client-fingerprint":"chrome","servername":"vmvs-rn-us.inf5688.eu.org"}
-#
-# ----- 落地节点-ISP住宅 SOCKS5 节点 -----
-  # - name: 💧 链代落地-住宅A      # 自定义落地节点，用不上就整段注释掉或删除
-  #   type: socks5
-  #   server: 184.178.172.13      # 【必改】SOCKS5 的IP地址
-  #   port: 15311                 # 【必改】端口号
-  #   username:                   # 【必改】用户名，没有就注释掉
-  #   password:                   # 【必改】密码，没有就注释掉
-  #   udp: true
-  #   dialer-proxy: ♠️ 华东中继   # 指定前置中继节点或节点组，如果能直连也可以不需要通过中继节点/组——注释或删除dialer-proxy整行即可
-  #
-  - {"name":"💧 链代落地-住宅1", dialer-proxy: ♠️ 华东中继, "type":"socks5","server":"184.178.172.13","port":15311,"udp": true}
-# =============================== 订阅或节点配置 end ===============================
-#
 #
 # =============================== WEB UI管理面板配置 start ===============================
 # > WEB UI管理面板，有Metacubexd、Zashboard等多个面板可选，更换对应的ui-url即可
@@ -339,6 +278,7 @@ proxy-groups:
 # 通用策略组分类
   - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🧩 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, DIRECT]}
   - {name: 👌 手选节点, type: select, include-all: true, exclude-filter: "(?i)2miho|直连"}       # 全部节点但不包含其他杂项节点
+  - {name: 🕸 异地组网, type: select, proxies: [🔵 ET2Miho, 🟠 ZT2Miho, DIRECT]}       # 家里网络切换为DIRECT,家外切换为 🔵 ET2Miho / 🟠 ZT2Miho等异地组网
 
   # - {name: 🛡️ 广告拦截, type: select, proxies: [REJECT-DROP, REJECT, DIRECT]}
   #
@@ -418,6 +358,13 @@ rules:
   # > 广告域名拦截
   # - GEOSITE,category-ads-all,🛡️ 广告拦截             # 广告拦截，走策略组[🛡️ 广告拦截](效果有限，建议用浏览器插件)
   - GEOSITE,category-ads-all,REJECT-DROP               # 广告拦截，走REJECT-DROP,相当于策略组[🛡️ 广告拦截]的REJECT-DROP选项(效果有限，建议用浏览器插件)
+  #
+  # 去往目标IP段的去向流量走指定策略组或节点(走easytier节点)
+  - IP-CIDR,10.10.10.0/24,🔵 ET2Miho,no-resolve           # 🔵 ET2Miho 是前面proxy中定义的easytier节点的代理名
+  - IP-CIDR,10.147.20.0/24,🟠 ZT2Miho,no-resolve         # 🟠 ZT2Miho  是前面proxy中定义的zerotier节点的代理名
+  - IP-CIDR,192.168.1.0/24,🕸 异地组网,no-resolve          # 凡是要去 网段192.168.1.0/24 的流量都走 et2miho (也就是走easytier)
+  - IP-CIDR,192.168.2.0/24,🕸 异地组网,no-resolve
+  - IP-CIDR,192.168.3.0/24,🕸 异地组网,no-resolve
   #
   # > 一机一IP的来源流量走指定策略中或节点
   # - SRC-IP-CIDR,192.168.2.236/32,📳 手机139-ip236    # 凡是来源IP为192.168.2.236的手机流量 走 策略组 [📳 手机139-ip236]
