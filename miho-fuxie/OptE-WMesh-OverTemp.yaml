@@ -278,7 +278,7 @@ proxy-groups:
 # 通用策略组分类
   - {name: 🚀 默认代理, type: select, proxies: [👌 手选节点, 🎯 落地节点, ➕ 自建节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🧩 其他节点, 🔯 自建故转, 🔯 香港故转, 🔯 台湾故转, 🔯 狮城故转, 🔯 日本故转, 🔯 美国故转, 🔁 香港自动, 🔁 台湾自动, 🔁 狮城自动, 🔁 日本自动,🔁 美国自动, DIRECT]}
   - {name: 👌 手选节点, type: select, include-all: true, exclude-filter: "(?i)2miho|直连"}       # 全部节点但不包含其他杂项节点
-  - {name: 🕸 异地组网, type: select, proxies: [🔵 ET2Miho, 🟠 ZT2Miho, DIRECT]}       # 家里网络切换为DIRECT,家外切换为 🔵 ET2Miho / 🟠 ZT2Miho等异地组网
+  - {name: 🕸 异地组网, type: select, proxies: [🔵 ET2Miho, 🟠 ZT2Miho, 🟣 TS2Miho, DIRECT]}       # 家里网络切换为DIRECT,家外切换为 🔵 ET2Miho / 🟠 ZT2Miho等异地组网
 
   # - {name: 🛡️ 广告拦截, type: select, proxies: [REJECT-DROP, REJECT, DIRECT]}
   #
@@ -361,7 +361,8 @@ rules:
   #
   # 去往目标IP段的去向流量走指定策略组或节点(走easytier节点)
   - IP-CIDR,10.10.10.0/24,🔵 ET2Miho,no-resolve           # 🔵 ET2Miho 是前面proxy中定义的easytier节点的代理名
-  - IP-CIDR,10.147.20.0/24,🟠 ZT2Miho,no-resolve         # 🟠 ZT2Miho  是前面proxy中定义的zerotier节点的代理名
+  - IP-CIDR,10.147.20.0/24,🟠 ZT2Miho,no-resolve          # 🟠 ZT2Miho  是前面proxy中定义的zerotier节点的代理名
+  - IP-CIDR,100.0.0.0/8,🟣 TS2Miho,no-resolve             # 🟣 TS2Miho  是前面proxy中定义的tailscale节点的代理名
   - IP-CIDR,192.168.1.0/24,🕸 异地组网,no-resolve          # 凡是要去 网段192.168.1.0/24 的流量都走 et2miho (也就是走easytier)
   - IP-CIDR,192.168.2.0/24,🕸 异地组网,no-resolve
   - IP-CIDR,192.168.3.0/24,🕸 异地组网,no-resolve
